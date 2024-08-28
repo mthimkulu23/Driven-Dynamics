@@ -1,6 +1,6 @@
 Flask
+pymongo
 Flask-Pymongo
-Bson
 
 
 
