@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>car sell</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"href="{{ url_for('static', filename='car_sell.css') }}"> 
+    </head>
+
+    <body>
+        <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%" >
+       
+        </nav>
+
+        <!-- Hidden Sidebar (reveals when clicked on menu icon)-->
+  <nav class="w3-sidebar w3-black w3-animate-right w3-xxlarge" style="display:none;padding-top:150px;right:0;z-index:2" id="mySidebar">
+  <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-black w3-xxxlarge w3-display-topright" style="padding:0 12px;">
+    <i class="fa fa-remove"></i>
+  </a>
+  <div class="w3-bar-block w3-center">
+    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('Home')">Home</a>
+    <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage45('About')">About</a>
+    <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage58('Review-Rating')">Review-Rating</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('Logout')">Logout</a>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="w3-main w3-padding-large" style="margin-left:40%">
+
+  <!-- Menu icon to open sidebar -->
+  <span class="w3-button w3-top w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto;right:0;" onclick="openNav()"><i class="fa fa-bars"></i></span>
+
+
+  
+    <div class="u">
+      <button onclick="goToLandingPage60('retrieve_seller')"  type="button" class="btn btn-primary position-relative">
+        Read messages
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{count}}
+          <span class="visually-hidden">Read messages</span>
+        </span>
+      </button>
+  
+      <div class="unread">
+          <button onclick="goToLandingPage60('retrieve_seller')" type="button" class="btn btn-primary position-relative">
+            Unread messages
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{count}}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </button>
+      </div>
+  </div>
+  
+  <div class"container">
+    <h1>I want to <span style="color: blue;"> sell</span> my car fast</h1>
+    <h4>Get a price. No obligation. Complete online form in less than <span style="color:  blue;">5 minutes</span>.</h4>
+  </div>
+
+
+  <form>
+ <h4 class="paragraph6"><u>What are you Selling</u></h4>
+    <div class="container text-center">
+        <div class="row">
+       
+          <div class="col">
+           <button type="button"  class="btn btn-outline-primary" onclick="goToLandingPage9('')">Vehicle</button> 
+          </div>
+          <div class="col">
+      
+            <button type="button" class="btn btn-outline-primary" onclick="goToLandingPage9('')">Bike</button>
+          </div>
+          <div class="col">
+  
+            <button type="button" class="btn btn-outline-primary" onclick="goToLandingPage9('')">Trailer</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+  
+            <button type="button" class="btn btn-outline-primary" onclick="goToLandingPage9('')">Boat</button>
+          </div>
+          <div class="col">
+       
+            <button type="button" class="btn btn-outline-primary" onclick="goToLandingPage9('')">Other</button>
+          </div>
+          <div class="col">
+       
+            <button type="button" class="btn btn-outline-primary" onclick="goToLandingPage9('')">Caravan</button>
+          </div>
+         
+        </div>
+      </div>
+      <h5>Need help?</h5>
+      <h5 >Contact us on <u>083 678 9423</u></h5>    
+  </form>
+
+
+  <div>
+    <h3>Want to buy a car?<a href="#" onclick="goToLandingPage16('login_buyer')">Click Here</a>
+        <img class="image1" src="{{ url_for('static', filename='images/af78be849332d991e4b409d20ee1cb6f.jpg') }}" alt="Example Image">
+    </h3>
+
+    
+    <button class="accordion"> <strong>How do I sell my car through Drive Dynamic? </strong></button>
+    <div class="panel">
+      <p>Determine the value of your car: Research the market value of your vehicle by considering factors such as its make, model, year, mileage, condition, and any additional features. This will help you set a realistic asking price.</p>
+    </div>
+    
+    <button class="accordion"> <strong>How does Drive Dynamic decide on an offer for my vehicle? </strong></button>
+    <div class="panel">
+      <p>Vehicle condition: The overall condition of your vehicle is an important factor. Companies may assess factors such as the mileage, mechanical condition, appearance, and any history of accidents or repairs.
+
+        Market value: Companies typically consider the market value of similar vehicles in your area. They may use data from various sources, including industry guides, online databases, and recent sales data, to determine the fair market value.</p>
+    </div>
+    
+    <button class="accordion"><strong>What happens after I accept an offer from Seller?</strong></button>
+    <div class="panel">
+      <p>The seller will finalise the deal either the buyer and seller they meet to discuss furthermore on discussion of payment and signing off documents of the car to the seller decide they want the deal
+
+        Finalizing paperwork: Once the inspection is completed and the vehicle's condition is confirmed,</p>
+    </div>
+  </body>
+  <script>
+
+
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+    
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch unread count from backend
+        fetch('/unread_count')
+            .then(response => response.json())
+            .then(data => {
+                const unreadCount = data.unread_count;
+                document.getElementById('unread-badge').textContent = unreadCount;
+            })
+            .catch(error => console.error('Error fetching unread count:', error));
+
+        // Fetch read count from backend
+        fetch('/read_count')
+            .then(response => response.json())
+            .then(data => {
+                const readCount = data.read_count;
+                document.getElementById('read-badge').textContent = readCount;
+            })
+            .catch(error => console.error('Error fetching read count:', error));
+
+        const socket = io();
+
+        socket.on('new_inquiry', function(data) {
+            const unreadCount = data.unread_count;
+            document.getElementById('unread-badge').textContent = unreadCount;
+
+            const readCount = data.read_count;
+            document.getElementById('read-badge').textContent = readCount;
+        });
+    });
+</script>
+
+<script>
+  // Open and close sidebar
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "60%";
+    document.getElementById("mySidebar").style.display = "block";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+  </script>
+
+
+
+<script>
+  // Open and close sidebar
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "60%";
+    document.getElementById("mySidebar").style.display = "block";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+  </script>
+      
+     
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='mission.js') }}"></script>
+
+
+</html>

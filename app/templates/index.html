@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Uber-like Website</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Landing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"href="{{ url_for('static', filename='index.css') }}"> 
+</head>
+
+
+<body>
+  <header>
+    <nav>
+        <div class="app">
+            <div class="header">
+            <nav>
+
+                <div class="menu-icon">
+                  <button onclick="toggleMenu()">
+                    <i class="bi bi-list"></i>
+                  </button>
+                  <ul class="dropdownClose" id="dropdownMenu">  
+                    <li class="option">
+                      <a href="#" onclick="goToLandingPage14('Login')">Login</a>
+                    </li> 
+
+                    <li class="option">
+                      <a href="#" onclick="goToLandingPage12('Signup')">Signup</a>
+                    </li> 
+                      <li class="option">
+                        <a href="#" onclick="goToLandingPage5('About')">About</a>
+                      </li>
+                      <li class="option">
+                        <a href="#" onclick="goToLandingPage25('Review_display')" >Review-Rating</a>
+                      </li>
+                    </ul>
+                  </li>
+                  </ul>
+                  </ul>
+                </div>
+              
+                <div class="thabang">
+                    <div class="title">Driven Dynamics</div>
+                   <div class="sub-title">"Experience the Thrill of the Road"</div>
+                    
+                </div>
+           
+            </div>
+       
+
+            <section id="hero">
+              <h1 id="myHeading" style="font-size: 30px; font-family:Roboto;">Welcome to Driven Dynamics, where you can experience the thrill of the road like never before. Are you ready to embark on this journey? Choose your path below.</h1>
+              <a href="#" onclick="goToLandingPage15('login')" class="cta-button" style="margin-right: 150px; margin-top: -10px;">Sell a Car</a>
+              <a href="#" onclick="goToLandingPage96('login_buyer')" class="cta-button" style="margin-right: -130px; margin-top: -44px;">Buy a Car</a>
+            </section>
+            
+          
+              <section id="services">
+                <h2 class="services">Latest Review</h2>
+                <div class="service-item">
+                    
+                    <div class="card" style="width: 20rem;">
+                      <img src="{{ url_for('static', filename='/images/corollaqueststandard.jpg') }}" alt="Example Image">
+                        <div class="card-body">
+                          <h5 class="card-title">Toyota-Corolla </h5>
+                          <p class="card-text"> The new Corolla  is not just your average family sedan. Now with an upgraded 1.8 litre engine; innovative safety features; as well as a stylish new look inclusive of 16-inch alloy wheels*, partial leather* trim and a touchscreen infotainment system*, it’s not hard to see why this reliable and fuel-efficient family sedan has it all.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="card" style="width: 20rem;">
+                        <img src="{{ url_for('static', filename='/images/bmw-modelfinder-stage2-890x501.png') }}" alt="Example Image">
+                        <div class="card-body">
+                          <h5 class="card-title">The BMW M Series</h5>
+                          <p class="card-text">represents the pinnacle of performance and driving exhilaration within the BMW lineup. These high-performance vehicles are engineered and crafted by BMW's renowned M division, known for their dedication to precision, power, and dynamic handling</p>
+                      
+                        </div>
+                      </div>
+
+                      <div class="card" style="width: 20rem;">
+                        <img  src="{{ url_for('static', filename='/images/2018-Mercedes-Benz-E-300.png') }}" alt="Example Image">
+                        <div class="card-body">
+                          <h5 class="card-title">Mercedez Benz-E 300</h5>
+                          <p class="card-text">he 2018 Mercedes-Benz E 300 is a luxury sedan that offers a combination of elegance, performance, and advanced technology. At Mercedes-Benz Kitchener-Waterloo, we are proud to present this exceptional vehicle to our valued customers. Under the hood, the 2018 E 300 is powered by a turbocharged 2.0-liter four-cylinder engine, delivering a balance of power and efficiency.</p>
+                       
+                        </div>
+                      </div>
+                      <br><br><br><br>  
+                      <h1> &nbsp; Get started with Driven-Dynamics today </h1><br>
+                      <div style="text-align: center; background-color: #495057">
+                        <a href="#" onclick="goToLandingPage2('signup')" class="cta-button">Signup</a>
+                      </div>
+                      <br><br><br>
+
+
+                    <!-- Carousel -->
+   <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators" >
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+  </div>
+
+
+  <script>
+    function fadeInOut() {
+      var buttons = document.querySelectorAll('.cta-button');
+  
+      buttons.forEach(button => {
+        button.style.transition = 'opacity 0.3s ease-in-out';
+        button.style.opacity = '0';
+  
+        setTimeout(() => {
+          button.style.opacity = '1';
+        }, 0);
+  
+        setTimeout(() => {
+          button.style.opacity = '0';
+        }, 3000);
+  
+        setTimeout(() => {
+          button.style.opacity = '1';
+        }, 3300);
+      });
+  
+      setTimeout(() => {
+        fadeInOut();
+      }, 6000);
+    }
+  
+    fadeInOut();
+  </script>
+
+
+
+
+<script>
+  const heading = document.getElementById('myHeading');
+
+function fadeInOut() {
+  heading.style.transition = 'opacity 3s ease-in-out, transform 3s ease-in-out';
+
+  heading.style.opacity = '0';
+  heading.style.transform = 'translateY(-10px)';
+
+  setTimeout(() => {
+    heading.style.opacity = '1';
+    heading.style.transform = 'translateY(0)';
+  }, 0);
+
+  setTimeout(() => {
+    heading.style.opacity = '0';
+    heading.style.transform = 'translateY(10px)';
+  }, 3000);
+
+  setTimeout(() => {
+    fadeInOut();
+  }, 6000);
+}
+
+fadeInOut();
+</script>
+
+  <style>
+  .carousel-inner {
+      border-radius: 10px;
+      width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+</style>
+
+
+
+
+  
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active"  >
+      <img class="car" src="{{ url_for('static', filename='/images/34ad7c5bf7e3683fc6423d8d40a43d63_cf_ci_1.png') }}" alt="Example Image">
+      <div class="carousel-caption">
+        <h3 >Get this amazing deal</h3>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img class="car" src="{{ url_for('static', filename='/images/range_rover_velar_sideview.jpg') }}" alt="Example Image">
+      <div class="carousel-caption">
+        <h3>Get this amazing deal</h3>
+        
+      </div> 
+    </div>
+    <div class="carousel-item">
+      <img class="car" src="{{ url_for('static', filename='/images/e55cb05fa9a54364a3149568a9a4d55d.jpg') }}" alt="Example Image">
+      <div class="carousel-caption">
+        <h3>Get this amazing deal</h3>
+      </div>  
+    </div>
+  </div>
+  
+
+</div>
+
+  </nav>
+  </header>
+     </body>
+     <script>
+        document.getElementById("signupLink").addEventListener("click", signup);
+        function signup() {
+     // Your signup logic here
+        console.log("Signup function called");
+      }
+   </script>
+
+  
+
+
+
+   
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+  
+      </html>

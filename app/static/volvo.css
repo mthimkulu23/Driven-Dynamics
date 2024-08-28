@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+
+
+
+
+body{
+    background: var(--blue);
+    font-family: Arial, sans-serif;
+}
+
+
+
+
+.card{
+    margin-top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Arial, sans-serif;}
+
+
+
+
+
+ h1{
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;}
+
+
+h3{
+    margin-top: 30px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    font-family: Arial, sans-serif;}
+
+ 

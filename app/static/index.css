@@ -1,0 +1,265 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+
+h1{
+   color: black;
+   text-align: center;
+
+}
+.cta-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.app {
+    height: 110vh;
+    width: 120vw;
+}
+
+
+body {
+  
+     background: var(--blue);
+     font-family: Arial, sans-serif;
+  
+
+ 
+ }
+
+.header {
+    height: 40%;
+    width: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: var(--gray);
+    border-radius: 0 0 3rem 3rem;
+    border-bottom: solid 1px var(--white);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav i {
+    font-size: 2.5rem;
+    padding: 0 1rem;
+}
+nav button {
+  border: 0;
+  background-color: transparent;
+}
+
+nav button:active {
+  outline: none;
+}
+
+
+.header .title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-left: -80px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 10rem;
+}
+
+
+.header img {
+    margin-right: 1rem;
+}
+
+
+
+.header .sub-title {
+    margin-left: -75px;
+    font-size: 1.4rem;
+
+
+    font-weight: 100;
+}
+
+.menu-icon {
+    position: relative;
+    position: sticky;
+    margin-top: -140px;
+}
+
+.menu-icon .dropdown {
+    display: block;
+    flex-direction: column;
+    background-color: #e1e1e1ed;
+    position: absolute;
+    left: 1rem;
+    top: 2.5rem;
+    width: 7rem;
+    list-style-type: none;
+    box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.75);
+}
+
+.menu-icon .dropdownClose {
+    display: none;
+}
+
+.menu-icon .dropdown .option {
+    padding: .5rem;
+    border-bottom: solid 1px var(--white);
+}
+
+.menu-icon .dropdown .option:hover {
+    background-color: var(--gray-dark);
+    color: var(--white);
+}
+
+.menu-icon a {
+    text-decoration: none;
+    color: var(--gray-dark);
+}
+
+.option:hover a {
+    color: var(--white);
+}
+
+.category {
+    margin-top:.9rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+  
+  /* Header styles */
+.header {
+    height: 40%;
+    width: 100%;
+    background-color: var(--gray);
+    border-radius: 0 0 3rem 3rem;
+    border-bottom: solid 1px var(--white);
+}
+  
+ 
+
+  
+  /* Hero section styles */
+  #hero {
+    background-image: url('hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+  }
+  
+  #hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .cta-button {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  /* Services section styles */
+  #services {
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .service-item {
+    margin-bottom: 20px;
+  }
+  
+  .service-item h3 {
+    font-size: 24px;
+    margin-bottom: 50px;
+  }
+  
+  .services{
+    text-align: center;
+  }
+
+  .card{
+    height: 540px;
+    margin-top: 16px;
+    width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    border: white solid 14px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .card1{
+    height: 650px;
+    margin-top: 16px;
+    width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    border: white solid 14px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+/* 
+  .card img:hover{
+    opacity: .4;
+  } */
+
+
+  /* .card1 img:hover{
+    opacity: .4;
+  } */
+
+  .thabang{
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .car{
+    width: 390px;
+    opacity: .8;
+  }
+
+ h3{
+  color: black;
+  text-align: center;
+  margin-top: -10px;
+ }
+
+
+
+
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+  

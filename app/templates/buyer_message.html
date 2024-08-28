@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet"href="{{ url_for('static', filename='retrieve_seller.css') }}"> 
+    </head>
+    <body>
+
+
+        <nav class="navbar"> 
+            <i class="bi bi-chevron-left" onclick="goToLandingPage50('back')"></i>
+              
+       </nav>
+
+       
+<h2><u>Review Inquiry</u></h2>
+{% for buyer in buyers %}
+<div class="notification-container">
+    <div class="notification">
+        <div class="notification-header">
+            <h3>New Message</h3>
+            <button class="close-btn">X</button>
+        </div>
+        <div class="notification-body">
+            <p><u>You have received a new inquiry from a seller.</u></p>
+            <div class="buyer-info">
+            <p><strong>Name:</strong> {{buyer.name}}</p>
+            <p><strong>Message:</strong> {{buyer.message}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+        
+<script src="{{ url_for('static', filename='mission.js') }}"></script>
+    </body>
+</html>

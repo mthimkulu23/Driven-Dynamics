@@ -1,0 +1,67 @@
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+body {
+    background-color: var(--gray);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin-top: 50px;
+    display: flex;
+    margin-left: -15px;
+    margin-right: 30px;
+}
+
+.product-list{
+    margin-top: 70px;
+
+ 
+   
+}
+
+img{
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+   
+
+    
+}
+
+
+h1{
+    margin-top: 80px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+
+.image1{
+    justify-content: center;
+}
+
+
+.btn{
+    float: inline-end;
+    justify-content: space-between;
+    justify-content: space-around;
+    margin: 10px;
+    margin-top: -37px;
+
+}
+
+
+
+
+

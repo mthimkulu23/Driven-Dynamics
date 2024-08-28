@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+
+
+
+
+body{
+    background: var(--blue);
+    font-family: Arial, sans-serif;
+}
+
+
+iframe {
+    margin-top: 100px;
+    margin-left: -65px;
+    margin-top: 300px;
+    margin-right: 18px;
+    border-radius: 20px;
+    background-color: #dee2e6;
+    color: #dee2e6;
+  
+}
+
+.container h1{
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+
+    
+}
+
+.paragraph5 {
+        float: left;
+        margin-left: -100px;
+        font-family: Arial, sans-serif;
+}
+
+img{
+    border-radius: 20px;
+    
+}
+
+.scroll-container{
+    width: 450px;
+    margin-left: -40px;
+    margin-right: auto;
+    justify-content: center;
+    
+}
+
+
+
+.container {
+    text-align: center;
+    padding: 50px;
+  }
+
+  h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    font-family: Arial, sans-serif;
+  }
+
+  #searchInput {
+    margin-bottom: 10px;
+    width: 360px;
+    height: 60px;
+    border: solid 14px grey;
+    margin-left: -60px;
+    margin-right: auto;
+    font-family: Arial, sans-serif;
+  }
+ 
+  
+  .category {
+    display: none;
+  }
+  
+  .category.show {
+    display: block;
+  }
+  
+  .image3 {
+    width: 60px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+
+  .container img{
+    opacity: .5;
+    justify-content: center;
+    margin-top: -382px;
+    border-radius: 20px;
+    margin-left: -175px;
+    margin-right: 195px;
+    width: 600px;
+  }
+
+
+  .tag-cloud {
+    display: inline-block;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background-color: #2196F3;
+    margin-top: 8px;
+    font-family: Arial, sans-serif;
+  }
+
+
+
+  
+  /* Style the search field */
+  form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+  
+  /* Style the submit button */
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+  }
+  
+  form.example button:hover {
+    background: #0b7dda;
+  }
+  
+  /* Clear floats */
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+
+  .container .header {
+    font-weight: bold;
+    opacity: .30;
+    font-family: Arial, sans-serif;
+  }
+  

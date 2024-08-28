@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+
+body {
+  
+    background: var(--blue);
+    font-family: Arial, sans-serif;
+   
+
+}
+
+.navbar{
+    display: flex;
+    position: fixed;
+    position: static;
+    background-color: var(--gray-light);
+    width: 100uv;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.navbar button{
+    float: right;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+
+.container .image1 {
+  display: flex;
+  width: 140%;
+  max-width: 118%;
+  position: sticky;
+  border-radius: 20px;
+  margin-top: 20px;
+  opacity: 0.5;
+  margin-left: -30px;
+  margin-right: auto;
+  align-items: center;
+}
+
+
+
+.container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .overlay {
+    position: fixed;
+    position: static;
+    top: 50%;
+    left: 50%;
+    margin-left: 200px;
+    margin-top: -80px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+  }
+
+
+  h3{
+    text-align: center;
+    font-size: 26px;
+  }
+
+  p{
+    text-align: center;
+    margin-top: 20px;
+  }
+
+
+ /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    margin-right: auto;
+    text-align: center;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  /* Style the accordion panel. Note: hidden by default */
+  .panel {
+    padding: 0 18px;
+    background-color: var(--gray-light);
+    display: none;
+    text-align: center;
+    overflow: hidden;
+  }
+
+
+  .container .paragraph2{
+    margin-top: -290px;
+    text-align: center;
+  }
+
+  .overlay1{
+    position: fixed;
+    position: static;
+    top: 50%;
+    left: 50%;
+    margin-left: 200px;
+    margin-top: 60px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    width: 170px;
+    text-align: center;
+  }
+
+
+
+  .container .img2 {
+    display: flex;
+    width: 140%;
+    max-width: 118%;
+    position: sticky;
+    border-radius: 20px;
+    margin-top: 20px;
+    opacity: 0.5;
+    margin-left: -30px;
+    margin-right: auto;
+    align-items: center;
+}
+
+
+  .footer{
+    height: 50px;
+  }
+
+  h2{
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  p{
+    text-align: center;
+  }
+
+
+  .footer{
+    background-color: #adb5bd;
+    height: 200px;
+    width: 400px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+  }
+
+ 

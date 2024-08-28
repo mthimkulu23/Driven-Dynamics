@@ -1,0 +1,50 @@
+:root {
+    --white: #ffffff;
+    --gray: #adb5bd;
+    --gray-light: #e1e1e1;
+    --gray-dark: #343434;
+    --brown: #D1C8BD;
+    --blue:  #ced4da;
+}
+
+body{
+    background-color: var(--gray);
+    font-family: Arial, sans-serif;}
+
+
+label {
+    display: block;
+    margin-top: 10px;
+
+}
+
+textarea {
+    width: 350px;
+    height: 100px;
+}
+
+form{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    justify-items: center;
+ 
+}
+
+
+input{
+    width: 300px;
+}
+
+.button-input {
+    width: 80px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h1{
+    margin-top: 50px;
+    font-family: Arial, sans-serif;   
+}
