@@ -1,4 +1,3 @@
-from bson import ObjectId
 from .. import mongo
 
 
