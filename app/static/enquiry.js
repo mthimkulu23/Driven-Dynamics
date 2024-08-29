@@ -26,7 +26,7 @@ document.getElementById('close-popup').addEventListener('click', function() {
 
     {
         // Replace the URL "/landing-page" with the actual URL or route of the landing page
-       window.location.href = "http://127.0.0.1:5000/catelog_buyer";
+       window.location.href = "https://driven-dynamics.onrender.com/catelog_buyer";
        }
 });
 
