@@ -30,26 +30,23 @@
             <div class="header">
 
               <div class="w3-sidebar w3-black w3-animate-right w3-xxlarge" style="display:none;padding-top:150px; right: 0;" id="mySidebar">
-                <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-black w3-xxxlarge w3-display-topright" style="padding:0 12px;">
-                    <i class="fa fa-remove"></i>
-                </a>
-            
-                <div class="w3-bar-block w3-center">
-                    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage96('login')">Login</a>
-                    <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage6('Signup')">Signup</a>
-                    <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage25()">Review-Rating</a>
-                    <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage5('')">About</a>
-                </div>
-            </div>
-            
-            <!-- Menu icon to open sidebar -->
-            <span class="w3-button w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto; right:0; position: absolute;" onclick="openNav()"><i class="fa fa-bars"></i></span>
-            
+    <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-black w3-xxxlarge w3-display-topright" style="padding:0 12px;">
+        <i class="fa fa-remove"></i>
+    </a>
 
-           
-    
+    <div class="w3-bar-block w3-center">
+        <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage96('login')">Login</a>
+        <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage6('Signup')">Signup</a>
+        <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage25()">Review-Rating</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage5('')">About</a>
+    </div>
+</div>
 
-            
+<!-- Menu icon to open sidebar -->
+<span class="w3-button w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto; right:0; position: absolute;" onclick="openNav()"><i class="fa fa-bars"></i></span>
+
+
+                 
     <nav>
 
       <div class="thabang">
@@ -63,7 +60,7 @@
                 
             <section id="hero">
               <h1 id="myHeading" style="font-size: 30px; font-family:Roboto;">Welcome to Driven Dynamics, where you can experience the thrill of the road like never before. Are you ready to embark on this journey? Choose your path below.</h1>
-              <a href="#" onclick="goToLandingPage15('login')" class="cta-button" style="margin-right: 150px; margin-top: -10px; font-size: 16px;">Sell a Car</a>
+              <a href="#" onclick="goToLandingPage15('login')" class="cta-button" style="margin-right: 150px; margin-top: 10px; font-size: 16px;">Sell a Car</a>
               <a href="#" onclick="goToLandingPage96('login_buyer')" class="cta-button" style="margin-right: -130px; margin-top: -44px;font-size: 16px;">Buy a Car</a>
             </section>
             
@@ -223,7 +220,7 @@ fadeInOut();
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
     <div class="carousel-item active"  >
-      <h3 >Get this amazing deal</h3>
+      <h3 class="amazing_deal" >Get this amazing deal</h3>
       <img class="car" src="{{ url_for('static', filename='/images/34ad7c5bf7e3683fc6423d8d40a43d63_cf_ci_1.png') }}" alt="Example Image">
       <div class="carousel-caption">
        
@@ -239,7 +236,7 @@ fadeInOut();
       </div> 
     </div>
     <div class="carousel-item">
-      <h3 >Get this amazing deal</h3>
+      <h3 class="amazing_deal" >Get this amazing deal</h3>
       <img class="car" src="{{ url_for('static', filename='/images/e55cb05fa9a54364a3149568a9a4d55d.jpg') }}" alt="Example Image">
       <div class="carousel-caption">
       </div>  
