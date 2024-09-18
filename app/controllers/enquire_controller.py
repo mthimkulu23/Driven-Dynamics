@@ -27,6 +27,11 @@ def retrieve_seller():
 
 
 
+
+
+
+
+
 def seller_message():
     if request.method == 'POST':
         name = request.form['name']

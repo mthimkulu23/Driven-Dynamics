@@ -33,7 +33,7 @@
                 <p><strong>Message:</strong> {{ inquiry.message }}</p>
             </div>
             <div class="notification-actions">
-                <button class="btn btn-secondary js-dismiss-btn">Dismiss</button>
+                <button class="btn btn-secondary js-dismiss-btn" data-id="{{ inquiry.id }}">Dismiss</button>
                 <button class="btn btn-secondary" onclick="goToLandingPage90('Reply')">Reply</button>
                 
             </div>

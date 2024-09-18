@@ -15,6 +15,7 @@ class car_enquiry:
     def send_seller_message(data):
         return mongo.db.seller_collection.insert_one(data)
     
+    
   
     
     
