@@ -45,24 +45,26 @@
 
 
       
-
-       <h1>Add item</h1>
+      <h1>Add item</h1>
       <form action="/sell_review" method="POST" enctype="multipart/form-data">
           <label for="image">Choose Image:</label>
           <input type="file" id="image" name="image" accept="image/*"><br><br>
-  
+      
           <label for="make">Make:</label>
-          <input type="text" id="make" name="make" placeholder=" make.." required><br><br>
-  
+          <input type="text" id="make" name="make" placeholder="make.." required><br><br>
+      
+          <label for="mileage">Mileage/Hours:</label>
+          <input type="text" id="mileage" name="mileage" placeholder="mileage/hours.." required><br><br>
+      
           <label for="model">Model:</label>
           <input type="text" id="model" name="model" placeholder="model.." required><br><br>
-  
+      
           <label for="price">Price:</label>
           <input type="text" id="price" name="price" placeholder="price.." required><br><br>
-  
+      
           <label for="description">Description:</label>
           <textarea id="description" name="description" placeholder="description.." required></textarea><br><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
 

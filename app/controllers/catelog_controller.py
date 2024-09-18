@@ -4,18 +4,25 @@ from bson .objectid import *
 
 
 def viewproduct():
-   
     if request.method == 'POST':
         print(request.form['id'])
         id = request.form['id']
         make = request.form['make']
         model = request.form['model']
+        mileage = request.form['mileage']
         description = request.form['description']
         price = request.form['price']
-        image = request.form ['image']
-        
-       
-        return render_template('view_items.html', id=id, make=make, description=description, price=price, model=model, image=image)
+        image = request.form['image']
+
+        # Truncate the description
+        max_length = 50  # Set your desired max length
+        truncated_description = description[:max_length] + ('...' if len(description) > max_length else '')
+
+        # Format the mileage
+        formatted_mileage = f"{int(mileage):,} km"  # Converts to int and formats with commas
+
+        return render_template('view_items.html',id=id,make=make, description=truncated_description,price=price,mileage=formatted_mileage, model=model,image=image )
+    
     
     
 def update():

@@ -30,39 +30,93 @@
       </div>
 
 
-
+      <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            word-wrap: break-word; /* Ensure long words break to fit within cell */
+        }
+    </style>
+</head>
+<body>
   <table>
-    <tr>
-      <th>DESCRIPTION</th>
-      <td>{{description}}</td>
-    </tr>
-      <th>FUEL TYPE</th>
-      <td>Petrol</td>
-    </tr>
-    <tr>
-      <th>GEARS</th>
-      <td>Automatic</td>
-    </tr>
-    <tr>
-      <th>MAKE</th>
-      <td>{{make}}</td>
-    </tr>
-    <tr>
-        <th>MODEL</th>
-        <td>{{model}}</td>
-      </tr>
-     
-     
     
-      <tr>
+    <tr>
+        <th>Make</th>
+        <td>{{ make }}</td>
+    </tr>
+    <tr>
+        <th>Model</th>
+        <td>{{ model }}</td>
+    </tr>
+    <tr>
+        <th>Mileage</th>
+        <td>{{ mileage }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ description }}</td>
+    </tr>
+    <tr>
         <th>Price</th>
-        <td>{{price}}</td>
-      </tr>
-     
-  </table>
+        <td>{{ price }}</td>
+    </tr>
+   
+</table>
   <div>
     <a href="#" class="btn btn-primary" style="display: block; text-align: center; height: 40px;" onclick="goToLandingPage16('enquire')">Enquire</a>
 </div>
+
+
+<script>
+  function truncateString(str, maxLength) {
+    if (str.length <= maxLength) {
+        return str;
+    }
+    const regex = new RegExp(`^.{0,${maxLength}}`);
+    const truncated = str.match(regex)[0];
+    return truncated + '...'; // Adding ellipsis for clarity
+}
+
+// Function to format mileage
+function formatMileage(mileage) {
+    return new Intl.NumberFormat().format(mileage) + " km";
+}
+
+// Function to process form data
+function processFormData() {
+    const description = document.getElementById('description').value; // Get description from input field
+    const mileage = document.getElementById('mileage').value; // Get mileage from input field
+    const maxLength = 50; // Set the max length for the description
+
+    const truncatedDescription = truncateString(description, maxLength);
+    const formattedMileage = formatMileage(mileage);
+
+    console.log(truncatedDescription); // Outputs truncated description
+    console.log(formattedMileage); // Outputs formatted mileage
+
+    // Optionally, update the UI with the results
+    document.getElementById('outputDescription').textContent = truncatedDescription;
+    document.getElementById('outputMileage').textContent = formattedMileage;
+}
+
+// Example usage: Call processFormData when a form is submitted
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    processFormData();
+});
+
+</script>
   
 
 
