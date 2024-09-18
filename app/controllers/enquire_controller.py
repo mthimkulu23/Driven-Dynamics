@@ -43,6 +43,10 @@ def seller_message():
             return render_template('seller_message.html', error="Failed to save message")
     else:
         return render_template('seller_message.html')
+    
+    
+def terms_condition():
+    return render_template('conditions.html')
 
 
 

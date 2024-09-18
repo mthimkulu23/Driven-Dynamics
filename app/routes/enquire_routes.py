@@ -9,4 +9,5 @@ app = Blueprint ('enquire', __name__)
 app.route('/enquire', methods=['GET','POST'])(enquire_controller.enquire)
 app.route('/retrieve_seller', methods=['GET','POST'])(enquire_controller.retrieve_seller)
 app.route('/seller_message', methods=['GET','POST'])(enquire_controller.seller_message)
+app.route('/terms_condition_apply')(enquire_controller.terms_condition)
 
