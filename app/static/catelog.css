@@ -23,6 +23,7 @@ body {
   margin-right: auto; /* These will center the card horizontally */
   display: block; /* Ensure the card is treated as a block-level element */
   padding: 20px;
+  position: sticky;
   
 }
 
@@ -40,6 +41,11 @@ body {
 
 .product-list{
     margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Ensure the card is treated as a block-level element */
+    
+    
 
  
    
@@ -50,6 +56,7 @@ body {
     margin-left: -20px;
     margin-right: 20px;
     margin-top: -20px;
+    position: sticky;
     
 }
 
