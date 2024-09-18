@@ -19,10 +19,13 @@ body {
 .card{
     margin-top: 80px;
     display: flex;
-    margin-left: -12px;
-    margin-right: 30px;
+margin-left: -20px;
+   
    
 }
+
+
+
 
 .product-list{
     margin-top: 70px;
@@ -119,6 +122,8 @@ h1{
 .card{
   width: 23.4rem;
    border-radius: 25px;}
+
+   
 
 
 
