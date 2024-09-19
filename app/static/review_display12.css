@@ -41,6 +41,8 @@
     padding: 20px;
     width: 400px;
     max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .notification-header {
@@ -82,19 +84,22 @@
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Make the button a block-level element */
+    text-align: center; /* Center the button text */
   }
   
-  .btn-primary {
+  .btn-primary, .btn-secondary {
     background-color: #007bff;
-    color: #fff;
+    color: #fff; /* Ensure text color for .btn-secondary if needed */
     border: none;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Make the button a block-level element */
+    text-align: center; /* Center the button text */
   }
   
-  .btn-secondary {
-    background-color: #007bff;
-    color: #333;
-    border: none;
-  }
   
   h2{
     text-align: center;
@@ -102,23 +107,32 @@
 
   .textparagraph {
     width: 300px;
-    margin-left: 30px;
+    margin-left: auto;
     margin-right: auto;
-   
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Horizontally center content */
+    text-align: center;
 }
+
+.image-center {
+  display: block; /* Block level to ensure margin auto works */
+  margin: 0 auto; /* Centers the image inside the container */
+}
+
 
 
 .text-block {
   position: absolute;
-  margin-top: -50px;
-  margin-left: 50px;
-  margin-right: 50px;
-  opacity: .6;
+  left: 50%; /* Position the left edge of the element at the center of the container */
+  transform: translateX(-50%); /* Move the element back to center it perfectly */
+  opacity: 0.6;
   border-radius: 100%;
   color: black;
   padding: 10px;
-  background-color: rgba(240, 240, 240, 240);
+  margin-top: -20px;
+  background-color: rgba(240, 240, 240, 0.94); /* Fix rgba color value */
 }
+
 
       p{
         text-align: center;
@@ -131,13 +145,15 @@
     }
     
     .notification-container {
-        margin: 45px 0;
+        margin: 80px 0;
+      
     }
     
     .notification {
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 15px;
+      
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
