@@ -38,9 +38,12 @@ h1{
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 10px;
   width: 400px;
   max-width: 90%;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .notification-header {
@@ -99,105 +102,6 @@ h1{
 h2{
   text-align: center;
 }
-
-
-
-
-      /* Basic styles, you can add more as needed */
-      .comments-container {
-        max-width: 600px;
-        margin: 20px auto;
-        background-color: #fff;
-        border: 1px solid #dddfe2;
-        border-radius: 8px;
-        font-family: Arial, sans-serif;
-    }
-
-    .comment {
-        padding: 10px;
-        border-bottom: 1px solid #dddfe2;
-    }
-
-    .comment:last-child {
-        border-bottom: none;
-    }
-
-    .comment-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .comment-header img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .comment-header strong {
-        font-weight: bold;
-    }
-
-    .comment-body {
-        margin-left: 50px;
-    }
-
-    .comment-text {
-        margin-bottom: 5px;
-    }
-
-    .comment-time {
-        color: #606770;
-        font-size: 12px;
-    }
-
-
-    .comment-actions {
-        margin-top: 5px;
-    }
-
-    .comment-actions button {
-        margin-right: 10px;
-        border: none;
-        background: none;
-        color: #1877f2;
-        cursor: pointer;
-    }
-
-    .comment-actions button:hover {
-        text-decoration: underline;
-    }
-
-    .comment-form {
-        padding: 10px;
-        background-color: #f0f2f5;
-        border-top: 1px solid #dddfe2;
-    }
-
-    .comment-form textarea {
-        width: calc(100% - 20px);
-        padding: 10px;
-        border: 1px solid #dddfe2;
-        border-radius: 5px;
-        resize: none;
-    }
-
-    .comment-form button {
-        margin-top: 10px;
-        padding: 8px 20px;
-        background-color: #1877f2;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .comment-form button:hover {
-        background-color: #166fe5;
-    }
-
-
 
     .modal {
       display: none; /* Hidden by default */
