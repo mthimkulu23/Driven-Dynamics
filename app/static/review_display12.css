@@ -202,6 +202,8 @@
         padding: 10px 20px;
         cursor: pointer;
         border-radius: 5px;
+        justify-content: center;
+        gap: 20px; /* Space between buttons */
     }
     
     .btn.btn-primary:hover {

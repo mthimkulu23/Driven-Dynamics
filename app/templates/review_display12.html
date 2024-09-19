@@ -53,11 +53,17 @@
                     <input type="hidden" name="edit_id" value="{{display._id}}">
                     <br>
                     <input type="button" class="btn btn-primary"  value="Edit" onclick="editDisplay(this)">
+                   
                 </form>
 
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <!-- Trigger Button -->
+                    <button id="deleteBtn" class="btn btn-primary" style="margin-left: 48px; margin-right: 20px;">Delete</button>
+                </div>
+                
 
-               <!-- Trigger Button -->
-               <button id="deleteBtn" class="btn btn-primary" style="margin-left: 110px ; margin-right: 90px; margin-top:5px;">Delete</button>
+
+             
 
 <!-- The Modal -->
 <div id="deleteModal" class="modal">
