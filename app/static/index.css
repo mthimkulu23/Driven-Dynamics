@@ -161,6 +161,7 @@ nav button:active {
   
   .services{
     text-align: center;
+    font-weight: bold;
   }
 
   .card{
