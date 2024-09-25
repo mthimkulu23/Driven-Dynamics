@@ -37,6 +37,7 @@ def confirm_update():
         'make': request.form['make'],
         'model': request.form['model'],
         'price': request.form['price'],
+         'mileage': request.form['mileage'],
         'description': request.form['description'],
         # Add other fields as necessary
     }

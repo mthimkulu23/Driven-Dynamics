@@ -48,13 +48,16 @@
   <form action="/confirm_update" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{{ product._id }}">
     <label for="make">Make:</label>
-    <input type="text" id="make" name="make" value="{{ product.make }}" placeholder="Car make.." required><br><br>
+    <input type="text" id="make" name="make" value="{{ product.make }}" placeholder=" make.." required><br><br>
   
     <label for="model">Model:</label>
-    <input type="text" id="model" name="model" value="{{ product.model }}" placeholder="Car model.." required><br><br>
+    <input type="text" id="model" name="model" value="{{ product.model }}" placeholder=" model.." required><br><br>
   
     <label for="price">Price:</label>
-    <input type="text" id="price" name="price" value="{{ product.price }}" placeholder="Car price.." required><br><br>
+    <input type="text" id="price" name="price" value="{{ product.price }}" placeholder=" price.." required><br><br>
+
+    <label for="mileage">Mileage:</label>
+    <input type="text" id="mileage" name="mileage" value="{{ product.mileage }}" placeholder="mileage.." required><br><br>
   
     <label for="description">Description:</label>
     <textarea id="description" name="description" placeholder="Car description.." required>{{ product.description }}</textarea><br><br>
