@@ -27,6 +27,7 @@ h1{
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+ 
   }
   
   .rating {
@@ -112,6 +113,8 @@ h1{
     border: 1px solid #888;
     width: 70%;
 }
+
+
 
   
 

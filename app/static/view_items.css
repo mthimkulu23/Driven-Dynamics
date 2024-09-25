@@ -225,6 +225,12 @@ body{
     margin-top: 30px;
   }
 
+  img{
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+  }
+
   
 
 

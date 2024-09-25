@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%" >
+        <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:0%" >
        
         </nav>
 
@@ -35,7 +35,7 @@
 </nav>
 
 <!-- Page Content -->
-<div class="w3-main w3-padding-large" style="margin-left:40%">
+<div class="w3-main w3-padding-large" style="margin-left:0%">
 
   <!-- Menu icon to open sidebar -->
   <span class="w3-button w3-top w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto;right:0;" onclick="openNav()"><i class="fa fa-bars"></i></span>
@@ -50,16 +50,6 @@
           <span class="visually-hidden">Read messages</span>
         </span>
       </button>
-  
-      <div class="unread">
-          <button onclick="goToLandingPage60('retrieve_seller')" type="button" class="btn btn-primary position-relative">
-            Unread messages
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              {{count}}
-              <span class="visually-hidden">unread messages</span>
-            </span>
-          </button>
-      </div>
   </div>
   
   <div class"container">
@@ -107,14 +97,17 @@
         </div>
       </div>
       <h5>Need help?</h5>
-      <h5 >Contact us on <u>083 678 9423</u></h5>    
+      <h5 >Contact us on <u>060 764 7642</u></h5>    
   </form>
 
 
   <div>
-    <h3>Want to buy a car?<a href="#" onclick="goToLandingPage16('login_buyer')">Click Here</a>
-        <img class="image1" src="{{ url_for('static', filename='images/af78be849332d991e4b409d20ee1cb6f.jpg') }}" alt="Example Image">
-    </h3>
+    <h3>Want to buy a car?<a href="#" onclick="goToLandingPage16('login_buyer')">Click Here</a></h3>
+
+    <div>
+      <img class="image1" src="{{ url_for('static', filename='images/af78be849332d991e4b409d20ee1cb6f.jpg') }}" alt="Example Image">
+
+    </div>
 
     
     <button class="accordion"> <strong>How do I sell my car through Drive Dynamic? </strong></button>

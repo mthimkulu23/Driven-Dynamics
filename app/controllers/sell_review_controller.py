@@ -10,13 +10,16 @@ def sell_review():
         make = request.form['make']
         model = request.form['model']
         price = request.form['price']
+        mileage = request.form['mileage']
         description = request.form['description']
 
-        # Perform further processing with the form data
-        # Example: Save the image, store the car details in a database
-        products = {'image': image.filename,'make': make,'model': model,'price': price,'description': description
-        }
+        # Create a dictionary with the correct mileage value
+        products = {
+            'image': image.filename,'make': make,'model': model,'price': price,'mileage': mileage, 'description': description}
+
+        # Add the product to the catalog
         User_catelog.add_item(products)
+
         # Redirect to the catalog page after successful submission
         allproducts = User_catelog.find()
     

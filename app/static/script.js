@@ -31,6 +31,9 @@ function validateLoginForm() {
 }
 
 
+
+
+
 const dropdownMenu = document.getElementById("dropdownMenu");
 let showDropdown = false;
 const options = document.getElementsByClassName("option");

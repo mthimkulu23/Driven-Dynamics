@@ -20,7 +20,7 @@
     <body>
 
         <body>
-            <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%" >
+            <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:0%" >
            
             </nav>
     
@@ -30,10 +30,10 @@
         <i class="fa fa-remove"></i>
       </a>
       <div class="w3-bar-block w3-center">
-        <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('')">Home</a>
-        <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage17('landing')">Back</a>
-        <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage28('review_display12')">Motoring News</a>
-        <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('')">Logout</a>
+        <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage1('')">Home</a>
+        <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage17('landing')">Back</a>
+        <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage28('review_display12')">Motoring News</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage1('')">Logout</a>
       </div>
     </nav>
     
@@ -45,24 +45,26 @@
 
 
       
-
-       <h1>Add item</h1>
+      <h1>Add item</h1>
       <form action="/sell_review" method="POST" enctype="multipart/form-data">
           <label for="image">Choose Image:</label>
           <input type="file" id="image" name="image" accept="image/*"><br><br>
-  
+      
           <label for="make">Make:</label>
-          <input type="text" id="make" name="make" placeholder="Car make.." required><br><br>
-  
+          <input type="text" id="make" name="make" placeholder="make.." required><br><br>
+      
+          <label for="mileage">Mileage/Hours:</label>
+          <input type="text" id="mileage" name="mileage" placeholder="mileage/hours.." required><br><br>
+      
           <label for="model">Model:</label>
-          <input type="text" id="model" name="model" placeholder="Car model.." required><br><br>
-  
+          <input type="text" id="model" name="model" placeholder="model.." required><br><br>
+      
           <label for="price">Price:</label>
-          <input type="text" id="price" name="price" placeholder="Car price.." required><br><br>
-  
+          <input type="text" id="price" name="price" placeholder="price.." required><br><br>
+      
           <label for="description">Description:</label>
-          <textarea id="description" name="description" placeholder="Car description.." required></textarea><br><br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+          <textarea id="description" name="description" placeholder="description.." required></textarea><br><br>
+          <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
 

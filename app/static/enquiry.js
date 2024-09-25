@@ -32,4 +32,31 @@ document.getElementById('close-popup').addEventListener('click', function() {
 
 
 
+
+function goToLandingPage17(){
+
+    window.location.href = "https://driven-dynamics.onrender.com/enquire"
+}
+
+
+function goToLandingPage2(){
+
+    window.location.href = "https://driven-dynamics.onrender.com/catelog_buyer"
+}
+
+
+function goToLandingPage28(){
+
+    window.location.href = "https://driven-dynamics.onrender.com/review_display12"
+}
+
+
+
+
+function goToLandingPage1(){
+
+    window.location.href = "https://driven-dynamics.onrender.com/"
+}
+
+
      

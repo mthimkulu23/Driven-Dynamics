@@ -18,7 +18,7 @@
     <body>
 
 
-        <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:40%" >
+        <nav class="w3-sidebar w3-hide-medium w3-hide-small" style="width:0%" >
        
         </nav>
 
@@ -28,15 +28,15 @@
     <i class="fa fa-remove"></i>
   </a>
   <div class="w3-bar-block w3-center">
-    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('')">Home</a>
-    <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black"onclick="goToLandingPage24('Add item')">Add item</a>
-    <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage28('Motoring News')">Motoring News</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" onclick="goToLandingPage1('')">Logout</a>
+    <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage17('landing')">Home</a>
+    <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage24('Add item')">Add item</a>
+    <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage28('Motoring News')">Motoring News</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage1('')">Logout</a>
   </div>
 </nav>
 
 <!-- Page Content -->
-<div class="w3-main w3-padding-large" style="margin-left:40%">
+<div class="w3-main w3-padding-large" style="margin-left:0%">
 
   <!-- Menu icon to open sidebar -->
   <span class="w3-button w3-top w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto;right:0;" onclick="openNav()"><i class="fa fa-bars"></i></span>
@@ -112,8 +112,9 @@
                 <strong><h5>{{ product.make }}</strong></h5>
                 <strong><h5>Model:</strong> {{ product.model }}</h5>
                 <strong><h5>Price:</strong> {{ product.price }}</h5>
+                <strong><h5>Mileage:</strong> {{ product.mileage }}</h5>
                 <strong><h5>Description:</strong> {{ product.description }}</h5>
-                <p>______________________________________</p>
+                <p class="hr"></p>
 
 
                

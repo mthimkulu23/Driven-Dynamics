@@ -27,6 +27,11 @@ def retrieve_seller():
 
 
 
+
+
+
+
+
 def seller_message():
     if request.method == 'POST':
         name = request.form['name']
@@ -43,6 +48,10 @@ def seller_message():
             return render_template('seller_message.html', error="Failed to save message")
     else:
         return render_template('seller_message.html')
+    
+    
+def terms_condition():
+    return render_template('conditions.html')
 
 
 

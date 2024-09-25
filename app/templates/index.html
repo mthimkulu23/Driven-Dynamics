@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Uber-like Website</title>
+  <title>Driven-Dynamics Website</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title> Landing</title>
@@ -13,6 +13,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"href="{{ url_for('static', filename='index.css') }}"> 
 </head>
@@ -23,45 +28,40 @@
     <nav>
         <div class="app">
             <div class="header">
-            <nav>
 
-                <div class="menu-icon">
-                  <button onclick="toggleMenu()">
-                    <i class="bi bi-list"></i>
-                  </button>
-                  <ul class="dropdownClose" id="dropdownMenu">  
-                    <li class="option">
-                      <a href="#" onclick="goToLandingPage14('Login')">Login</a>
-                    </li> 
+              <div class="w3-sidebar w3-black w3-animate-right w3-xxlarge" style="display:none;padding-top:150px; right: 0;" id="mySidebar">
+    <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-black w3-xxxlarge w3-display-topright" style="padding:0 12px;">
+        <i class="fa fa-remove"></i>
+    </a>
 
-                    <li class="option">
-                      <a href="#" onclick="goToLandingPage12('Signup')">Signup</a>
-                    </li> 
-                      <li class="option">
-                        <a href="#" onclick="goToLandingPage5('About')">About</a>
-                      </li>
-                      <li class="option">
-                        <a href="#" onclick="goToLandingPage25('Review_display')" >Review-Rating</a>
-                      </li>
-                    </ul>
-                  </li>
-                  </ul>
-                  </ul>
-                </div>
-              
-                <div class="thabang">
-                    <div class="title">Driven Dynamics</div>
-                   <div class="sub-title">"Experience the Thrill of the Road"</div>
-                    
-                </div>
-           
-            </div>
-       
+    <div class="w3-bar-block w3-center">
+        <a href="#" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage96('login')">Login</a>
+        <a href="#portfolio" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage6('Signup')">Signup</a>
+        <a href="#about" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage25()">Review-Rating</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-text-grey w3-hover-black" style="text-decoration: none;" onclick="goToLandingPage5('')">About</a>
+    </div>
+</div>
 
+<!-- Menu icon to open sidebar -->
+<span class="w3-button w3-xxlarge w3-text-black w3-hover-text-black" style="width:auto; right:0; position: absolute;" onclick="openNav()"><i class="fa fa-bars"></i></span>
+
+
+                 
+    <nav>
+
+      <div class="thabang">
+        <div class="title">Driven Dynamics</div>
+       <div class="sub-title">"Experience the Thrill of the Road"</div>
+        
+    </div>
+
+</div>
+
+                
             <section id="hero">
               <h1 id="myHeading" style="font-size: 30px; font-family:Roboto;">Welcome to Driven Dynamics, where you can experience the thrill of the road like never before. Are you ready to embark on this journey? Choose your path below.</h1>
-              <a href="#" onclick="goToLandingPage15('login')" class="cta-button" style="margin-right: 150px; margin-top: -10px;">Sell a Car</a>
-              <a href="#" onclick="goToLandingPage96('login_buyer')" class="cta-button" style="margin-right: -130px; margin-top: -44px;">Buy a Car</a>
+              <a href="#" onclick="goToLandingPage15('login')" class="cta-button" style="margin-right: 150px; margin-top: 10px; font-size: 16px; text-decoration: none;">Sell a Car</a>
+              <a href="#" onclick="goToLandingPage96('login_buyer')" class="cta-button" style="margin-right: -130px; margin-top: -44px;font-size: 16px; text-decoration: none;">Buy a Car</a>
             </section>
             
           
@@ -77,6 +77,9 @@
                           </p>
                         </div>
                       </div>
+
+
+                      
 
                       <div class="card" style="width: 20rem;">
                         <img src="{{ url_for('static', filename='/images/bmw-modelfinder-stage2-890x501.png') }}" alt="Example Image">
@@ -97,10 +100,8 @@
                       </div>
                       <br><br><br><br>  
                       <h1> &nbsp; Get started with Driven-Dynamics today </h1><br>
-                      <div style="text-align: center; background-color: #495057">
-                        <a href="#" onclick="goToLandingPage2('signup')" class="cta-button">Signup</a>
-                      </div>
-                      <br><br><br>
+                      
+                      <br>
 
 
                     <!-- Carousel -->
@@ -112,6 +113,36 @@
     <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
     <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
   </div>
+
+
+  <script>
+
+  <script>
+    // Open and close sidebar
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "60%";
+      document.getElementById("mySidebar").style.display = "block";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+    </script>
+  
+
+  
+<script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "60%";
+      document.getElementById("mySidebar").style.display = "block";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+    </script>
+
+  </script>
 
 
   <script>
@@ -189,40 +220,36 @@ fadeInOut();
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
     <div class="carousel-item active"  >
+      <h3 class="amazing_deal" >Get this amazing deal</h3>
       <img class="car" src="{{ url_for('static', filename='/images/34ad7c5bf7e3683fc6423d8d40a43d63_cf_ci_1.png') }}" alt="Example Image">
       <div class="carousel-caption">
-        <h3 >Get this amazing deal</h3>
+       
        
       </div>
     </div>
     <div class="carousel-item">
+      <h3 class="amazing_deal">Get this amazing deal</h3>
       <img class="car" src="{{ url_for('static', filename='/images/range_rover_velar_sideview.jpg') }}" alt="Example Image">
       <div class="carousel-caption">
-        <h3>Get this amazing deal</h3>
+       
         
       </div> 
     </div>
     <div class="carousel-item">
+      <h3 class="amazing_deal" >Get this amazing deal</h3>
       <img class="car" src="{{ url_for('static', filename='/images/e55cb05fa9a54364a3149568a9a4d55d.jpg') }}" alt="Example Image">
       <div class="carousel-caption">
-        <h3>Get this amazing deal</h3>
       </div>  
     </div>
   </div>
   
 
-</div>
 
-  </nav>
-  </header>
-     </body>
-     <script>
-        document.getElementById("signupLink").addEventListener("click", signup);
-        function signup() {
-     // Your signup logic here
-        console.log("Signup function called");
-      }
-   </script>
+
+
+
+
+  
 
   
 

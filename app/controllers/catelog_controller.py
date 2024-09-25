@@ -10,12 +10,13 @@ def viewproduct():
         id = request.form['id']
         make = request.form['make']
         model = request.form['model']
+        mileage = request.form ['mileage']
         description = request.form['description']
         price = request.form['price']
         image = request.form ['image']
         
        
-        return render_template('view_items.html', id=id, make=make, description=description, price=price, model=model, image=image)
+        return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image)
     
     
 def update():
@@ -36,6 +37,7 @@ def confirm_update():
         'make': request.form['make'],
         'model': request.form['model'],
         'price': request.form['price'],
+         'mileage': request.form['mileage'],
         'description': request.form['description'],
         # Add other fields as necessary
     }
