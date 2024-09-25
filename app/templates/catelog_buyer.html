@@ -73,10 +73,10 @@
                 <form action="/viewproduct" method="post">
                   <input type="hidden" name="id" value={{product._id}}>
                   <input type="hidden" name="image" value="{{ product.image }}">
-                  <input type="hidden" name="model" value={{product.model}}>
-                  <input type="hidden" name="make" value={{product.make}}>
-                  <input type="hidden" name="mileage" value={{product.mileage}}>
-                  <input type="hidden" name="description" value={{product.description}}>
+                  <input type="hidden" name="model" value="{{product.model}}">
+                  <input type="hidden" name="make" value="{{product.make}}">
+                  <input type="hidden" name="mileage" value="{{product.mileage}}">
+                  <input type="hidden" name="description" value="{{product.description}}">
                   <input type="hidden" name="price" value="{{ product.price }}"><br><br>
                   <br>
                   <input type="submit" class="btn btn-primary" value="View Item">    
