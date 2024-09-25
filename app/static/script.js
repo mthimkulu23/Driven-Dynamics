@@ -118,95 +118,95 @@ function validateForm() {
 
   function goToLandingPage1( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/";
+   window.location.href = "https://driven-dynamics.onrender.com/";
    }
 
    function goToLandingPage2( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/signup";
+   window.location.href = "https://driven-dynamics.onrender.com/signup";
    }
 
    function goToLandingPage3( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/about";
+   window.location.href = "https://driven-dynamics.onrender.com/about";
    }
 
 
 
    function goToLandingPage5( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/about";
+   window.location.href = "https://driven-dynamics.onrender.com/about";
    }
 
 
    function goToLandingPage7( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/about";
+   window.location.href = "https://driven-dynamics.onrender.com/about";
    }
 
    function goToLandingPage14( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/login";
+   window.location.href = "https://driven-dynamics.onrender.com/login";
    }
 
 
    function goToLandingPage12( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/signup";
+   window.location.href = "https://driven-dynamics.onrender.com/signup";
    }
 
 
    function goToLandingPage96( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/login_buyer";
+   window.location.href = "https://driven-dynamics.onrender.com/login_buyer";
    }
 
 
    function goToLandingPage8( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/login";
+   window.location.href = "https://driven-dynamics.onrender.com/login";
    }
 
 
    function goToLandingPage1( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/";
+   window.location.href = "https://driven-dynamics.onrender.com/";
 
    }
 
 
    function goToLandingPage9( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/sell_review";
+   window.location.href = "https://driven-dynamics.onrender.com/sell_review";
    }
 
    function goToLandingPage10( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/volvo";
+   window.location.href = "https://driven-dynamics.onrender.com/volvo";
    }
 
 
 
    function goToLandingPage11( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/car_sell";
+   window.location.href = "https://driven-dynamics.onrender.com/car_sell";
    }
 
    function goToLandingPage15( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/login";
+   window.location.href = "https://driven-dynamics.onrender.com/login";
    }
 
 
    function goToLandingPage16( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/login_buyer";
+   window.location.href = "https://driven-dynamics.onrender.com/login_buyer";
    }
 
 
    function goToLandingPage17( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/car_sell";
+   window.location.href = "https://driven-dynamics.onrender.com/car_sell";
    }
 
 
@@ -215,51 +215,51 @@ function validateForm() {
 
    function goToLandingPage6( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/signup_buyer";
+   window.location.href = "https://driven-dynamics.onrender.com/signup_buyer";
    }
 
 
    function goToLandingPage99( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/view_items";
+   window.location.href = "https://driven-dynamics.onrender.com/view_items";
    }
 
 
    function goToLandingPage60( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/retrieve_seller";
+   window.location.href = "https://driven-dynamics.onrender.com/retrieve_seller";
    }
 
    function goToLandingPage45( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/about";
+   window.location.href = "https://driven-dynamics.onrender.com/about";
    }
 
 
    function goToLandingPage66( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/buyer_message";
+   window.location.href = "https://driven-dynamics.onrender.com/buyer_message";
    }
 
    function goToLandingPage67( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/review";
+   window.location.href = "https://driven-dynamics.onrender.com/review";
    }
 
    function goToLandingPage25( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/review_display12";
+   window.location.href = "https://driven-dynamics.onrender.com/review_display12";
    }
 
 
    function goToLandingPage50( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/";
+   window.location.href = "https://driven-dynamics.onrender.com/";
    }
 
    function goToLandingPage58( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "http://127.0.0.1:5000/review";
+   window.location.href = "https://driven-dynamics.onrender.com/review";
    }
 
    let slideIndex = 1;
