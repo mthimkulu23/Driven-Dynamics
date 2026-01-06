@@ -1,3 +1,6 @@
+
+import os
+os.environ['AUTHLIB_INSECURE_TRANSPORT'] = 'true'
 from app import create_app
 
 

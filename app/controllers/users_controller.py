@@ -1,112 +1,175 @@
-from flask import jsonify,request, flash, redirect, url_for, render_template, session
-from bson import ObjectId
+from flask import jsonify, request, flash, redirect, url_for, render_template, session
 import re
 from ..models.users import Users
+from authlib.integrations.flask_client import OAuth
+from .. import oauth
+
+
+# Initialize OAuth
+oauth = OAuth()
+
+def setup_google_auth(app):
+    oauth.init_app(app)
+    oauth.register(
+        name='google',
+        client_id='569491132098-tqlmnr3dl0m9tv2ducqte6iuv76jhp2c.apps.googleusercontent.com',
+        client_secret='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',
+        server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+        client_kwargs={'scope': 'openid email profile'}
+    )
+
+# app/controllers/users_controller.py
+
+from flask import jsonify, request, flash, redirect, url_for, render_template, session
+import re
+from ..models.users import Users
+# IMPORTANT: Import the oauth instance from your app package, don't create a new one!
+from .. import oauth 
+
+def google_login():
+    # Force the redirect URI to 127.0.0.1 to avoid the 'Private IP' error
+    # This MUST match exactly what is in your Google Cloud Console
+    redirect_uri = "http://127.0.0.1:5000/authorize/google"
+    
+    print(f"DEBUG: Redirecting to Google with callback: {redirect_uri}")
+    return oauth.google.authorize_redirect(redirect_uri)
+
+def google_authorize():
+    # Note: Use this function to catch errors
+    try:
+        token = oauth.google.authorize_access_token()
+        user_info = token.get('userinfo')
+        
+        if user_info:
+            email = user_info['email']
+            user = Users.get_user_by_email(email)
+            if not user:
+                Users.register_user({
+                    'Name': user_info['name'],
+                    'Email': email,
+                    'Password': 'OAUTH_USER_EXTERNAL',
+                    'Contact': 'N/A'
+                })
+            
+            session['user_id'] = email
+            session['name'] = user_info['name']
+            return redirect(url_for('login.landing'))
+    except Exception as e:
+        print(f"Authorize Error: {e}")
+        flash("Google authentication failed.", "error")
+        
+    return redirect(url_for('login.login'))
+
+def google_authorize():
+   
+    token = oauth.google.authorize_access_token()
+    user_info = token.get('userinfo')
+    
+    if user_info:
+        email = user_info['email']
+       
+        user = Users.get_user_by_email(email)
+        if not user:
+           
+            Users.register_user({
+                'Name': user_info['name'],
+                'Email': email,
+                'Password': 'OAUTH_USER_EXTERNAL', 
+                'Contact': 'N/A'
+            })
+        
+        session['user_id'] = email
+        session['name'] = user_info['name']
+        return redirect(url_for('login.landing'))
+    
+    flash("Google authentication failed.", "error")
+    return redirect(url_for('login.login'))
+
 
 def index():
     return render_template('index.html')
 
+def about():
+    return render_template('about.html')
+
 def signup():
     if request.method == 'POST':
-        Name = request.form['Name']
-        Contact = request.form['Contact']
-        Email = request.form['Email']
-        Password = request.form['Password']
-        confirm_password = request.form['confirm_password']
-
-        # Check if passwords match
-        if Password != confirm_password:
-            flash('Passwords do not match. Please try again.', 'error')
-            return redirect(url_for('signup'))
-
-        # Validate email format
-        email_regex = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-        if not re.match(email_regex, Email):
-            flash('Invalid email format. Please try again.', 'error')
-            return redirect(url_for('signup'))
-
-        # Prepare new user data
-        new_user = {'Name': Name,'Contact': Contact,'Email': Email,'Password': Password,
+        # Your HTML uses Name, Contact, Email, Password, confirm_password
+        data = {
+            'Name': request.form.get('Name'),
+            'Contact': request.form.get('Contact'),
+            'Email': request.form.get('Email'),
+            'Password': request.form.get('Password')
         }
-        # Register the user and handle the result
-        if not Users.register_user(new_user):
+        confirm_password = request.form.get('confirm_password')
+
+        if data['Password'] != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return redirect(url_for('login.signup')) # Assuming blueprint name is 'login'
+
+        if not Users.register_user(data):
+            flash('Email already exists.', 'error')
             return redirect(url_for('login.signup'))
 
-        return render_template('login.html')
-    
-    
-    
-    
+        flash('Registration successful!', 'success')
+        return redirect(url_for('login.login'))
 
     return render_template('signup.html')
 
 def login():
     if request.method == 'POST':
-        Email = request.form['Email']
-        Password = request.form['Password']
+        email = request.form.get('Email')
+        password = request.form.get('Password')
 
-        # Check if the email and password match
-        user = Users.get_user_by_email(Email, Password)  # Check the user in the database
+        user = Users.get_user_by_email(email, password)
         if user:
-            
-            # Here, l have redirect to a landing 
+            session['user_id'] = str(user['_id'])
+            session['role'] = 'seller'
             return redirect(url_for('login.landing'))
 
-        flash('Invalid email or password. Please try again.', 'error')
-
+        flash('Invalid email or password.', 'error')
     return render_template('login.html')
-
 
 def signup_buyer():
     if request.method == 'POST':
-        Name = request.form['Name']
-        Contact = request.form['Contact']
-        Email = request.form['Email']
-        Password = request.form['Password']
-        confirm_password = request.form['confirm_password']
-
-        # Check if passwords match
-        if Password != confirm_password:
-            flash('Passwords do not match. Please try again.', 'error')
-            return redirect(url_for('signup_buyer'))
-
-        # Prepare new buyer data
-        new_buyer = {'Name': Name,'Contact': Contact,'Email': Email,'Password': Password,
+        data = {
+            'Name': request.form.get('Name'),
+            'Contact': request.form.get('Contact'),
+            'Email': request.form.get('Email'),
+            'Password': request.form.get('Password')
         }
+        confirm_password = request.form.get('confirm_password')
 
-        # Register the buyer and handle the result
-        if not Users.register_buyer(new_buyer):
+        if data['Password'] != confirm_password:
+            flash('Passwords do not match!', 'error')
             return redirect(url_for('login.signup_buyer'))
 
-        return render_template('login_buyer.html')
+        if not Users.register_buyer(data):
+            flash('Account already exists.', 'error')
+            return redirect(url_for('login.signup_buyer'))
+
+        flash('Buyer account created!', 'success')
+        return redirect(url_for('login.login_buyer'))
 
     return render_template('signup_buyer.html')
 
-
 def login_buyer():
     if request.method == 'POST':
-        Email = request.form['Email']
-        Password = request.form['Password']
-        # Check if the email and password match
-        buyer = Users.get_user_buyer(Email, Password)  # Check the buyer in the database
+        email = request.form.get('Email')
+        password = request.form.get('Password')
+        
+        buyer = Users.get_user_buyer(email, password)
         if buyer:
-            # If the buyer exists, set a session variable to indicate they are logged in
-            # Here, you might also want to redirect to a dashboard or profile page
-            return redirect(url_for('catelog_buyer.catelog_buyer'))  # Redirect to the catalog_buyer route
+            session['user_id'] = str(buyer['_id'])
+            session['role'] = 'buyer'
+            return redirect(url_for('catelog_buyer.catelog_buyer'))
 
-        flash('Invalid email or password. Please try again.', 'error')
-
+        flash('Invalid credentials.', 'error')
     return render_template('login_buyer.html')
 
 def landing():
-    car_sell = list(Users.landing())  # Fetch all the data from the landing() method
-    count = len(car_sell)
-    print("Total records:", count)
-    return render_template('car_sell.html', car_sell=car_sell, count=count)
-    
-    
-def about():
-    return render_template('about.html')
+    car_sell = list(Users.landing())
+    return render_template('car_sell.html', car_sell=car_sell, count=len(car_sell))
     
 
     

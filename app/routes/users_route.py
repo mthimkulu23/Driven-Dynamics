@@ -18,6 +18,8 @@ app.route('/login_buyer', methods=['GET','POST'])(users_controller.login_buyer)
 
 app.route('/landing', methods=['GET','POST'])(users_controller.landing)
 app.route('/about', methods=['GET','POST'])(users_controller.about)
+app.route('/google_login', methods=['GET','POST'])(users_controller.google_login)
+app.route('/authorize/google', methods=['GET','POST'])(users_controller.google_authorize)
 
 
 
