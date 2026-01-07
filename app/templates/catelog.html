@@ -127,6 +127,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
         .nav-link:hover {
@@ -387,6 +388,59 @@
             transform: translateY(-2px);
         }
 
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: rgba(102, 126, 234, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            padding: 80px 30px;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-link {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 28px;
+            padding: 5px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
@@ -414,44 +468,6 @@
                 font-size: 32px;
             }
         }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100%;
-            background: rgba(102, 126, 234, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 80px 30px;
-            transition: right 0.3s ease;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu .nav-link {
-            display: block;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 28px;
-            padding: 5px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -461,6 +477,9 @@
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
     </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
 
     <!-- Header -->
     <header class="header">
@@ -494,16 +513,16 @@
         <button class="close-menu" onclick="toggleMobileMenu()">
             <i class="bi bi-x"></i>
         </button>
-        <a href="#" class="nav-link" onclick="goToLandingPage17('landing')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage17', 'landing')">
             <i class="bi bi-house-fill"></i> Home
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage24('Add item')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage24', 'Add item')">
             <i class="bi bi-plus-circle-fill"></i> Add Item
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage28('Motoring News')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage28', 'Motoring News')">
             <i class="bi bi-newspaper"></i> Motoring News
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage1('')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage1', '')">
             <i class="bi bi-box-arrow-right"></i> Logout
         </a>
     </div>
@@ -569,7 +588,33 @@
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('menuOverlay');
             menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMenuAndNavigate(functionName, param) {
+            toggleMobileMenu();
+            
+            // Call the navigation function after menu closes
+            setTimeout(() => {
+                if (functionName === 'goToLandingPage17') {
+                    goToLandingPage17(param);
+                } else if (functionName === 'goToLandingPage24') {
+                    goToLandingPage24(param);
+                } else if (functionName === 'goToLandingPage28') {
+                    goToLandingPage28(param);
+                } else if (functionName === 'goToLandingPage1') {
+                    goToLandingPage1(param);
+                }
+            }, 300);
         }
 
         function showDeleteModal(productId) {

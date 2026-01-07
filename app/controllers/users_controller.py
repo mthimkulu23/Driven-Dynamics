@@ -135,7 +135,7 @@ def login_buyer():
             session['user_name'] = buyer['Name']
             session['user_role'] = 'buyer'
             flash('Login successful! Welcome back!', 'success')
-            return redirect(url_for('users.catelog'))  # Change to your buyer dashboard route
+            return redirect(url_for('users.catelog_buyer'))  # Change to your buyer dashboard route
         else:
             flash('Invalid email or password.', 'error')
             return redirect(url_for('users.login_buyer'))  # FIXED

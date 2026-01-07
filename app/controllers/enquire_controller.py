@@ -1,6 +1,7 @@
-from flask import jsonify,request, flash, redirect, url_for, render_template, session  
+from flask import jsonify, request, flash, redirect, url_for, render_template, session  
 from ..models.enquire import car_enquiry
-from bson .objectid import *
+from .. import mongo  # Add this to access products collection
+from bson.objectid import *
 
 def enquire():
     if request.method == 'POST':
@@ -9,14 +10,27 @@ def enquire():
         message = request.form['message']
         contact = request.form['contact']
 
-       
-        enquiry = {'name': name,'email': email,'message': message,'contact': contact}
+        enquiry = {'name': name, 'email': email, 'message': message, 'contact': contact}
         car_enquiry.user_enquire(enquiry)
         
-        return render_template ("catelog_buyer.html")
+        # Get the count of messages for the user
+        count = car_enquiry.count_messages_for_user()
+        
+        # Get all products to display in the catalog
+        # Assuming your products are stored in a 'products' collection
+        products = list(mongo.db.products.find())  # Adjust 'products' to your actual collection name
+        
+        # Use redirect with url_for OR just render_template directly
+        # Option 1: Redirect to catalog_buyer route (if you have one)
+        return redirect(url_for('catelog_buyer.catelog_buyer'))
+        
+        # Option 2: Render the template directly (RECOMMENDED)
+        # return render_template("catelog_buyer.html", count=count, products=products)
+        
     else:
         return render_template('enquire.html')
-    
+
+
 def retrieve_seller():
     # Retrieve data from MongoDB
     inquiries = car_enquiry.fetch_seller()
@@ -26,18 +40,12 @@ def retrieve_seller():
     return render_template('retrieve_seller.html', inquiries=inquiries_list)
 
 
-
-
-
-
-
-
 def seller_message():
     if request.method == 'POST':
         name = request.form['name']
         message = request.form['message']
         # Save the form data to the MongoDB collection
-        data = { "message": message , "name": name}
+        data = {"message": message, "name": name}
         result = car_enquiry.send_seller_message(data)
         
         # Check if the data was saved successfully
@@ -48,10 +56,7 @@ def seller_message():
             return render_template('seller_message.html', error="Failed to save message")
     else:
         return render_template('seller_message.html')
-    
-    
+
+
 def terms_condition():
     return render_template('conditions.html')
-
-
-

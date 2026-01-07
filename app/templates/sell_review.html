@@ -127,6 +127,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
         .nav-link:hover {
@@ -253,7 +254,6 @@
 
         /* Mobile Menu */
         .mobile-menu {
-            display: none;
             position: fixed;
             top: 0;
             right: -100%;
@@ -287,6 +287,22 @@
             padding: 5px 15px;
             border-radius: 8px;
             cursor: pointer;
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            display: block;
         }
 
         /* Responsive */
@@ -329,6 +345,9 @@
         <div class="shape shape-3"></div>
     </div>
 
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="logo">
@@ -361,16 +380,16 @@
         <button class="close-menu" onclick="toggleMobileMenu()">
             <i class="bi bi-x"></i>
         </button>
-        <a href="#" class="nav-link" onclick="goToLandingPage1('')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage1', '')">
             <i class="bi bi-house-fill"></i> Home
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage17('landing')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage17', 'landing')">
             <i class="bi bi-arrow-left-circle-fill"></i> Back
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage28('review_display12')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage28', 'review_display12')">
             <i class="bi bi-newspaper"></i> Motoring News
         </a>
-        <a href="#" class="nav-link" onclick="goToLandingPage1('')">
+        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage1', '')">
             <i class="bi bi-box-arrow-right"></i> Logout
         </a>
     </div>
@@ -426,20 +445,47 @@
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('menuOverlay');
             menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMenuAndNavigate(functionName, param) {
+            toggleMobileMenu();
+            
+            // Call the navigation function after menu closes
+            setTimeout(() => {
+                if (functionName === 'goToLandingPage1') {
+                    goToLandingPage1(param);
+                } else if (functionName === 'goToLandingPage17') {
+                    goToLandingPage17(param);
+                } else if (functionName === 'goToLandingPage28') {
+                    goToLandingPage28(param);
+                }
+            }, 300);
         }
 
         // Placeholder navigation functions
         function goToLandingPage1(page) {
-            console.log('Navigate to:', page);
+            console.log('Navigate to home/logout:', page);
+            // Add your actual navigation logic here
         }
 
         function goToLandingPage17(page) {
-            console.log('Navigate to:', page);
+            console.log('Navigate back:', page);
+            // Add your actual navigation logic here
         }
 
         function goToLandingPage28(page) {
-            console.log('Navigate to:', page);
+            console.log('Navigate to motoring news:', page);
+            // Add your actual navigation logic here
         }
     </script>
     
