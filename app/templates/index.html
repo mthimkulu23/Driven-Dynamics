@@ -470,10 +470,10 @@
         <div class="hero-content">
             <h1>Experience the <strong>Thrill</strong> of the Road</h1>
             <p>The ultimate destination to buy and sell premium vehicles</p>
-            <div class="cta-buttons">
-                <a href="http://127.0.0.1:5000/login" class="cta-button cta-primary">Sell Your Car</a>
-                <a href="http://127.0.0.1:5000/login_buyer" class="cta-button cta-secondary">Buy a Car</a>
-            </div>
+           <div class="cta-buttons">
+            <a href="{{ url_for('users.login') }}" class="cta-button cta-primary">Sell Your Car</a>
+            <a href="{{ url_for('users.login_buyer') }}" class="cta-button cta-secondary">Buy a Car</a>
+</div>
         </div>
         <div class="scroll-indicator">
             <i class="bi bi-chevron-down"></i>
