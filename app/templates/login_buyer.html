@@ -93,16 +93,16 @@
             </form>
 
             <!-- Sign Up Link -->
-            <div class="signup-link">
-                Don't have an account? 
-                <a href="http://127.0.0.1:5000/signup_buyer" onclick="goToLandingPage2('signup')">Create one</a>
-            </div>
+           <div class="signup-link">
+    Don't have an account? 
+    <a href="{{ url_for('users.signup_buyer') }}" onclick="goToLandingPage2('signup')">Create one</a>
+</div>
 
             <!-- Role Toggle -->
             <div class="role-toggle">
-                <p>Looking to sell a car?</p>
-                <a href="http://127.0.0.1:5000/login" class="toggle-link">Switch to Seller Login</a>
-            </div>
+    <p>Looking to sell a car?</p>
+    <a href="{{ url_for('users.login') }}" class="toggle-link">Switch to Seller Login</a>
+</div>
         </div>
     </div>
 
