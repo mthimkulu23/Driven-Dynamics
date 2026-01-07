@@ -3,11 +3,13 @@ import re
 from ..models.users import Users
 from authlib.integrations.flask_client import OAuth
 from werkzeug.security import check_password_hash
+
+from ..models.users import Users
+# IMPORTANT: Import the oauth instance from your app package, don't create a new one!
 from .. import oauth
 
 
 # Initialize OAuth
-oauth = OAuth()
 
 def setup_google_auth(app):
     oauth.init_app(app)
@@ -21,11 +23,7 @@ def setup_google_auth(app):
 
 # app/controllers/users_controller.py
 
-from flask import jsonify, request, flash, redirect, url_for, render_template, session
-import re
-from ..models.users import Users
-# IMPORTANT: Import the oauth instance from your app package, don't create a new one!
-from .. import oauth 
+
 
 def google_login():
     # Force the redirect URI to 127.0.0.1 to avoid the 'Private IP' error
