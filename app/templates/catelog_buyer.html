@@ -409,12 +409,12 @@
         </div>
         
         <nav class="nav-menu">
-            <button class="messages-btn" onclick="goToLandingPage66('')">
-                <i class="bi bi-envelope-fill"></i>
-                Read Messages
-                {% if count > 0 %}
-                <span class="badge">{{count}}</span>
-                {% endif %}
+            <button class="messages-btn" onclick="window.location.href='http://127.0.0.1:5000/buyer_message'">
+            <i class="bi bi-envelope-fill"></i>
+            Read Messages
+            {% if count > 0 %}
+            <span class="badge">{{count}}</span>
+            {% endif %}
             </button>
             <a href="#" class="nav-link" onclick="goToLandingPage1('')">
                 <i class="bi bi-house-fill"></i> Home
