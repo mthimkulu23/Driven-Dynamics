@@ -1,7 +1,8 @@
 Flask
 pymongo
 Flask-Pymongo
-
+Authlib 
+requests
 
 
 
