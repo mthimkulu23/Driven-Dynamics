@@ -13,19 +13,9 @@ def enquire():
         enquiry = {'name': name, 'email': email, 'message': message, 'contact': contact}
         car_enquiry.user_enquire(enquiry)
         
-        # Get the count of messages for the user
-        count = car_enquiry.count_messages_for_user()
-        
-        # Get all products to display in the catalog
-        # Assuming your products are stored in a 'products' collection
-        products = list(mongo.db.products.find())  # Adjust 'products' to your actual collection name
-        
-        # Use redirect with url_for OR just render_template directly
-        # Option 1: Redirect to catalog_buyer route (if you have one)
+        # Redirect to catalog_buyer route instead of rendering template
+        # This will use the existing catalog_buyer controller which already has the logic
         return redirect(url_for('catelog_buyer.catelog_buyer'))
-        
-        # Option 2: Render the template directly (RECOMMENDED)
-        # return render_template("catelog_buyer.html", count=count, products=products)
         
     else:
         return render_template('enquire.html')

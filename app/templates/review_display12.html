@@ -3,196 +3,671 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Driven Dynamics - Reviews</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="static/css/styles.css">
-        <link rel="stylesheet"href="{{ url_for('static', filename='review_display12.css') }}"> 
+        
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Montserrat', sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* Animated background */
+            .background-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                overflow: hidden;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            .shape {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                animation: float 20s infinite ease-in-out;
+            }
+
+            .shape-1 {
+                width: 300px;
+                height: 300px;
+                top: -100px;
+                left: -100px;
+                animation-delay: 0s;
+            }
+
+            .shape-2 {
+                width: 400px;
+                height: 400px;
+                bottom: -150px;
+                right: -150px;
+                animation-delay: 5s;
+            }
+
+            .shape-3 {
+                width: 250px;
+                height: 250px;
+                top: 50%;
+                left: 50%;
+                animation-delay: 10s;
+            }
+
+            @keyframes float {
+                0%, 100% {
+                    transform: translate(0, 0) scale(1);
+                }
+                25% {
+                    transform: translate(50px, -50px) scale(1.1);
+                }
+                50% {
+                    transform: translate(-30px, 30px) scale(0.9);
+                }
+                75% {
+                    transform: translate(30px, 50px) scale(1.05);
+                }
+            }
+
+            /* Content wrapper */
+            .content-wrapper {
+                position: relative;
+                z-index: 10;
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            /* Navbar */
+            .navbar {
+                padding: 15px 0;
+                margin-bottom: 25px;
+            }
+
+            .back-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                font-size: 28px;
+                color: white;
+                cursor: pointer;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border-radius: 50%;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.35);
+                transform: translateX(-5px);
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Header section */
+            .header-section {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 35px 25px;
+                margin-bottom: 25px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                text-align: center;
+            }
+
+            .header-section h2 {
+                color: #667eea;
+                font-size: 32px;
+                font-weight: 700;
+                margin-bottom: 10px;
+                text-decoration: underline;
+            }
+
+            .header-section h3 {
+                color: #764ba2;
+                font-size: 22px;
+                font-weight: 600;
+                margin: 0;
+            }
+
+            /* Banner section */
+            .banner-section {
+                margin-bottom: 30px;
+            }
+
+            .banner-image {
+                width: 100%;
+                max-height: 350px;
+                object-fit: cover;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+                margin-bottom: 15px;
+            }
+
+            .banner-text {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 18px;
+                text-align: center;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .banner-text p {
+                color: #667eea;
+                font-size: 18px;
+                font-weight: 600;
+                margin: 0;
+            }
+
+            /* Review card */
+            .review-card {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 30px;
+                margin-bottom: 25px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .review-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            }
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+            }
+
+            .card-header h3 {
+                color: #667eea;
+                font-size: 24px;
+                font-weight: 700;
+                margin: 0;
+            }
+
+            .close-btn {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .close-btn:hover {
+                transform: rotate(90deg) scale(1.1);
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            }
+
+            .review-subtitle {
+                color: #764ba2;
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                text-decoration: underline;
+            }
+
+            .review-image-container {
+                margin: 20px 0;
+                text-align: center;
+                overflow: hidden;
+                border-radius: 15px;
+            }
+
+            .review-image-container img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 15px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .review-details {
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+                border-radius: 15px;
+                padding: 25px;
+                margin: 20px 0;
+            }
+
+            .review-details p {
+                color: #333;
+                font-size: 15px;
+                margin: 12px 0;
+                line-height: 1.8;
+            }
+
+            .review-details strong {
+                color: #667eea;
+                font-weight: 700;
+                min-width: 80px;
+                display: inline-block;
+            }
+
+            /* Action buttons */
+            .action-buttons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                margin-top: 20px;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 14px 35px;
+                border-radius: 12px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            }
+
+            .btn i {
+                font-size: 18px;
+            }
+
+            /* Edit form */
+            .edit-form {
+                background: linear-gradient(135deg, rgba(118, 75, 162, 0.08) 0%, rgba(102, 126, 234, 0.08) 100%);
+                border-radius: 15px;
+                padding: 25px;
+                margin-top: 20px;
+                display: none;
+            }
+
+            .edit-form.active {
+                display: block;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                color: #667eea;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 8px;
+                font-size: 15px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                padding: 12px 15px;
+                border: 2px solid rgba(102, 126, 234, 0.3);
+                border-radius: 10px;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                background: white;
+            }
+
+            .form-group input:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: #667eea;
+                box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            }
+
+            .form-group textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+
+            /* Modal */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.75);
+                backdrop-filter: blur(8px);
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal.active {
+                display: flex !important;
+            }
+
+            .modal-content {
+                background: white;
+                padding: 45px 35px;
+                border-radius: 25px;
+                width: 90%;
+                max-width: 450px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+                animation: modalSlide 0.3s ease;
+            }
+
+            @keyframes modalSlide {
+                from {
+                    transform: translateY(-50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .modal-content h2 {
+                color: #667eea;
+                font-size: 28px;
+                font-weight: 700;
+                margin-bottom: 15px;
+            }
+
+            .modal-content p {
+                color: #666;
+                font-size: 16px;
+                margin-bottom: 30px;
+                line-height: 1.6;
+            }
+
+            .modal-buttons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .btn-yes {
+                background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            }
+
+            .btn-no {
+                background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .content-wrapper {
+                    padding: 15px;
+                }
+
+                .header-section {
+                    padding: 25px 20px;
+                }
+
+                .header-section h2 {
+                    font-size: 26px;
+                }
+
+                .header-section h3 {
+                    font-size: 18px;
+                }
+
+                .review-card {
+                    padding: 20px;
+                }
+
+                .card-header h3 {
+                    font-size: 20px;
+                }
+
+                .action-buttons {
+                    flex-direction: column;
+                }
+
+                .btn {
+                    width: 100%;
+                    justify-content: center;
+                }
+
+                .modal-content {
+                    padding: 35px 25px;
+                }
+
+                .modal-buttons {
+                    flex-direction: column;
+                }
+
+                .modal-buttons .btn {
+                    width: 100%;
+                }
+            }
+        </style>
     </head>
     <body>
+        <!-- Background Animation -->
+        <div class="background-animation">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
 
-        <nav class="navbar"> 
-            <i class="bi bi-chevron-left" onclick="goToLandingPage50('back')"></i>
-              
-       </nav>
-       <div class="text-background">
-        <br><br><h2><u>Driven Dynamics</u></h2>
-        <h3 class="h3">New & Used <span style="color:  blue;"> Cars </span></h3>
-      </div>
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Navbar -->
+            <nav class="navbar"> 
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+            </nav>
 
-      <div>
-        <img class="textparagraph" src="{{ url_for('static', filename='/images/sssss.png') }}" alt="Example Image">
-        <div class="text-block">
-            <p>Timely delivery and buyer satisfaction.</p>
-          </div>
+            <!-- Header -->
+            <div class="header-section">
+                <h2>Driven Dynamics</h2>
+                <h3>New & Used <span style="color: #2563eb;">Cars</span></h3>
+            </div>
 
-      </div>
-    
-       {% for display in display %}
-       <div class="notification-container">
-           <div class="notification">
-               <div class="notification-header">
-                   <h3>New Review</h3>
-                   <button class="close-btn">X</button>
-               </div>
-               <div class="notification-body">
-                   <p><u>See our daily review.</u></p>
-                   <div class="image-container">
-                       <img src="static/images/{{display.image}}" width="300" height="200">
-                   </div>
-                   <div class="buyer-info">
-                       <p><strong>Name:</strong> {{display.name}}</p>
-                       <p><strong>Model:</strong> {{display.model}}</p>
-                       <p><strong>Make:</strong> {{display.make}}</p>
-                       <p><strong>Message:</strong> {{display.review_text}}</p>
-                       <p><strong>Rating:</strong> {{display.rating}}</p>
-                   </div>
+            <!-- Banner -->
+            <div class="banner-section">
+                <img src="{{ url_for('static', filename='/images/sssss.png') }}" alt="Driven Dynamics Banner" class="banner-image">
+                <div class="banner-text">
+                    <p>Timely delivery and buyer satisfaction.</p>
+                </div>
+            </div>
 
-                   <form class="editForm">
-                    <input type="hidden" name="edit_id" value="{{display._id}}">
-                    <br>
-                    <input type="button" class="btn btn-primary"  value="Edit" onclick="editDisplay(this)">
-                   
-                </form>
-
-                <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <!-- Trigger Button -->
-                    <button id="deleteBtn" class="btn btn-primary" style="margin-left: 48px; margin-right: 20px;">Delete</button>
+            <!-- Reviews -->
+            {% for display in display %}
+            <div class="review-card">
+                <div class="card-header">
+                    <h3><i class="bi bi-star-fill" style="color: #ffd700;"></i> Customer Review</h3>
+                    <button class="close-btn" onclick="closeReview(this)">×</button>
                 </div>
                 
+                <div class="review-body">
+                    <p class="review-subtitle">See our daily review</p>
+                    
+                    <div class="review-image-container">
+                        <img src="static/images/{{display.image}}" alt="Review Image">
+                    </div>
+                    
+                    <div class="review-details">
+                        <p><strong>Name:</strong> {{display.name}}</p>
+                        <p><strong>Model:</strong> {{display.model}}</p>
+                        <p><strong>Make:</strong> {{display.make}}</p>
+                        <p><strong>Message:</strong> {{display.review_text}}</p>
+                        <p><strong>Rating:</strong> <span style="color: #ffd700;">★</span> {{display.rating}}/5</p>
+                    </div>
 
+                    <div class="action-buttons">
+                        <button class="btn" onclick="toggleEdit(this)">
+                            <i class="bi bi-pencil-square"></i>
+                            Edit Review
+                        </button>
+                        <button class="btn" onclick="openDeleteModal('{{display._id}}')">
+                            <i class="bi bi-trash"></i>
+                            Delete Review
+                        </button>
+                    </div>
 
-             
-
-<!-- The Modal -->
-<div id="deleteModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <h2>Confirm Delete</h2>
-        <p>Are you sure you want to delete this review?</p>
-        <form id="deleteForm" action="/delete_review" method="POST">
-            <input type="hidden" id="delete_id" name="delete_id" value="{{ display._id }}">
-            <div class="button-container">
-                <button type="submit" class="btn btn-yes">Yes</button>
-                <button type="button" class="btn btn-no" onclick="closeDeleteModal()">No</button>
+                    <!-- Edit Form -->
+                    <div class="edit-form">
+                        <form class="save-form" data-id="{{display._id}}">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" name="name" value="{{display.name}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Model:</label>
+                                <input type="text" name="model" value="{{display.model}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Make:</label>
+                                <input type="text" name="make" value="{{display.make}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Message:</label>
+                                <textarea name="review_text" required>{{display.review_text}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Rating:</label>
+                                <input type="number" name="rating" value="{{display.rating}}" min="1" max="5" required>
+                            </div>
+                            <div class="action-buttons">
+                                <button type="button" class="btn" onclick="saveReview(this)">
+                                    <i class="bi bi-check-circle"></i>
+                                    Save Changes
+                                </button>
+                                <button type="button" class="btn btn-no" onclick="cancelEdit(this)">
+                                    <i class="bi bi-x-circle"></i>
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
-</div>
+            {% endfor %}
+        </div>
 
-              <div class="edit-container" style="display:none;">
-                <form class="saveForm">
-                    <input type="hidden" name="edit_id" value="{{display._id}}">
-                   <strong> <label>Name: <input type="text" name="name" value="{{display.name}}"></label><br></strong>
-                   <strong> <label>Model: <input type="text" name="model" value="{{display.model}}"></label><br> </strong>
-                    <strong>  <label>Make: <input type="text" name="make" value="{{display.make}}"></label><br> </strong>
-                    <strong>  <label>Message: <textarea name="review_text">{{display.review_text}}</textarea></label><br> </strong>
-                    <strong> <label>Rating: <input type="number" name="rating" value="{{display.rating}}"></label><br> </strong>
-                    <input type="button" class="btn btn-primary" value="Save" onclick="saveDisplay(this)">
-                    <input type="button" class="btn btn-primary" value="Cancel" onclick="closeEdit(this)">
+        <!-- Delete Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h2><i class="bi bi-exclamation-triangle" style="color: #dc3545;"></i> Confirm Delete</h2>
+                <p>Are you sure you want to delete this review? This action cannot be undone.</p>
+                <form id="deleteForm" action="/delete_review" method="POST">
+                    <input type="hidden" id="delete_id" name="delete_id" value="">
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-yes">
+                            <i class="bi bi-check"></i>
+                            Yes, Delete
+                        </button>
+                        <button type="button" class="btn btn-no" onclick="closeDeleteModal()">
+                            <i class="bi bi-x"></i>
+                            No, Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
-            
-                  
-               </div>
-           </div>
-       </div>
-       {% endfor %}
+        </div>
 
-   
-        
-       <script src="{{ url_for('static', filename='script.js') }}"></script>
-    </body>
-
-    <script>
-      function editDisplay(button) {
-        const notificationBody = button.closest('.notification-body');
-        const editContainer = notificationBody.querySelector('.edit-container');
-        editContainer.style.display = 'block';
-    }
-    
-    function saveDisplay(button) {
-        const form = button.closest('.saveForm');
-        const editId = form.querySelector('input[name="edit_id"]').value;
-        const name = form.querySelector('input[name="name"]').value;
-        const model = form.querySelector('input[name="model"]').value;
-        const make = form.querySelector('input[name="make"]').value;
-        const reviewText = form.querySelector('textarea[name="review_text"]').value;
-        const rating = form.querySelector('input[name="rating"]').value;
-    
-        fetch('/edit_review', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                edit_id: editId, 
-                name: name,
-                model: model,
-                make: make,
-                review_text: reviewText,
-                rating: rating 
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-             
-              
-                location.reload()
-            } else {
-                console.error('Failed to edit review');
+        <script>
+            function toggleEdit(button) {
+                const card = button.closest('.review-card');
+                const editForm = card.querySelector('.edit-form');
+                editForm.classList.toggle('active');
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    
-    function closeEdit(button) {
-        const notificationBody = button.closest('.notification-body');
-        const editContainer = notificationBody.querySelector('.edit-container');
-        editContainer.style.display = 'none';
-    }
-    
-  </script>
-  
- 
-    <script>
-    
-// Get the modal
-var modal = document.getElementById("deleteModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("deleteBtn");
+            function cancelEdit(button) {
+                const editForm = button.closest('.edit-form');
+                editForm.classList.remove('active');
+            }
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+            function saveReview(button) {
+                const form = button.closest('.save-form');
+                const editId = form.dataset.id;
+                const formData = {
+                    edit_id: editId,
+                    name: form.querySelector('[name="name"]').value,
+                    model: form.querySelector('[name="model"]').value,
+                    make: form.querySelector('[name="make"]').value,
+                    review_text: form.querySelector('[name="review_text"]').value,
+                    rating: form.querySelector('[name="rating"]').value
+                };
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+                fetch('/edit_review', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Failed to update review. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+            function openDeleteModal(id) {
+                document.getElementById('delete_id').value = id;
+                document.getElementById('deleteModal').classList.add('active');
+            }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+            function closeDeleteModal() {
+                document.getElementById('deleteModal').classList.remove('active');
+            }
 
+            function closeReview(button) {
+                const card = button.closest('.review-card');
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
 
-
-function closeDeleteModal() {
-  var modal = document.getElementById("deleteModal");
-  modal.style.display = "none";
-  window.location.href = "https://driven-dynamics.onrender.com/review_display12";
-}
-
-    </script>
+            // Close modal when clicking outside
+            document.getElementById('deleteModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteModal();
+                }
+            });
+        </script>
+    </body>
 </html>

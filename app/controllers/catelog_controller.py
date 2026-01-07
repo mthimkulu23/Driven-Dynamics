@@ -75,10 +75,19 @@ def catelog_buyer():
     return render_template('catelog_buyer.html', products=products, car_buyer=car_buyer, count=count)
 
 
-
 def buyer_message():
-    buyers = User_catelog.receive_message()
-    return render_template("buyer_message.html", buyers=buyers)
+    try:
+        buyers = User_catelog.receive_message()
+        
+        # Handle empty results
+        if not buyers:
+            buyers = []
+            
+        return render_template("buyer_message.html", buyers=buyers)
+    except Exception as e:
+        print(f"Error in buyer_message: {e}")
+        # Return empty list on error so page still renders
+        return render_template("buyer_message.html", buyers=[], error=str(e))
 
 
 

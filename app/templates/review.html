@@ -3,96 +3,461 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Leave a Review</title>
+    <title>Leave a Review - Driven Dynamics</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Animated background - same as enquire page */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                transform: translate(30px, 50px) scale(1.05);
+            }
+        }
+
+        /* Content Container */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .navbar i {
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .navbar i:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Header Section */
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header-section h1 {
+            color: #667eea;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .header-section h4 {
+            color: #764ba2;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .header-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Star Rating */
+        .rating {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+        }
+
         .rating .star {
-            font-size: 24px;
+            font-size: 40px;
+            cursor: pointer;
+            color: #ddd;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .rating .star:hover,
+        .rating .star.active,
+        .rating .star.selected {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+
+        /* File Input */
+        input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: rgba(102, 126, 234, 0.05);
             cursor: pointer;
         }
-        .rating .star.selected {
-            color: gold;
+
+        input[type="file"]:hover {
+            border-color: #764ba2;
+            background: rgba(102, 126, 234, 0.1);
         }
-        @media (max-width: 867px) {
-            #popup.popup {
-                width: 100%;
-                max-width: 500px;
+
+        /* Textarea */
+        textarea.form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            resize: vertical;
+            min-height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        textarea.form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea#review-text {
+            min-height: 120px;
+        }
+
+        /* Submit Button */
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup.active {
+            display: flex !important;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-content h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .popup-content p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 20px;
+            }
+
+            .header-section h1 {
+                font-size: 28px;
+            }
+
+            .header-section h4 {
+                font-size: 18px;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-container h2 {
+                font-size: 24px;
+            }
+
+            .rating .star {
+                font-size: 32px;
+                margin: 0 3px;
+            }
+
+            .popup-content {
+                padding: 30px 20px;
+            }
+
+            .popup-content h1 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar"> 
-        <i class="bi bi-chevron-left" onclick="goToLandingPage25('back')"></i>  
-    </nav>
-    
-    <h1>Rating & Review</h1>
-    <h4>Driven Dynamics review</h4>
-    <p>What do buyers say about their experience with their Sellers</p>
-    
-    <div>
-        <img src="{{ url_for('static', filename='images/handshake.jpeg') }}" alt="Norway" style="width:100%;">
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-    
-    <div class="container">
-        <h2>Leave a Review</h2>
-        <form id="inquiry-form" action="{{ url_for('review.review') }}" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <div class="rating" id="rating">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Navbar -->
+        <nav class="navbar"> 
+            <i class="bi bi-chevron-left" onclick="goToLandingPage25('back')"></i>  
+        </nav>
+
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1><i class="bi bi-star-fill"></i> Rating & Review</h1>
+            <h4>Driven Dynamics Review</h4>
+            <p>What do buyers say about their experience with their Sellers</p>
+            <img src="{{ url_for('static', filename='images/handshake.jpeg') }}" alt="Handshake" class="header-image">
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <h2><i class="bi bi-pencil-square"></i> Leave a Review</h2>
+            <form id="inquiry-form" action="{{ url_for('review.review') }}" method="POST" enctype="multipart/form-data">
+                <!-- Star Rating -->
+                <div class="form-group">
+                    <label><i class="bi bi-star-fill"></i> Your Rating</label>
+                    <div class="rating" id="rating">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                    </div>
+                    <input type="hidden" id="rating-value" name="rating" value="0">
+                    <input type="hidden" id="rating-review" name="rating" value="0">
                 </div>
-                <input type="hidden" id="rating-value" name="rating" value="0">
-            </div>
-    
-            <div class="form-group">
-                <label for="image">Choose Image:</label>
-                <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
-            </div>
-            <br>
-            
-            <div class="form-group">
-                <textarea class="form-control" id="name" name="name" placeholder="Type your name & surname"></textarea>
-                <input type="hidden" id="rating-name" name="rating" value="0">
-            </div>
-            <br>
-    
-            <div class="form-group">
-                <textarea class="form-control" id="model" name="model" placeholder="Type model of car"></textarea>
-                <input type="hidden" id="rating-model" name="rating" value="0">
-            </div>
 
-            <br>
-    
-            <div class="form-group">
-                <textarea class="form-control" id="make" name="make" placeholder="Type make of car"></textarea>
-                <input type="hidden" id="rating-make" name="rating" value="0">
-            </div>
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label for="image"><i class="bi bi-image-fill"></i> Upload Image:</label>
+                    <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+                </div>
 
-            <br>
-    
-            <div class="form-group">
-                <textarea class="form-control" id="review-text" name="review_text" placeholder="Type your review here..."></textarea>
-                <input type="hidden" id="rating-review" name="rating" value="0">
-            </div>
-    
-            <button type="submit" id="submit-review" class="btn btn-primary">Submit</button>
-            
-        </form>
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name"><i class="bi bi-person-fill"></i> Your Name:</label>
+                    <textarea class="form-control" id="name" name="name" placeholder="Type your name & surname" rows="1"></textarea>
+                </div>
+
+                <!-- Model -->
+                <div class="form-group">
+                    <label for="model"><i class="bi bi-car-front-fill"></i> Car Model:</label>
+                    <textarea class="form-control" id="model" name="model" placeholder="Type model of car" rows="1"></textarea>
+                </div>
+
+                <!-- Make -->
+                <div class="form-group">
+                    <label for="make"><i class="bi bi-tools"></i> Car Make:</label>
+                    <textarea class="form-control" id="make" name="make" placeholder="Type make of car" rows="1"></textarea>
+                </div>
+
+                <!-- Review Text -->
+                <div class="form-group">
+                    <label for="review-text"><i class="bi bi-chat-left-text-fill"></i> Your Review:</label>
+                    <textarea class="form-control" id="review-text" name="review_text" placeholder="Type your review here..." rows="5"></textarea>
+                </div>
+
+                <button type="submit" id="submit-review" class="btn btn-primary">
+                    <i class="bi bi-send-fill"></i>
+                    Submit Review
+                </button>
+            </form>
+        </div>
     </div>
-      
-    <div id="popup" class="popup" style="display: none;">
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
         <div class="popup-content">
+            <div class="success-icon">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
             <h1>Thank you for your feedback!</h1>
             <p>We appreciate your input and will use it to improve our services</p>
             <button class="btn btn-primary" id="close-popup">Close</button>
@@ -100,33 +465,11 @@
     </div>
 
     <script>
-        // Get all the star elements
-const stars = document.querySelectorAll('.star');
-
-// Add click event listener to each star
-stars.forEach((star, index) => {
-  star.addEventListener('click', () => {
-    // Set the rating value
-    document.getElementById('rating-value').value = index + 1;
-
-    // Add the 'active' class to the clicked star and all stars before it
-    for (let i = 0; i <= index; i++) {
-      stars[i].classList.add('active');
-    }
-
-    // Remove the 'active' class from all stars after the clicked star
-    for (let i = index + 1; i < stars.length; i++) {
-      stars[i].classList.remove('active');
-    }
-  });
-});
-    </script>
-    
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const stars = document.querySelectorAll('.star');
             let rating = 0;
           
+            // Star rating functionality
             stars.forEach((star, index) => {
                 star.addEventListener('click', () => {
                     rating = index + 1;
@@ -137,12 +480,37 @@ stars.forEach((star, index) => {
                             s.classList.remove('selected');
                         }
                     });
+                    document.getElementById('rating-value').value = rating;
                     document.getElementById('rating-review').value = rating;
-                    console.log("rating:" , document.getElementById('rating-review').value)
+                    console.log("Rating selected:", rating);
+                });
+
+                // Hover effect
+                star.addEventListener('mouseenter', () => {
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
                 });
             });
-            console.log("rate:" , rating)
+
+            // Reset hover effect
+            document.getElementById('rating').addEventListener('mouseleave', () => {
+                stars.forEach((s, i) => {
+                    s.classList.remove('active');
+                    if (i < rating) {
+                        s.classList.add('selected');
+                    }
+                });
+            });
+
+            // Form submission
             document.getElementById('submit-review').addEventListener('click', async (event) => {
+                event.preventDefault();
+                
                 const reviewText = document.getElementById('review-text').value;
                 const nameText = document.getElementById('name').value;
                 const makeText = document.getElementById('make').value;
@@ -150,42 +518,78 @@ stars.forEach((star, index) => {
                 const imageFile = document.getElementById('image').files[0];
                 rating = document.getElementById('rating-review').value;
               
-                console.log("val rate", rating)
-                if (rating !== 0 && reviewText.trim() !== "" && nameText.trim() !== "" && makeText.trim() !== "" && modelText.trim() !== "" && imageFile) {
-                    event.preventDefault();
-                    const form = document.getElementById('inquiry-form');
-                    const formData = new FormData(form);
-                    console.log(" rate", rating)
-                    try {
-                        const response = await fetch(form.action, {
-                            method: form.method,
-                            body: formData
-                        });
-                        
-                        if (response.ok) {
-                            document.getElementById('popup').style.display = 'block';
-                        } else {
-                            alert('Failed to submit review');
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('An error occurred while submitting the review');
+                console.log("Form submission - Rating:", rating);
+                
+                if (rating == 0) {
+                    alert("Please select a star rating.");
+                    return;
+                }
+                
+                if (!reviewText.trim()) {
+                    alert("Please write a review.");
+                    return;
+                }
+                
+                if (!nameText.trim()) {
+                    alert("Please enter your name.");
+                    return;
+                }
+                
+                if (!makeText.trim()) {
+                    alert("Please enter the car make.");
+                    return;
+                }
+                
+                if (!modelText.trim()) {
+                    alert("Please enter the car model.");
+                    return;
+                }
+                
+                if (!imageFile) {
+                    alert("Please upload an image.");
+                    return;
+                }
+
+                const form = document.getElementById('inquiry-form');
+                const formData = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        document.getElementById('popup').classList.add('active');
+                    } else {
+                        alert('Failed to submit review');
                     }
-                } else {
-                    alert("Please fill out all the required fields.");
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the review');
                 }
             });
           
+            // Close popup
             document.getElementById('close-popup').addEventListener('click', function() {
-                document.getElementById('popup').style.display = 'none';
+                document.getElementById('popup').classList.remove('active');
                 window.location.href = "{{ url_for('review.review_display12') }}";
             });
+
+            // Close popup when clicking outside
+            document.getElementById('popup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
         });
+
+        function goToLandingPage25(action) {
+            if (action === 'back') {
+                window.history.back();
+            }
+        }
     </script>
     <script src="{{ url_for('static', filename='mission.js') }}"></script>
 </body>
 </html>
-
-          
-
-

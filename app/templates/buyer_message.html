@@ -1,42 +1,357 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet"href="{{ url_for('static', filename='retrieve_seller.css') }}"> 
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review Inquiry - Driven Dynamics</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
 
-        <nav class="navbar"> 
-            <i class="bi bi-chevron-left" onclick="goToLandingPage50('back')"></i>
-              
-       </nav>
+        /* Animated background - same as enquire page */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-       
-<h2><u>Review Inquiry</u></h2>
-{% for buyer in buyers %}
-<div class="notification-container">
-    <div class="notification">
-        <div class="notification-header">
-            <h3>New Message</h3>
-            <button class="close-btn">X</button>
-        </div>
-        <div class="notification-body">
-            <p><u>You have received a new inquiry from a seller.</u></p>
-            <div class="buyer-info">
-            <p><strong>Name:</strong> {{buyer.name}}</p>
-            <p><strong>Message:</strong> {{buyer.message}}</p>
-            </div>
-        </div>
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                transform: translate(30px, 50px) scale(1.05);
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            position: relative;
+            z-index: 100;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .navbar i {
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .navbar i:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Page Title */
+        h2 {
+            position: relative;
+            z-index: 10;
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Container for all notifications */
+        .messages-container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Individual notification card */
+        .notification-container {
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .notification {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .notification:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .notification-header h3 {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-header h3::before {
+            content: "\F32A";
+            font-family: "bootstrap-icons";
+            font-size: 28px;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .notification-body {
+            color: #333;
+        }
+
+        .notification-body > p:first-child {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .buyer-info {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .buyer-info p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .buyer-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .buyer-info strong {
+            color: #667eea;
+            font-weight: 700;
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-state i {
+            font-size: 80px;
+            color: white;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .empty-state p {
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .notification {
+                padding: 20px;
+            }
+
+            .notification-header h3 {
+                font-size: 20px;
+            }
+
+            .buyer-info {
+                padding: 15px;
+            }
+
+            .buyer-info strong {
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Stagger animation for multiple cards */
+        .notification-container:nth-child(1) { animation-delay: 0.1s; }
+        .notification-container:nth-child(2) { animation-delay: 0.2s; }
+        .notification-container:nth-child(3) { animation-delay: 0.3s; }
+        .notification-container:nth-child(4) { animation-delay: 0.4s; }
+        .notification-container:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-</div>
-{% endfor %}
-        
-<script src="{{ url_for('static', filename='mission.js') }}"></script>
-    </body>
+
+    <!-- Navbar -->
+    <nav class="navbar"> 
+        <i class="bi bi-chevron-left" onclick="goToLandingPage50('back')"></i>
+    </nav>
+
+    <!-- Page Title -->
+    <h2><i class="bi bi-envelope-open-fill"></i> Review Inquiry</h2>
+
+    <!-- Messages Container -->
+    <div class="messages-container">
+        {% if buyers and buyers|length > 0 %}
+            {% for buyer in buyers %}
+            <div class="notification-container">
+                <div class="notification">
+                    <div class="notification-header">
+                        <h3>New Message</h3>
+                        <button class="close-btn" onclick="this.closest('.notification-container').style.display='none'">X</button>
+                    </div>
+                    <div class="notification-body">
+                        <p><i class="bi bi-info-circle-fill"></i> You have received a new inquiry from a seller.</p>
+                        <div class="buyer-info">
+                            <p><strong><i class="bi bi-person-fill"></i> Name:</strong> {{buyer.name}}</p>
+                            <p><strong><i class="bi bi-chat-left-text-fill"></i> Message:</strong> {{buyer.message}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <p>No messages yet. Check back later!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function goToLandingPage50(action) {
+            if (action === 'back') {
+                window.history.back();
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='mission.js') }}"></script>
+</body>
 </html>
