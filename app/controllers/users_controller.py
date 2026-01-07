@@ -2,6 +2,7 @@ from flask import jsonify, request, flash, redirect, url_for, render_template, s
 import re
 from ..models.users import Users
 from authlib.integrations.flask_client import OAuth
+from werkzeug.security import check_password_hash
 from .. import oauth
 
 
@@ -92,44 +93,12 @@ def index():
 def about():
     return render_template('about.html')
 
-def signup():
-    if request.method == 'POST':
-        # Your HTML uses Name, Contact, Email, Password, confirm_password
-        data = {
-            'Name': request.form.get('Name'),
-            'Contact': request.form.get('Contact'),
-            'Email': request.form.get('Email'),
-            'Password': request.form.get('Password')
-        }
-        confirm_password = request.form.get('confirm_password')
 
-        if data['Password'] != confirm_password:
-            flash('Passwords do not match.', 'error')
-            return redirect(url_for('login.signup')) # Assuming blueprint name is 'login'
 
-        if not Users.register_user(data):
-            flash('Email already exists.', 'error')
-            return redirect(url_for('login.signup'))
 
-        flash('Registration successful!', 'success')
-        return redirect(url_for('login.login'))
 
-    return render_template('signup.html')
 
-def login():
-    if request.method == 'POST':
-        email = request.form.get('Email')
-        password = request.form.get('Password')
-
-        user = Users.get_user_by_email(email, password)
-        if user:
-            session['user_id'] = str(user['_id'])
-            session['role'] = 'seller'
-            return redirect(url_for('login.landing'))
-
-        flash('Invalid email or password.', 'error')
-    return render_template('login.html')
-
+# BUYER SIGNUP
 def signup_buyer():
     if request.method == 'POST':
         data = {
@@ -141,31 +110,91 @@ def signup_buyer():
         confirm_password = request.form.get('confirm_password')
 
         if data['Password'] != confirm_password:
-            flash('Passwords do not match!', 'error')
-            return redirect(url_for('login.signup_buyer'))
+            flash('Passwords do not match.', 'error')
+            return redirect(url_for('users.signup_buyer'))  # FIXED
 
         if not Users.register_buyer(data):
-            flash('Account already exists.', 'error')
-            return redirect(url_for('login.signup_buyer'))
+            flash('Email already exists.', 'error')
+            return redirect(url_for('users.signup_buyer'))  # FIXED
 
-        flash('Buyer account created!', 'success')
-        return redirect(url_for('login.login_buyer'))
+        flash('Registration successful! Please login.', 'success')
+        return redirect(url_for('users.login_buyer'))  # FIXED
 
     return render_template('signup_buyer.html')
 
+
+# BUYER LOGIN
 def login_buyer():
     if request.method == 'POST':
         email = request.form.get('Email')
         password = request.form.get('Password')
-        
+
         buyer = Users.get_user_buyer(email, password)
+        
         if buyer:
             session['user_id'] = str(buyer['_id'])
-            session['role'] = 'buyer'
-            return redirect(url_for('catelog_buyer.catelog_buyer'))
-
-        flash('Invalid credentials.', 'error')
+            session['user_email'] = buyer['Email']
+            session['user_name'] = buyer['Name']
+            session['user_role'] = 'buyer'
+            flash('Login successful! Welcome back!', 'success')
+            return redirect(url_for('users.catelog'))  # Change to your buyer dashboard route
+        else:
+            flash('Invalid email or password.', 'error')
+            return redirect(url_for('users.login_buyer'))  # FIXED
+    
     return render_template('login_buyer.html')
+
+
+# SELLER SIGNUP
+def signup():
+    if request.method == 'POST':
+        data = {
+            'Name': request.form.get('Name'),
+            'Contact': request.form.get('Contact'),
+            'Email': request.form.get('Email'),
+            'Password': request.form.get('Password')
+        }
+        confirm_password = request.form.get('confirm_password')
+
+        if data['Password'] != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return redirect(url_for('users.signup'))  # FIXED
+
+        if not Users.register_user(data):
+            flash('Email already exists.', 'error')
+            return redirect(url_for('users.signup'))  # FIXED
+
+        flash('Registration successful! Please login.', 'success')
+        return redirect(url_for('users.login'))  # FIXED
+
+    return render_template('signup.html')
+
+
+# SELLER LOGIN
+def login():
+    if request.method == 'POST':
+        email = request.form.get('Email')
+        password = request.form.get('Password')
+
+        user = Users.get_user_by_email(email, password)
+        
+        if user:
+            session['user_id'] = str(user['_id'])
+            session['user_email'] = user['Email']
+            session['user_name'] = user['Name']
+            session['user_role'] = 'seller'
+            flash('Login successful! Welcome back!', 'success')
+            return redirect(url_for('users.index'))  # Change to your seller dashboard route
+        else:
+            flash('Invalid email or password.', 'error')
+            return redirect(url_for('users.login'))  # FIXED
+    
+    return render_template('login.html')
+
+
+
+
+
 
 def landing():
     car_sell = list(Users.landing())
