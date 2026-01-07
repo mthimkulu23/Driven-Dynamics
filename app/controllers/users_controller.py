@@ -182,7 +182,7 @@ def login():
             session['user_name'] = user['Name']
             session['user_role'] = 'seller'
             flash('Login successful! Welcome back!', 'success')
-            return redirect(url_for('users.index'))  # Change to your seller dashboard route
+            return redirect(url_for('catelog_buyer.catelog'))  # Change to your seller dashboard route
         else:
             flash('Invalid email or password.', 'error')
             return redirect(url_for('users.login'))  # FIXED
