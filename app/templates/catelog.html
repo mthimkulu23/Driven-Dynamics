@@ -26,7 +26,6 @@
             position: relative;
         }
 
-        /* Same animated background as signup */
         .background-animation {
             position: fixed;
             top: 0;
@@ -46,46 +45,17 @@
             animation: float 20s infinite ease-in-out;
         }
 
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 5s;
-        }
-
-        .shape-3 {
-            width: 250px;
-            height: 250px;
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
+        .shape-1 { width: 300px; height: 300px; top: -100px; left: -100px; animation-delay: 0s; }
+        .shape-2 { width: 400px; height: 400px; bottom: -150px; right: -150px; animation-delay: 5s; }
+        .shape-3 { width: 250px; height: 250px; top: 50%; left: 50%; animation-delay: 10s; }
 
         @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(50px, -50px) scale(1.1);
-            }
-            50% {
-                transform: translate(-30px, 30px) scale(0.9);
-            }
-            75% {
-                transform: translate(30px, 50px) scale(1.05);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.9); }
+            75% { transform: translate(30px, 50px) scale(1.05); }
         }
 
-        /* Header */
         .header {
             position: relative;
             z-index: 10;
@@ -107,16 +77,7 @@
             font-weight: 700;
         }
 
-        .logo i {
-            font-size: 36px;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
+        .nav-menu { display: flex; gap: 30px; align-items: center; }
         .nav-link {
             color: white;
             text-decoration: none;
@@ -127,26 +88,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
         }
 
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
+        .nav-link:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
 
-        .menu-toggle {
-            display: none;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 24px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        /* Page Title */
         .page-title {
             position: relative;
             z-index: 10;
@@ -155,24 +100,8 @@
             color: white;
         }
 
-        .page-title h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
-        }
+        .highlight { color: #ffd700; font-weight: 700; }
 
-        .page-title p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
-        .highlight {
-            color: #ffd700;
-            font-weight: 700;
-        }
-
-        /* Product Grid */
         .container-custom {
             position: relative;
             z-index: 10;
@@ -185,10 +114,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
-            margin-top: 30px;
         }
 
-        /* Product Card */
         .product-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -196,12 +123,6 @@
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .product-image {
@@ -211,366 +132,105 @@
             border-bottom: 3px solid #667eea;
         }
 
-        .product-details {
-            padding: 25px;
-        }
-
-        .product-make {
-            font-size: 24px;
-            font-weight: 700;
-            color: #667eea;
+        .product-details { padding: 25px; }
+        .product-make { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+        
+        .seller-badge {
+            font-size: 12px;
+            color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+            padding: 4px 8px;
+            border-radius: 5px;
             margin-bottom: 15px;
+            display: inline-block;
         }
 
-        .product-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .info-item i {
-            color: #667eea;
-            font-size: 16px;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            max-height: 60px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-price {
-            font-size: 28px;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
+        .product-price { font-size: 26px; font-weight: 700; color: #333; margin: 15px 0; }
 
         .btn-action {
             flex: 1;
             padding: 12px;
-            border: none;
             border-radius: 10px;
             font-weight: 600;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
-        .btn-update {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
+        .btn-update { background: #667eea; color: white; }
+        .btn-delete { background: #f5576c; color: white; }
 
-        .btn-update:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-delete {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-
-        .btn-delete:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
-        }
-
-        /* Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
         }
-
         .modal-content {
             background: white;
             margin: 15% auto;
-            padding: 40px;
-            border-radius: 20px;
+            padding: 30px;
             width: 90%;
-            max-width: 500px;
+            max-width: 400px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-content h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-        .modal-content p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .modal-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-
-        .btn-yes {
-            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-            color: white;
-        }
-
-        .btn-yes:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-no {
-            background: #e0e0e0;
-            color: #333;
-        }
-
-        .btn-no:hover {
-            background: #d0d0d0;
-            transform: translateY(-2px);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100%;
-            background: rgba(102, 126, 234, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1001;
-            padding: 80px 30px;
-            transition: right 0.3s ease;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu .nav-link {
-            display: block;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 28px;
-            padding: 5px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        /* Overlay for mobile menu */
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .menu-overlay.active {
-            display: block;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .header {
-                padding: 20px;
-            }
-
-            .container-custom {
-                padding: 20px;
-            }
-
-            .page-title h1 {
-                font-size: 32px;
-            }
-
-            .navbar-brand {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #fff 0%, #0080d6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
     <div class="background-animation">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
     </div>
 
-    <!-- Menu Overlay -->
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
-
-    <!-- Header -->
     <header class="header">
         <div class="logo">
             <i class="bi bi-car-front-fill"></i>
             <span>Driven Dynamics</span>
         </div>
-
-        
-        
         <nav class="nav-menu">
-            <a href="#" class="nav-link" onclick="goToLandingPage17('landing')">
-                <i class="bi bi-house-fill"></i> Home
-            </a>
-            <a href="#" class="nav-link" onclick="goToLandingPage24('Add item')">
-                <i class="bi bi-plus-circle-fill"></i> Add Item
-            </a>
-            <a href="#" class="nav-link" onclick="goToLandingPage28('Motoring News')">
-                <i class="bi bi-newspaper"></i> Motoring News
-            </a>
-            <a href="#" class="nav-link" onclick="goToLandingPage1('')">
-                <i class="bi bi-box-arrow-right"></i> Logout
-            </a>
+            <a href="#" class="nav-link" onclick="goToLandingPage17('landing')"><i class="bi bi-house-fill"></i> Home</a>
+            <a href="#" class="nav-link" onclick="goToLandingPage24('Add item')"><i class="bi bi-plus-circle-fill"></i> Add Item</a>
+            <a href="#" class="nav-link" onclick="goToLandingPage1('')"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
-
-        <button class="menu-toggle" onclick="toggleMobileMenu()">
-            <i class="bi bi-list"></i>
-        </button>
     </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-menu" onclick="toggleMobileMenu()">
-            <i class="bi bi-x"></i>
-        </button>
-        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage17', 'landing')">
-            <i class="bi bi-house-fill"></i> Home
-        </a>
-        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage24', 'Add item')">
-            <i class="bi bi-plus-circle-fill"></i> Add Item
-        </a>
-        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage28', 'Motoring News')">
-            <i class="bi bi-newspaper"></i> Motoring News
-        </a>
-        <a href="#" class="nav-link" onclick="closeMenuAndNavigate('goToLandingPage1', '')">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
-    </div>
-
-    <!-- Page Title -->
     <div class="page-title">
-        <h1><span class="highlight">Item</span> Successfully Added!</h1>
-        <p>Your inventory is now visible to all <span class="highlight">Sellers</span></p>
+        <h1>Your <span class="highlight">Inventory</span></h1>
+        <p>Manage the vehicles you have listed on <span class="highlight">Driven Dynamics</span></p>
     </div>
 
-    <!-- Product Grid -->
     <div class="container-custom">
         <div class="product-grid">
             {% for product in products %}
             <div class="product-card">
-                <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.make }}" class="product-image">
+                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.make }}" class="product-image">
+                
                 <div class="product-details">
-                    <h3 class="product-make">{{ product.make }}</h3>
-                    <div class="product-info">
-                        <div class="info-item">
-                            <i class="bi bi-car-front"></i>
-                            <span><span class="info-label">Model:</span> {{ product.model }}</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="bi bi-speedometer"></i>
-                            <span><span class="info-label">Mileage:</span> {{ product.mileage }}</span>
-                        </div>
+                    <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>
+                    
+                    <div class="seller-badge">
+                        <i class="bi bi-person-circle"></i> Seller: {{ product.SellerEmail }}
                     </div>
+
+                    <div class="product-info">
+                        <p><i class="bi bi-speedometer"></i> {{ product.mileage }}</p>
+                    </div>
+                    
                     <p class="product-description">{{ product.description }}</p>
-                    <div class="product-price">{{ product.price }}</div>
-                    <div class="action-buttons">
-                        <form action="/edit_product" method="post" style="flex: 1; margin: 0;">
+                    <div class="product-price">R {{ product.price }}</div>
+
+                    <div class="action-buttons" style="display: flex; gap: 10px;">
+                        <form action="/edit_product" method="post" style="flex: 1;">
                             <input type="hidden" name="id" value="{{product._id}}">
-                            <button type="submit" class="btn-action btn-update" onclick="goToLandingPage20('Update')">
-                                <i class="bi bi-pencil-square"></i> Update
+                            <button type="submit" class="btn-action btn-update">
+                                <i class="bi bi-pencil-square"></i> Edit
                             </button>
                         </form>
                         <button class="btn-action btn-delete" onclick="showDeleteModal('{{product._id}}')">
@@ -583,92 +243,31 @@
         </div>
     </div>
 
-    <!-- Delete Modal -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">
-            <h2>Confirm Delete</h2>
-            <p>Are you sure you want to delete this product?</p>
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to remove this listing?</p>
             <form id="deleteForm" action="/delete_product" method="post">
                 <input type="hidden" id="delete_id" name="delete_id">
-                <div class="modal-buttons">
-                    <button type="submit" class="modal-btn btn-yes">Yes, Delete</button>
-                    <button type="button" class="modal-btn btn-no" onclick="closeDeleteModal()">Cancel</button>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-action btn-delete">Delete</button>
+                    <button type="button" class="btn-action" style="background: #ccc;" onclick="closeDeleteModal()">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('menuOverlay');
-            menu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-
-        function closeMenuAndNavigate(functionName, param) {
-            toggleMobileMenu();
-            
-            // Call the navigation function after menu closes
-            setTimeout(() => {
-                if (functionName === 'goToLandingPage17') {
-                    goToLandingPage17(param);
-                } else if (functionName === 'goToLandingPage24') {
-                    goToLandingPage24(param);
-                } else if (functionName === 'goToLandingPage28') {
-                    goToLandingPage28(param);
-                } else if (functionName === 'goToLandingPage1') {
-                    goToLandingPage1(param);
-                }
-            }, 300);
-        }
-
         function showDeleteModal(productId) {
             document.getElementById('delete_id').value = productId;
             document.getElementById('deleteModal').style.display = 'block';
         }
-
         function closeDeleteModal() {
             document.getElementById('deleteModal').style.display = 'none';
         }
-
-        // Close modal when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('deleteModal');
-            if (event.target == modal) {
-                closeDeleteModal();
-            }
-        }
-
-        // Placeholder navigation functions
-        function goToLandingPage17(page) {
-            console.log('Navigate to:', page);
-        }
-
-        function goToLandingPage24(page) {
-            console.log('Navigate to:', page);
-        }
-
-        function goToLandingPage28(page) {
-            console.log('Navigate to:', page);
-        }
-
-        function goToLandingPage1(page) {
-            console.log('Logout');
-        }
-        
-        function goToLandingPage20(page) {
-            console.log('Update:', page);
+            if (event.target == document.getElementById('deleteModal')) closeDeleteModal();
         }
     </script>
-    
-    <script src="{{ url_for('static', filename='mission.js') }}"></script>
 </body>
 </html>
