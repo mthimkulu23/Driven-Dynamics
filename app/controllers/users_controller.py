@@ -1,5 +1,7 @@
 from flask import jsonify, request, flash, redirect, url_for, render_template, session
 import re
+
+from app.models.enquire import car_enquiry
 from ..models.users import Users
 from authlib.integrations.flask_client import OAuth
 from werkzeug.security import check_password_hash
@@ -195,12 +197,21 @@ def login():
 
 
 def landing():
-    car_sell = list(Users.landing())
-    return render_template('car_sell.html', car_sell=car_sell, count=len(car_sell))
-    
+    # 1. Security Check: is the user logged in?
+    if 'user_email' not in session:
+        return redirect(url_for('users.login'))
 
+    # 2. Get the current user's email from the session
+    current_email = session['user_email']
+
+    # 3. Use the updated model methods with the email filter
+    # car_sell now only contains messages for THIS user
+    car_sell = list(car_enquiry.fetch_seller(current_email))
     
-   
+    # count now only reflects messages for THIS user
+    msg_count = car_enquiry.count_messages_for_user(current_email)
+
+    return render_template('car_sell.html', car_sell=car_sell, count=msg_count)
 
 
 

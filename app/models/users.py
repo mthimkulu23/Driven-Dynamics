@@ -1,3 +1,4 @@
+import email
 from bson import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from .. import mongo
@@ -43,3 +44,25 @@ class Users:
     @staticmethod
     def landing():
         return mongo.db.enquiry1.find()
+    
+
+    @staticmethod
+    def get_messages_by_email(email):
+    # This assumes your 'messages' or 'cars' collection has a field called 'RecipientEmail' or 'Email'
+    # Replace 'messages' with your actual collection name
+     return mongo.db.messages.find({"recipient_email": email})
+    
+
+
+
+
+    staticmethod
+    def landing(user_email):
+        # We only find enquiries where the 'SellerEmail' matches the logged-in user
+        return mongo.db.enquiry1.find({"SellerEmail": user_email})
+
+    @staticmethod
+    def save_enquiry(data):
+        # This saves the message/enquiry from the buyer
+        # 'data' must include 'SellerEmail' so we know who to show it to later
+        return mongo.db.enquiry1.insert_one(data)
