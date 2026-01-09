@@ -124,23 +124,38 @@ def signup_buyer():
 
 
 # BUYER LOGIN
+# app/controllers/users_controller.py
+
+# BUYER LOGIN
 def login_buyer():
     if request.method == 'POST':
         email = request.form.get('Email')
         password = request.form.get('Password')
 
+        # Debug logging to trace form submission
+        print(f"[DEBUG] /login_buyer POST received. Email={email}")
+
+        # 1. Fetch the buyer from the database using your model logic
         buyer = Users.get_user_buyer(email, password)
         
         if buyer:
+            # 2. Set Session (Identical logic to Seller login)
             session['user_id'] = str(buyer['_id'])
             session['user_email'] = buyer['Email']
             session['user_name'] = buyer['Name']
             session['user_role'] = 'buyer'
+            
             flash('Login successful! Welcome back!', 'success')
-            return redirect(url_for('users.catelog_buyer'))  # Change to your buyer dashboard route
+            
+            # 3. Redirect to the Buyer Catalog
+            # Note: The catalog routes live in the 'catelog_buyer' blueprint.
+            return redirect(url_for('catelog_buyer.catelog_buyer'))
+            
         else:
+            # 4. If login fails, stay on the login page (don't go to catalog)
+            print(f"[DEBUG] Buyer login failed for Email={email}")
             flash('Invalid email or password.', 'error')
-            return redirect(url_for('users.login_buyer'))  # FIXED
+            return redirect(url_for('users.login_buyer'))
     
     return render_template('login_buyer.html')
 
@@ -176,6 +191,8 @@ def login():
         email = request.form.get('Email')
         password = request.form.get('Password')
 
+        print(f"[DEBUG] /login POST received. Email={email}")
+
         user = Users.get_user_by_email(email, password)
         
         if user:
@@ -186,6 +203,7 @@ def login():
             flash('Login successful! Welcome back!', 'success')
             return redirect(url_for('users.landing'))  # Change to your seller dashboard route
         else:
+            print(f"[DEBUG] Seller login failed for Email={email}")
             flash('Invalid email or password.', 'error')
             return redirect(url_for('users.login'))  # FIXED
     

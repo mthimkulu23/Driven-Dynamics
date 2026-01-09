@@ -47,7 +47,7 @@
             </div>
 
             <!-- Login Form -->
-            <form action="/login" method="POST" class="login-form" onsubmit="validateLoginForm()">
+            <form action="{{ url_for('users.login_buyer') }}" method="POST" class="login-form" onsubmit="return validateLoginForm()">
                 <div class="form-group">
                     <label for="Email">Email Address</label>
                     <div class="input-wrapper">
@@ -139,19 +139,21 @@
             return true;
         }
 
-        // Social login handlers (placeholder functions)
-        document.querySelector('.google-btn').addEventListener('click', function() {
+        // Social login handlers (placeholder functions) - guard in case buttons are not present
+        const googleBtn = document.querySelector('.google-btn');
+        if (googleBtn) googleBtn.addEventListener('click', function() {
             console.log('Google login clicked');
-            // Implement Google OAuth here
             alert('Google authentication would be implemented here');
         });
 
-        document.querySelector('.apple-btn').addEventListener('click', function() {
+        const appleBtn = document.querySelector('.apple-btn');
+        if (appleBtn) appleBtn.addEventListener('click', function() {
             console.log('Apple login clicked');
             alert('Apple authentication would be implemented here');
         });
 
-        document.querySelector('.facebook-btn').addEventListener('click', function() {
+        const facebookBtn = document.querySelector('.facebook-btn');
+        if (facebookBtn) facebookBtn.addEventListener('click', function() {
             console.log('Facebook login clicked');
             alert('Facebook authentication would be implemented here');
         });

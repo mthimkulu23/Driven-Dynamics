@@ -22,9 +22,19 @@ def enquire():
 
 
 def retrieve_seller():
-    # Retrieve data from MongoDB
-    inquiries = car_enquiry.fetch_seller()
-    # Convert the inquiries cursor to a list
+    # 1. Get the logged-in seller's email from the session
+    # Make sure 'user_email' is the key you used in your login function!
+    email = session.get('user_email')
+
+    # 2. Safety check: If they aren't logged in, redirect them
+    if not email:
+        flash("Please log in to view your inquiries.", "error")
+        return redirect(url_for('users.login'))
+
+    # 3. Pass the email into the function (Fixes the TypeError)
+    inquiries = car_enquiry.fetch_seller(email)
+    
+    # 4. Convert the MongoDB cursor to a list for the template
     inquiries_list = list(inquiries)
 
     return render_template('retrieve_seller.html', inquiries=inquiries_list)

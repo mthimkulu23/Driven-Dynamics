@@ -56,7 +56,7 @@ class Users:
 
 
 
-    staticmethod
+    @staticmethod
     def landing(user_email):
         # We only find enquiries where the 'SellerEmail' matches the logged-in user
         return mongo.db.enquiry1.find({"SellerEmail": user_email})
