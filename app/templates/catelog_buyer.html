@@ -493,6 +493,7 @@
                     </div>
                     <form action="/viewproduct" method="post" style="margin: 0;">
                         <input type="hidden" name="id" value="{{product._id}}">
+                        <input type="hidden" name="seller_email" value="{{ product.SellerEmail }}">
                         <input type="hidden" name="image" value="{{ product.image }}">
                         <input type="hidden" name="model" value="{{product.model}}">
                         <input type="hidden" name="make" value="{{product.make}}">

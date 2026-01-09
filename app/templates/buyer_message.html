@@ -330,8 +330,14 @@
                     <div class="notification-body">
                         <p><i class="bi bi-info-circle-fill"></i> You have received a new inquiry from a seller.</p>
                         <div class="buyer-info">
-                            <p><strong><i class="bi bi-person-fill"></i> Name:</strong> {{buyer.name}}</p>
-                            <p><strong><i class="bi bi-chat-left-text-fill"></i> Message:</strong> {{buyer.message}}</p>
+                            {%- if buyer.messages %}
+                                {%- set last = buyer.messages|last %}
+                                <p><strong><i class="bi bi-person-fill"></i> Name:</strong> {{ last.name }}</p>
+                                <p><strong><i class="bi bi-chat-left-text-fill"></i> Message:</strong> {{ last.message }}</p>
+                            {%- else %}
+                                <p><strong><i class="bi bi-person-fill"></i> Name:</strong> {{ buyer.name }}</p>
+                                <p><strong><i class="bi bi-chat-left-text-fill"></i> Message:</strong> {{ buyer.message }}</p>
+                            {%- endif %}
                         </div>
                     </div>
                 </div>

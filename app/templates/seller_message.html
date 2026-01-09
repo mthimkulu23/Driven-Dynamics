@@ -1,36 +1,412 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seller Message - Driven Dynamics</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet"href="{{ url_for('static', filename='sell_message.css') }}"> 
-    </head>
-    <body>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
 
+        /* Animated background - same as catalog */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-      <div class="container">
-        <h1>Seller-Buyer Communication</h1>
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                transform: translate(30px, 50px) scale(1.05);
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        /* Page Title */
+        h1 {
+            color: white;
+            font-size: 42px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-container h2::before {
+            content: "\F32A";
+            font-family: "bootstrap-icons";
+            font-size: 32px;
+        }
+
+        /* Form Elements */
+        label {
+            display: block;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            resize: vertical;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea#name {
+            min-height: 60px;
+        }
+
+        textarea#message {
+            min-height: 150px;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        button[type="submit"]::before {
+            content: "\F6D8";
+            font-family: "bootstrap-icons";
+            font-size: 20px;
+        }
+
+        /* Success Message (if needed) */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            animation: slideDown 0.3s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-box i {
+            color: #667eea;
+            margin-right: 8px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+
+            .form-container h2 {
+                font-size: 24px;
+            }
+
+            .back-button {
+                top: -50px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            textarea#name {
+                min-height: 50px;
+            }
+
+            textarea#message {
+                min-height: 120px;
+            }
+        }
+
+        /* Loading State */
+        button[type="submit"].loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        button[type="submit"].loading::after {
+            content: "";
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="window.history.back()">
+            <i class="bi bi-chevron-left"></i>
+            Back
+        </button>
+
+        <!-- Page Title -->
+        <h1><i class="bi bi-chat-dots-fill"></i> Seller-Buyer Communication</h1>
+
+        <!-- Form Container -->
         <div class="form-container">
-          <h2><u>Send a Message</u></h2>
-      
-          <form action="{{ url_for('enquire.seller_message') }}" method="POST" id="message-form">
-            <label for="message">Name:</label>
-            <textarea id="name" name="name" required></textarea>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Send</button>
-          </form>
+            <h2>Send a Message</h2>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <i class="bi bi-check-circle-fill"></i>
+                Message sent successfully!
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <i class="bi bi-info-circle-fill"></i>
+                <strong>Communication Guidelines:</strong> Please be respectful and professional when communicating with buyers. Include all relevant details about the vehicle in your message.
+            </div>
+
+            <!-- Form -->
+            <form action="{{ url_for('enquire.seller_message') }}" method="POST" id="message-form">
+                <label for="name">
+                    <i class="bi bi-person-fill"></i> Your Name:
+                </label>
+                <textarea id="name" name="name" placeholder="Enter your full name..." required></textarea>
+
+                <label for="message">
+                    <i class="bi bi-chat-left-text-fill"></i> Message:
+                </label>
+                <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+
+                <button type="submit" id="submitBtn">
+                    Send Message
+                </button>
+            </form>
         </div>
-      </div>
+    </div>
 
+    <script>
+        // Form submission with loading state
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const nameField = document.getElementById('name');
+            const messageField = document.getElementById('message');
 
-     
-        
-        <script src="" async defer></script>
-    </body>
+            // Validate fields
+            if (!nameField.value.trim()) {
+                e.preventDefault();
+                alert('Please enter your name');
+                nameField.focus();
+                return;
+            }
+
+            if (!messageField.value.trim()) {
+                e.preventDefault();
+                alert('Please enter a message');
+                messageField.focus();
+                return;
+            }
+
+            // Add loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Sending';
+        });
+
+        // Show success message if redirected back with success parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            document.getElementById('successMessage').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
 </html>

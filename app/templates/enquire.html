@@ -336,6 +336,9 @@
             <h1><i class="bi bi-envelope-fill"></i> ENQUIRE NOW</h1>
             
             <form action="/enquire" id="inquiry-form" method="post">
+                <!-- seller_email and product_id are passed in when navigating from a product -->
+                <input type="hidden" name="seller_email" id="seller_email" value="{{ seller_email | default('') }}">
+                <input type="hidden" name="product_id" id="product_id" value="{{ product_id | default('') }}">
                 <div class="form-group">
                     <label for="name"><i class="bi bi-person-fill"></i> Name:</label>
                     <input type="text" id="name" name="name" placeholder="Your full name..." required>

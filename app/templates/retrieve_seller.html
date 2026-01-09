@@ -387,7 +387,9 @@
             <!-- Inquiries Container -->
             <div id="inquiries-container">
                 {% for inquiry in inquiries %}
-                <div class="inquiry-card" data-id="{{ inquiry.id }}">
+                {# support both legacy flat enquiries and new conversation documents #}
+                {% set conv_id = inquiry.get('ConversationID', inquiry.get('_id')) %}
+                <div class="inquiry-card" data-id="{{ conv_id }}">
                     <div class="card-header">
                         <h3>
                             <i class="bi bi-envelope-fill"></i>
@@ -398,12 +400,25 @@
                     
                     <div class="card-body">
                         <p>You have received a new inquiry from a buyer.</p>
-                        
+
+                        {%- if inquiry.messages %}
+                            {%- set last = inquiry.messages|last %}
+                        {%- else %}
+                            {%- set last = None %}
+                        {%- endif %}
+
                         <div class="inquiry-info">
-                            <p><strong>Name:</strong> {{ inquiry.name }}</p>
-                            <p><strong>Email:</strong> {{ inquiry.email }}</p>
-                            <p><strong>Contact:</strong> {{ inquiry.contact }}</p>
-                            <p><strong>Message:</strong> {{ inquiry.message }}</p>
+                            {% if last %}
+                                <p><strong>Name:</strong> {{ last.name }}</p>
+                                <p><strong>Email:</strong> {{ last.from }}</p>
+                                <p><strong>Contact:</strong> {{ last.contact }}</p>
+                                <p><strong>Message:</strong> {{ last.message }}</p>
+                            {% else %}
+                                <p><strong>Name:</strong> {{ inquiry.name }}</p>
+                                <p><strong>Email:</strong> {{ inquiry.email }}</p>
+                                <p><strong>Contact:</strong> {{ inquiry.contact }}</p>
+                                <p><strong>Message:</strong> {{ inquiry.message }}</p>
+                            {% endif %}
                         </div>
 
                         <div class="action-buttons">
@@ -411,7 +426,7 @@
                                 <i class="bi bi-x-circle"></i>
                                 Dismiss
                             </button>
-                            <button class="btn" onclick="replyToInquiry('{{ inquiry.email }}', '{{ inquiry.name }}')">
+                            <button class="btn" onclick="replyToInquiry('{{ last.from if last else inquiry.email }}', '{{ last.name if last else inquiry.name }}')">
                                 <i class="bi bi-reply-fill"></i>
                                 Reply
                             </button>

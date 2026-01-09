@@ -17,6 +17,7 @@ def viewproduct():
         description = request.form['description']
         price = request.form['price']
         image = request.form.get('image')
+        seller_email = request.form.get('seller_email')
 
         image_url = None
         if image:
@@ -28,7 +29,8 @@ def viewproduct():
                 print(f"[WARN] viewproduct: image file not found: {file_path}")
                 image_url = url_for('static', filename='images/img-1-600x400.png')
 
-        return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image_url)
+    # pass seller_email so the view page can link the enquiry back to the correct seller
+    return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image_url, seller_email=seller_email)
     
     
 @login_required
@@ -131,12 +133,20 @@ def catelog_buyer():
 
 def buyer_message():
     try:
-        buyers = User_catelog.receive_message()
-        
-        # Handle empty results
+        # If the user is logged in, return conversation threads involving them
+        from ..models.enquire import car_enquiry
+        from flask import session
+
+        user_email = session.get('user_email')
+        if user_email:
+            buyers = list(car_enquiry.fetch_by_user(user_email))
+        else:
+            # fallback to existing behavior (all messages)
+            buyers = User_catelog.receive_message()
+
         if not buyers:
             buyers = []
-            
+
         return render_template("buyer_message.html", buyers=buyers)
     except Exception as e:
         print(f"Error in buyer_message: {e}")
