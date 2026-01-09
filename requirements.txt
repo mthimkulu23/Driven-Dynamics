@@ -5,6 +5,7 @@ Authlib
 requests
 flask-socketio
 python-socketio
+eventlet
 
 
 
