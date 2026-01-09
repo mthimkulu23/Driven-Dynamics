@@ -1,8 +1,20 @@
 Flask
 pymongo
 Flask-Pymongo
-Authlib 
+Authlib
 requests
+flask-socketio
+python-socketio
+
+
+
+
+
+
+
+
+
+
 
 
 

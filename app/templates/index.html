@@ -78,6 +78,97 @@
             width: 80%;
         }
 
+
+        /* Chatbot UI */
+#chat-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+#chat-bubble {
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+#chat-bubble:hover { transform: scale(1.1); }
+
+#chat-window {
+    width: 350px;
+    height: 450px;
+    background: white;
+    border-radius: 15px;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+}
+
+.chat-header {
+    background: var(--primary);
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+#chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.msg {
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+    font-size: 0.9rem;
+}
+
+.bot-msg { background: #f0f0f0; align-self: flex-start; }
+.user-msg { background: var(--accent); color: white; align-self: flex-end; }
+
+.chat-input-area {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+#user-input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    flex: 1;
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
         /* Hero Section */
         #hero {
             position: relative;
@@ -437,6 +528,102 @@
             </div>
         </div>
     </section>
+
+
+
+
+    <div id="chat-wrapper">
+    <div id="chat-window">
+        <div class="chat-header">
+            <span>Driven Dynamics Assistant</span>
+            <i class="bi bi-x-lg" style="cursor:pointer" onclick="toggleChat()"></i>
+        </div>
+        <div id="chat-messages">
+            <div class="msg bot-msg">Hi! How can I help you today?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()" class="btn btn-primary btn-sm"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+    <div id="chat-bubble" onclick="toggleChat()">
+        <i class="bi bi-chat-dots-fill"></i>
+    </div>
+</div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+
+    <script>
+        // Ensure the socket.io client library is loaded before calling io()
+        const socket = io();
+        const chatWindow = document.getElementById('chat-window');
+        const messages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+
+        // Create or reuse a stable client id stored in localStorage so the server
+        // can track simple session state without needing server-side request.sid.
+        function generateClientId() {
+            // Simple UUIDv4
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        let clientId = localStorage.getItem('dd_client_id');
+        if (!clientId) {
+            clientId = generateClientId();
+            localStorage.setItem('dd_client_id', clientId);
+        }
+
+        function toggleChat() {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (text) {
+                // Append User Message
+                appendMessage(text, 'user-msg');
+                // Send to Backend with client id for session context
+                if (socket && socket.connected) {
+                    socket.emit('message', { client_id: clientId, text: text });
+                } else {
+                    appendMessage("Sorry — chat unavailable right now.", 'bot-msg');
+                    console.warn('Socket not connected, message not sent:', text);
+                }
+                userInput.value = '';
+            }
+        }
+
+        socket.on('connect', () => {
+            console.log('Socket connected:', socket.id);
+        });
+
+        socket.on('connect_error', (err) => {
+            console.error('Socket connection error:', err);
+        });
+
+        socket.on('response', (botText) => {
+            appendMessage(botText, 'bot-msg');
+        });
+
+        function appendMessage(text, className) {
+            const div = document.createElement('div');
+            div.className = `msg ${className}`;
+            div.innerText = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Allow Enter key to send
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
