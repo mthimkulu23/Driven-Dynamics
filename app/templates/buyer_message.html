@@ -324,7 +324,11 @@
             <div class="notification-container">
                 <div class="notification">
                     <div class="notification-header">
-                        <h3>New Message</h3>
+                        <h3>New Message
+                            {%- if buyer.unread_by and session.get('user_email') in buyer.unread_by %}
+                                <span style="background:#ff4d4f; color:#fff; margin-left:10px; padding:4px 8px; border-radius:6px; font-weight:700; font-size:12px;">NEW</span>
+                            {%- endif %}
+                        </h3>
                         <button class="close-btn" onclick="this.closest('.notification-container').style.display='none'">X</button>
                     </div>
                     <div class="notification-body">

@@ -394,6 +394,9 @@
                         <h3>
                             <i class="bi bi-envelope-fill"></i>
                             New Inquiry
+                                {%- if inquiry.unread_by and session.get('user_email') in inquiry.unread_by %}
+                                    <span class="badge" style="background:#ff4d4f; color:#fff; margin-left:10px; padding:6px 8px; border-radius:8px; font-weight:700;">NEW</span>
+                                {%- endif %}
                         </h3>
                         <button class="close-btn" onclick="dismissInquiry(this)">×</button>
                     </div>
@@ -421,19 +424,20 @@
                             {% endif %}
                         </div>
 
-                        <div class="action-buttons">
-                            <button class="btn btn-dismiss" onclick="dismissInquiry(this)">
-                                <i class="bi bi-x-circle"></i>
-                                Dismiss
-                            </button>
-                            <button class="btn reply-btn"
-                                data-email="{{ (last.from if last else inquiry.email)|e }}"
-                                data-name="{{ (last.name if last else inquiry.name)|e }}"
-                                data-product="{{ (inquiry.ProductID if inquiry.ProductID else '')|e }}">
-                                <i class="bi bi-reply-fill"></i>
-                                Reply
-                            </button>
-                        </div>
+                        
+                            <div class="action-buttons">
+                                <form method="post" action="/conversation/{{ conv_id }}/dismiss" style="display:inline" onsubmit="return confirmDelete();">
+                                    <button class="btn btn-dismiss" type="submit">
+                                        <i class="bi bi-x-circle"></i>
+                                        Dismiss
+                                    </button>
+                                </form>
+
+                                <a class="btn" href="/conversation/{{ conv_id }}">
+                                    <i class="bi bi-reply-fill"></i>
+                                    View / Reply
+                                </a>
+                            </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -506,6 +510,11 @@
                     });
                 });
             });
+            
+            // Confirm before submitting delete/dismiss forms
+            function confirmDelete() {
+                return confirm('Are you sure you want to delete this conversation? This will move it to Trash and can be restored by an admin. Continue?');
+            }
         </script>
                 }
             });

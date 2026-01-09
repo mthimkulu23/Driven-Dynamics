@@ -3,6 +3,7 @@ from ..models.enquire import car_enquiry
 from .. import mongo  
 from bson.objectid import *
 from ..utils.auth import login_required, role_required
+from flask import abort
 
 def enquire():
     # If buyer arrives from a product page, seller_email and product_id will be in query params
@@ -92,3 +93,75 @@ def seller_message():
 
 def terms_condition():
     return render_template('conditions.html')
+
+
+@login_required
+def conversation_view(conv_id):
+    """Show a conversation thread and allow the logged-in user to reply."""
+    email = session.get('user_email')
+    # try to find conversation by ConversationID or _id
+    try:
+        from bson import ObjectId
+        query = {'$or': [{'ConversationID': conv_id}, {'_id': ObjectId(conv_id)}]}
+    except Exception:
+        query = {'ConversationID': conv_id}
+
+    conv = mongo.db.enquiry1.find_one(query)
+    if not conv:
+        abort(404)
+
+    # ensure user is a participant
+    if email not in [conv.get('BuyerEmail'), conv.get('SellerEmail')]:
+        abort(403)
+
+    # mark as read for this user (remove from unread_by)
+    try:
+        mongo.db.enquiry1.update_one({'_id': conv.get('_id')}, {'$pull': {'unread_by': email}})
+    except Exception:
+        try:
+            mongo.db.enquiry1.update_one({'ConversationID': conv_id}, {'$pull': {'unread_by': email}})
+        except Exception:
+            pass
+
+    if request.method == 'POST':
+        # reply in-thread
+        message = request.form.get('message')
+        sender_name = request.form.get('name') or session.get('user_name') or ''
+        sender_email = email
+        if not message:
+            return render_template('conversation.html', conversation=conv, error='Message required')
+
+        from ..models.enquire import car_enquiry
+        car_enquiry.append_message_by_conv(conv.get('ConversationID') or str(conv.get('_id')), sender_email, sender_name, message)
+        # reload thread
+        conv = mongo.db.enquiry1.find_one(query)
+        return render_template('conversation.html', conversation=conv, success=True)
+
+    return render_template('conversation.html', conversation=conv)
+
+
+@login_required
+def dismiss_conversation(conv_id):
+    # Soft-delete: move conversation to trash so admins can restore it later
+    from ..models.enquire import car_enquiry
+    try:
+        res = car_enquiry.delete_conversation(conv_id)
+        return redirect(url_for('enquire.retrieve_seller'))
+    except Exception as e:
+        print(f"Error deleting conversation {conv_id}: {e}")
+        return redirect(url_for('enquire.retrieve_seller'))
+
+
+@role_required('admin')
+def trash_list():
+    """Admin: list trashed conversations."""
+    from ..models.enquire import car_enquiry
+    items = list(car_enquiry.fetch_trash())
+    return render_template('trash_list.html', items=items)
+
+
+@role_required('admin')
+def restore_conversation(conv_id):
+    from ..models.enquire import car_enquiry
+    car_enquiry.restore_conversation(conv_id)
+    return redirect(url_for('enquire.trash_list'))

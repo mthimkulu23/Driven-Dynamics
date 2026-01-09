@@ -83,6 +83,108 @@ class car_enquiry:
         return mongo.db.enquiry1.find({'$or': [{'BuyerEmail': email}, {'SellerEmail': email}]})
 
     @staticmethod
+    def append_message_by_conv(conv_id, sender_email, sender_name, message, contact=''):
+        """Append a message to conversation identified by ConversationID or ObjectId.
+
+        Returns the update result.
+        """
+        query = {'$or': [{'ConversationID': conv_id}, {'_id': conv_id}]}
+        # If conv_id looks like an ObjectId, try converting
+        # Resolve conversation first so we can compute the other participant for unread flags
+        try:
+            from bson import ObjectId
+            query_by_id = {'$or': [{'ConversationID': conv_id}, {'_id': ObjectId(conv_id)}]}
+        except Exception:
+            query_by_id = {'ConversationID': conv_id}
+
+        conv = mongo.db.enquiry1.find_one(query_by_id)
+        if not conv:
+            return None
+
+        # Determine the other participant to mark unread
+        buyer = conv.get('BuyerEmail')
+        seller = conv.get('SellerEmail')
+        other = None
+        if sender_email and buyer and sender_email.lower() == buyer.lower():
+            other = seller
+        else:
+            other = buyer
+
+        message_doc = {
+            'from': sender_email,
+            'name': sender_name,
+            'message': message,
+            'contact': contact,
+            'timestamp': datetime.utcnow()
+        }
+
+        update = {
+            '$push': {'messages': message_doc},
+            '$set': {'updated_at': datetime.utcnow()}
+        }
+        # set unread_by to the other participant (if exists)
+        if other:
+            update['$addToSet'] = {'unread_by': other}
+
+        return mongo.db.enquiry1.update_one(query_by_id, update)
+
+    @staticmethod
+    def archive_conversation(conv_id, user_email):
+        """Mark a conversation as archived by adding the user_email to archived_by list."""
+        try:
+            from bson import ObjectId
+            query = {'$or': [{'ConversationID': conv_id}, {'_id': ObjectId(conv_id)}]}
+        except Exception:
+            query = {'ConversationID': conv_id}
+
+        return mongo.db.enquiry1.update_one(query, {'$addToSet': {'archived_by': user_email}})
+
+    @staticmethod
+    def delete_conversation(conv_id):
+        """Move a conversation to the trash collection (soft-delete) and remove from active collection.
+
+        This preserves data and enables admin restore.
+        """
+        try:
+            from bson import ObjectId
+            query = {'$or': [{'ConversationID': conv_id}, {'_id': ObjectId(conv_id)}]}
+        except Exception:
+            query = {'ConversationID': conv_id}
+
+        conv = mongo.db.enquiry1.find_one(query)
+        if not conv:
+            return None
+
+        # copy to trash collection with a deleted_at timestamp
+        conv['_deleted_at'] = datetime.utcnow()
+        mongo.db.enquiry_trash.insert_one(conv)
+        return mongo.db.enquiry1.delete_one({'_id': conv['_id']})
+
+    @staticmethod
+    def restore_conversation(conv_id):
+        """Restore a conversation from the trash collection back into the active collection."""
+        try:
+            from bson import ObjectId
+            query = {'$or': [{'ConversationID': conv_id}, {'_id': ObjectId(conv_id)}]}
+        except Exception:
+            query = {'ConversationID': conv_id}
+
+        conv = mongo.db.enquiry_trash.find_one(query)
+        if not conv:
+            return None
+
+        # remove the _deleted_at marker
+        conv.pop('_deleted_at', None)
+        # insert back
+        mongo.db.enquiry1.insert_one(conv)
+        return mongo.db.enquiry_trash.delete_one({'_id': conv['_id']})
+
+    @staticmethod
+    def fetch_trash():
+        """Return all trashed conversations (admin use)."""
+        return mongo.db.enquiry_trash.find()
+
+    @staticmethod
     def count_messages_for_user(email):
         """Count conversations where the user is the seller (keeps original semantics).
 

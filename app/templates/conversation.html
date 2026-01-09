@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Conversation - Driven Dynamics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root{
+            --accent1: #667eea;
+            --accent2: #764ba2;
+            --bg-grad: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+        }
+        *{box-sizing: border-box;}
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg-grad); min-height:100vh; margin:0; padding:40px 20px; }
+
+        .background-animation{ position:fixed; inset:0; z-index:0; overflow:hidden; }
+        .shape{ position:absolute; border-radius:50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
+        .shape-1{ width:300px;height:300px; top:-80px; left:-80px; }
+        .shape-2{ width:420px;height:420px; bottom:-140px; right:-160px; }
+
+        .thread { position:relative; z-index:10; max-width:980px; margin:0 auto; }
+        .page-title{ background: rgba(255,255,255,0.95); padding:20px; border-radius:12px; margin-bottom:18px; text-align:center; }
+        .page-title h3{ color:var(--accent1); margin:0; }
+
+        .thread-wrap{ display:flex; gap:20px; align-items:flex-start; }
+        .messages-col{ flex:1; background: rgba(255,255,255,0.95); padding:20px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.12); }
+        .meta { font-size:12px; color:#666; margin-bottom:6px; }
+
+        .message { max-width:75%; padding:12px 16px; border-radius:12px; margin-bottom:12px; background: #fff; color:#222; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+        .message.me{ margin-left:auto; background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); border:1px solid rgba(102,126,234,0.12); }
+        .message .body{ white-space:pre-wrap; }
+        .message .who{ font-weight:700; color:var(--accent2); }
+
+        .side-col{ width:260px; min-width:200px; }
+        .product-card{ background: rgba(255,255,255,0.95); padding:14px; border-radius:12px; box-shadow:0 8px 22px rgba(0,0,0,0.06); }
+        .product-card p{ margin:6px 0; }
+
+        form.reply-form{ margin-top:12px; background: rgba(255,255,255,0.95); padding:16px; border-radius:12px; }
+
+        @media (max-width:880px){ .thread-wrap{ flex-direction:column; } .side-col{ width:100%; } .message{ max-width:100%; } }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <div class="thread">
+        <div class="page-title">
+            <a href="/retrieve_seller" class="btn btn-outline-secondary" style="position:absolute; left:18px; top:22px;">&larr; Back</a>
+            <h3>Conversation</h3>
+        </div>
+
+        <div class="thread-wrap">
+            <div class="messages-col">
+                {% if conversation.ProductID %}
+                    <div class="product-card mb-3">
+                        <p><strong>Product:</strong> {{ conversation.ProductID }}</p>
+                    </div>
+                {% endif %}
+
+                <div id="messages">
+                    {% for msg in conversation.messages %}
+                        {% set is_me = (msg.from == session.get('user_email')) %}
+                        <div class="message {{ 'me' if is_me else '' }}">
+                            <div class="meta"><span class="who">{{ msg.name or msg.from }}</span> — <small>{{ msg.timestamp }}</small></div>
+                            <div class="body">{{ msg.message }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <form method="POST" action="" class="reply-form">
+                    <div class="mb-2">
+                        <label for="name">Your name</label>
+                        <input id="name" name="name" class="form-control" value="{{ session.get('user_name','') }}">
+                    </div>
+                    <div class="mb-2">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary" type="submit">Send Reply</button>
+                        <form method="post" action="/conversation/{{ conversation.ConversationID if conversation.ConversationID else conversation._id }}/dismiss" onsubmit="return confirm('Are you sure you want to delete this conversation? This will move it to Trash for admin recovery.');">
+                            <button class="btn btn-secondary" type="submit">Dismiss</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+
+            <div class="side-col">
+                <div class="product-card">
+                    <p><strong>Buyer:</strong> {{ conversation.BuyerEmail }}</p>
+                    <p><strong>Seller:</strong> {{ conversation.SellerEmail }}</p>
+                    <p><strong>Started:</strong> {{ conversation.created_at }}</p>
+                    {% if conversation.unread_by and session.get('user_email') in conversation.unread_by %}
+                        <p><span class="badge bg-danger">NEW</span> You have unread messages</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
