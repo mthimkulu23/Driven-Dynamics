@@ -210,7 +210,7 @@
         <div class="product-grid">
             {% for product in products %}
             <div class="product-card">
-                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.make }}" class="product-image">
+                <img src="{{ product.image_url }}" alt="{{ product.make }}" class="product-image">
                 
                 <div class="product-details">
                     <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>

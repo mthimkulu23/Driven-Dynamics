@@ -1,6 +1,8 @@
 from flask import jsonify,request, flash, redirect, url_for, render_template, session  
 from ..models.catelog import User_catelog
 from bson.objectid import ObjectId
+import os
+from flask import current_app
 
 
 def viewproduct():
@@ -13,10 +15,20 @@ def viewproduct():
         mileage = request.form ['mileage']
         description = request.form['description']
         price = request.form['price']
-        image = request.form ['image']
-        
-       
-        return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image)
+        image = request.form.get('image')
+
+        # If an image filename was provided, build a full static URL for it
+        image_url = None
+        if image:
+            uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
+            file_path = os.path.join(uploads_path, image)
+            if os.path.exists(file_path):
+                image_url = url_for('static', filename=f'uploads/{image}')
+            else:
+                print(f"[WARN] viewproduct: image file not found: {file_path}")
+                image_url = url_for('static', filename='images/img-1-600x400.png')
+
+        return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image_url)
     
     
 def update():
@@ -62,14 +74,50 @@ def delete_product():
 
 def catelog():
     # Retrieve data from MongoDB
-    products = User_catelog.find()
+    products_cursor = User_catelog.find()
+
+    # Build a list with explicit image URLs and log missing images
+    products = []
+    uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
+    for p in products_cursor:
+        product = dict(p)
+        img = product.get('image')
+        if img:
+            file_path = os.path.join(uploads_path, img)
+            if os.path.exists(file_path):
+                product['image_url'] = url_for('static', filename=f'uploads/{img}')
+            else:
+                print(f"[WARN] catelog: image file not found for product {product.get('_id')}: {file_path}")
+                product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        else:
+            product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+
+        products.append(product)
+
     # Render the catalog template with the data
     return render_template('catelog.html', products=products)
  
 def catelog_buyer():
     # Call the model function to get products
-    products = User_catelog.find()
-    # Render the catalog template with the products data
+    products_cursor = User_catelog.find()
+
+    products = []
+    uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
+    for p in products_cursor:
+        product = dict(p)
+        img = product.get('image')
+        if img:
+            file_path = os.path.join(uploads_path, img)
+            if os.path.exists(file_path):
+                product['image_url'] = url_for('static', filename=f'uploads/{img}')
+            else:
+                print(f"[WARN] catelog_buyer: image file not found for product {product.get('_id')}: {file_path}")
+                product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        else:
+            product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+
+        products.append(product)
+
     car_buyer = list(User_catelog.buyer_message())  # Fetch all the data from the landing() method
     count = len(car_buyer)
     return render_template('catelog_buyer.html', products=products, car_buyer=car_buyer, count=count)

@@ -471,7 +471,7 @@
         <div class="product-grid">
             {% for product in products %}
             <div class="product-card">
-                <img src="static/images/{{ product.image }}" alt="{{ product.make }}" class="product-image">
+                <img src="{{ product.image_url }}" alt="{{ product.make }}" class="product-image">
                 <div class="product-details">
                     <h3 class="product-make">{{ product.make }}</h3>
                     <div class="product-info">
