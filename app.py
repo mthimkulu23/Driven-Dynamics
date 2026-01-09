@@ -1,6 +1,19 @@
 
 import os
 
+# Try to monkey-patch for eventlet as early as possible (before importing
+# Flask/werkzeug) to avoid "Working outside of application/request context"
+# errors when eventlet replaces networking internals.
+use_eventlet = False
+try:
+    import eventlet
+    eventlet.monkey_patch()
+    use_eventlet = True
+    print("Using eventlet monkey_patch (if installed)")
+except Exception:
+    # eventlet not installed or monkey_patch failed; we'll handle later
+    use_eventlet = False
+
 # Allow non-HTTPS OAuth callbacks in dev only
 os.environ['AUTHLIB_INSECURE_TRANSPORT'] = 'true'
 
@@ -14,23 +27,11 @@ if __name__ == "__main__":
     # Import the package-level socketio instance
     from app import socketio
 
-    # Prefer a production-ready async worker (eventlet). If not available,
-    # fall back to socketio.run with allow_unsafe_werkzeug only when explicitly
-    # permitted by the environment.
-    use_eventlet = False
-    try:
-        import eventlet
-        # monkey patch for eventlet
-        eventlet.monkey_patch()
-        use_eventlet = True
-        print("Using eventlet for SocketIO (recommended for production)")
-    except Exception:
-        print("eventlet not available — falling back to socketio.run")
-
     port = int(os.environ.get('PORT', 5000))
     debug_mode = os.environ.get('FLASK_DEBUG', '0') in ('1', 'true', 'True')
 
     if use_eventlet:
+        print("Using eventlet for SocketIO (recommended for production)")
         socketio.run(app, debug=debug_mode, host="0.0.0.0", port=port)
     else:
         # Allow forcing Werkzeug in controlled deployments by setting
