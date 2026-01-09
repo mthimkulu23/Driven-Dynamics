@@ -2,6 +2,7 @@ from flask import jsonify, request, flash, redirect, url_for, render_template, s
 from ..models.enquire import car_enquiry
 from .. import mongo  # Add this to access products collection
 from bson.objectid import *
+from ..utils.auth import login_required, role_required
 
 def enquire():
     if request.method == 'POST':
@@ -21,25 +22,19 @@ def enquire():
         return render_template('enquire.html')
 
 
+@login_required
 def retrieve_seller():
-    # 1. Get the logged-in seller's email from the session
-    # Make sure 'user_email' is the key you used in your login function!
+    # Get the logged-in seller's email from the session
     email = session.get('user_email')
 
-    # 2. Safety check: If they aren't logged in, redirect them
-    if not email:
-        flash("Please log in to view your inquiries.", "error")
-        return redirect(url_for('users.login'))
-
-    # 3. Pass the email into the function (Fixes the TypeError)
+    # Pass the email into the function
     inquiries = car_enquiry.fetch_seller(email)
-    
-    # 4. Convert the MongoDB cursor to a list for the template
     inquiries_list = list(inquiries)
 
     return render_template('retrieve_seller.html', inquiries=inquiries_list)
 
 
+@login_required
 def seller_message():
     if request.method == 'POST':
         name = request.form['name']
@@ -47,7 +42,7 @@ def seller_message():
         # Save the form data to the MongoDB collection
         data = {"message": message, "name": name}
         result = car_enquiry.send_seller_message(data)
-        
+
         # Check if the data was saved successfully
         if result.acknowledged:
             return redirect(url_for('enquire.retrieve_seller'))

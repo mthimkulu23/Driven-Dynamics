@@ -1,33 +1,34 @@
 import os
-from flask import request, render_template, session, redirect, url_for,flash
+import time
+import uuid
+from flask import request, render_template, session, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from ..models.catelog import User_catelog
+from ..utils.auth import login_required, role_required
 
-# Define the upload folder path
-UPLOAD_FOLDER = 'app/static/uploads'
+# Compute upload folder relative to the package root
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
-
+@login_required
+@role_required('seller')
 def sell_review():
     if request.method == 'POST':
-        
         image = request.files.get('image')
-        reg_doc = request.files.get('reg_document') 
-        
-        # 2. Validate that files exist and aren't empty
-        if image and reg_doc and image.filename != '' and reg_doc.filename != '':
-            
-            # Save Car Image
-            img_filename = secure_filename(image.filename)
+        reg_doc = request.files.get('reg_document')
+
+        # Validate that files exist and aren't empty
+        if image and reg_doc and image.filename and reg_doc.filename:
+            # create unique filenames to avoid collisions
+            timestamp = int(time.time())
+            img_filename = secure_filename(f"{timestamp}_{uuid.uuid4().hex}_{image.filename}")
             image.save(os.path.join(UPLOAD_FOLDER, img_filename))
-            
-     
-            doc_filename = secure_filename(reg_doc.filename)
+
+            doc_filename = secure_filename(f"{timestamp}_{uuid.uuid4().hex}_{reg_doc.filename}")
             reg_doc.save(os.path.join(UPLOAD_FOLDER, doc_filename))
-            
-           
+
             products = {
                 'image': img_filename,
                 'reg_document': doc_filename,
@@ -42,16 +43,12 @@ def sell_review():
                 'SellerEmail': session.get('user_email')
             }
 
-          
             User_catelog.add_item(products)
-
-            flash("success_popup") 
-            
-            return redirect(url_for('sell_review.sell_review')) 
-        
+            flash("success_popup")
+            return redirect(url_for('sell_review.sell_review'))
         else:
             # Show a warning popup if files are missing
             flash("error_missing_files")
             return redirect(url_for('sell_review.sell_review'))
-            
+
     return render_template('sell_review.html')

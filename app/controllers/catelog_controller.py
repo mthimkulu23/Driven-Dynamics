@@ -3,6 +3,7 @@ from ..models.catelog import User_catelog
 from bson.objectid import ObjectId
 import os
 from flask import current_app
+from ..utils.auth import login_required, role_required
 
 
 def viewproduct():
@@ -31,6 +32,8 @@ def viewproduct():
         return render_template('view_items.html', id=id, make=make, description=description, price=price,  mileage= mileage, model=model, image=image_url)
     
     
+@login_required
+@role_required('seller')
 def update():
     #retrieve from the database 
     if request.method == 'GET':
@@ -43,6 +46,8 @@ def update():
     
     
     
+@login_required
+@role_required('seller')
 def confirm_update():
     id = request.form['id']
     updated_data = {
@@ -62,6 +67,8 @@ def confirm_update():
     
     
     
+@login_required
+@role_required('seller')
 def delete_product():
     # Delete the product from MongoDB
     if request.method == 'POST':

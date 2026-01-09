@@ -1,19 +1,43 @@
-from flask import jsonify,request, flash, redirect, url_for, render_template, session  
+import os
+import time
+import uuid
+from flask import jsonify,request, flash, redirect, url_for, render_template, session
+from werkzeug.utils import secure_filename
 from ..models.review import rate
-from bson .objectid import *
+from bson.objectid import ObjectId
+from ..utils.auth import login_required
 
+# Ensure uploads folder exists
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+@login_required
 def review():
     if request.method == 'POST':
         # Get the review data from the request
-        image = request.files['image']
-        name = request.form['name']
-        make = request.form['make']
-        model = request.form['model']
-        review_text = request.form['review_text']
-        rating = request.form['rating']
-        
+        image = request.files.get('image')
+        name = request.form.get('name')
+        make = request.form.get('make')
+        model = request.form.get('model')
+        review_text = request.form.get('review_text')
+        rating = request.form.get('rating')
+
+        image_filename = None
+        if image and image.filename:
+            image_filename = secure_filename(f"{int(time.time())}_{uuid.uuid4().hex}_{image.filename}")
+            image.save(os.path.join(UPLOAD_FOLDER, image_filename))
+
         # Save the review data to the MongoDB database
-        review_data = {'image': image.filename,'name': name,'make': make,'model': model,'review_text': review_text,'rating': int(rating)}
+        review_data = {
+            'image': image_filename,
+            'name': name,
+            'make': make,
+            'model': model,
+            'review_text': review_text,
+            'rating': int(rating) if rating else None,
+            'author': session.get('user_email')
+        }
         rate.insert_review(review_data)
         # Redirect to the same page after submission to clear the form
         return redirect(url_for('review.review'))
@@ -27,6 +51,7 @@ def review_display12():
     # Render the catalog template with the data
     return render_template('review_display12.html', display=display)
 
+@login_required
 def edit_review():
     data = request.json
     edit_id = data.get('edit_id')
@@ -47,6 +72,7 @@ def edit_review():
             return jsonify({'message': 'Review not found or no changes made'}), 404
     return render_template('review_display12.html')
 
+@login_required
 def delete_review():
     delete_id = request.form.get('delete_id')
     
