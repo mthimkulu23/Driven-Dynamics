@@ -35,10 +35,14 @@ class car_enquiry:
         seller = enquiry.get('SellerEmail')
         product_id = enquiry.get('ProductID')
 
+        # Determine actual sender: allow caller to specify 'sender' (email) and 'sender_name'
+        sender_email = enquiry.get('sender') or buyer
+        sender_name = enquiry.get('sender_name') or enquiry.get('name')
+
         # Basic payload for the message
         message_doc = {
-            'from': buyer,
-            'name': enquiry.get('name'),
+            'from': sender_email,
+            'name': sender_name,
             'message': enquiry.get('message'),
             'contact': enquiry.get('contact'),
             'timestamp': datetime.utcnow()

@@ -355,6 +355,9 @@
 
             <!-- Form -->
             <form action="{{ url_for('enquire.seller_message') }}" method="POST" id="message-form">
+                <!-- Recipient info (prefilled when coming from an inquiry) -->
+                <input type="hidden" name="recipient_email" id="recipient_email" value="{{ recipient_email | default('') }}">
+                <input type="hidden" name="product_id" id="product_id" value="{{ product_id | default('') }}">
                 <label for="name">
                     <i class="bi bi-person-fill"></i> Your Name:
                 </label>
@@ -371,6 +374,21 @@
             </form>
         </div>
     </div>
+    <script>
+        // If recipient info was passed via query params, show a small note to the seller
+        (function() {
+            const recipient = "{{ recipient_email | default('') }}";
+            const recipientName = "{{ recipient_name | default('') }}";
+            if (recipient) {
+                const infoBox = document.querySelector('.info-box');
+                const note = document.createElement('p');
+                note.style.marginTop = '8px';
+                note.style.fontWeight = '600';
+                note.textContent = `Replying to: ${recipientName || recipient} <${recipient}>`;
+                infoBox.appendChild(note);
+            }
+        })();
+    </script>
 
     <script>
         // Form submission with loading state

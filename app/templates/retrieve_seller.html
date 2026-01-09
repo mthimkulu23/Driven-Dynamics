@@ -426,7 +426,10 @@
                                 <i class="bi bi-x-circle"></i>
                                 Dismiss
                             </button>
-                            <button class="btn" onclick="replyToInquiry('{{ last.from if last else inquiry.email }}', '{{ last.name if last else inquiry.name }}')">
+                            <button class="btn reply-btn"
+                                data-email="{{ (last.from if last else inquiry.email)|e }}"
+                                data-name="{{ (last.name if last else inquiry.name)|e }}"
+                                data-product="{{ (inquiry.ProductID if inquiry.ProductID else '')|e }}">
                                 <i class="bi bi-reply-fill"></i>
                                 Reply
                             </button>
@@ -441,9 +444,6 @@
                 <i class="bi bi-inbox"></i>
                 <h3>All Caught Up!</h3>
                 <p>You've reviewed all your inquiries.</p>
-            </div>
-        </div>
-
         <script>
             // Dismiss inquiry with animation
             function dismissInquiry(button) {
@@ -456,11 +456,14 @@
                 }, 300);
             }
 
-            // Reply to inquiry
-            function replyToInquiry(email, name) {
-                const subject = encodeURIComponent(`Reply to your inquiry - Driven Dynamics`);
-                const body = encodeURIComponent(`Dear ${name},\n\nThank you for your inquiry.\n\n`);
-                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            // Reply to inquiry -> navigate to site reply page so seller can send a message through the app
+            function replyToInquiry(email, name, productId) {
+                const params = new URLSearchParams();
+                if (email) params.set('email', email);
+                if (name) params.set('name', name);
+                if (productId) params.set('product_id', productId);
+                // Use relative route so host/port are preserved
+                window.location.href = '/seller_message?' + params.toString();
             }
 
             // Check if all inquiries are dismissed
@@ -486,11 +489,24 @@
                 }
             }
 
-            // Initialize: Check if there are no inquiries on load
+            // Initialize: Check if there are no inquiries on load and wire up reply buttons
             document.addEventListener('DOMContentLoaded', function() {
                 const inquiryCards = document.querySelectorAll('.inquiry-card');
                 if (inquiryCards.length === 0) {
                     document.getElementById('empty-state').classList.add('show');
+                }
+
+                // Attach click handlers to reply buttons that use data-* attributes to avoid quoting issues
+                document.querySelectorAll('.reply-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const email = this.dataset.email || '';
+                        const name = this.dataset.name || '';
+                        const productId = this.dataset.product || '';
+                        replyToInquiry(email, name, productId);
+                    });
+                });
+            });
+        </script>
                 }
             });
         </script>

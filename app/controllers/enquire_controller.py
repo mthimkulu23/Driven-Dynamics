@@ -48,21 +48,46 @@ def retrieve_seller():
 
 @login_required
 def seller_message():
-    if request.method == 'POST':
-        name = request.form['name']
-        message = request.form['message']
-        
-        data = {"message": message, "name": name}
-        result = car_enquiry.send_seller_message(data)
+    # If GET: optionally prefill recipient info from query params
+    if request.method == 'GET':
+        recipient_email = request.args.get('email', '')
+        recipient_name = request.args.get('name', '')
+        product_id = request.args.get('product_id', '')
+        return render_template('seller_message.html', recipient_email=recipient_email, recipient_name=recipient_name, product_id=product_id)
 
-       
-        if result.acknowledged:
+    # POST: seller replying to a buyer — reuse user_enquire to append/create the conversation
+    if request.method == 'POST':
+        name = request.form.get('name')
+        message = request.form.get('message')
+        recipient_email = request.form.get('recipient_email')
+        product_id = request.form.get('product_id')
+
+        seller_email = session.get('user_email')
+
+        if not recipient_email:
+            return render_template('seller_message.html', error="No recipient specified")
+
+        # Build an enquiry where 'email' is the buyer's email so user_enquire will find/append the right conversation
+        enquiry = {
+            # email here is the buyer's email (recipient)
+            'name': name,
+            'email': recipient_email,
+            'message': message,
+            'contact': '',
+            'SellerEmail': seller_email,
+            'ProductID': product_id,
+            # explicitly mark the sender as the seller so messages show correct sender
+            'sender': seller_email,
+            'sender_name': name
+        }
+
+        try:
+            res = car_enquiry.user_enquire(enquiry)
+            # Treat success if no exception was raised
             return redirect(url_for('enquire.retrieve_seller'))
-        else:
-           
+        except Exception as e:
+            print(f"Error saving seller_message: {e}")
             return render_template('seller_message.html', error="Failed to save message")
-    else:
-        return render_template('seller_message.html')
 
 
 def terms_condition():
