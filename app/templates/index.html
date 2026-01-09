@@ -78,7 +78,7 @@
             width: 80%;
         }
 
-        /* Hero Section - BMW Inspired */
+        /* Hero Section */
         #hero {
             position: relative;
             height: 100vh;
@@ -110,19 +110,13 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-content h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2rem, 6vw, 4.5rem);
             font-weight: 300;
             letter-spacing: -1px;
             margin-bottom: 1.5rem;
@@ -159,238 +153,13 @@
             border-radius: 0;
             text-decoration: none;
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
             text-transform: uppercase;
         }
 
-        .cta-primary {
-            background: var(--accent);
-            color: #fff;
-            border: 2px solid var(--accent);
-        }
-
-        .cta-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-light);
-            transition: left 0.4s ease;
-            z-index: -1;
-        }
-
-        .cta-primary:hover::before {
-            left: 0;
-        }
-
-        .cta-primary:hover {
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 128, 214, 0.4);
-        }
-
-        .cta-secondary {
-            background: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-        }
-
-        .cta-secondary:hover {
-            background: #fff;
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        .scroll-indicator i {
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Featured Section */
-        .featured-section {
-            padding: 6rem 0;
-            background: #f8f9fa;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .section-header .underline {
-            width: 80px;
-            height: 3px;
-            background: var(--accent);
-            margin: 0 auto;
-        }
-
-        /* Premium Cards */
-        .card {
-            border: none;
-            background: #fff;
-            border-radius: 0;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .card-img-wrapper {
-            position: relative;
-            overflow: hidden;
-            height: 280px;
-            background: #f0f0f0;
-        }
-
-        .card-img-top {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .card:hover .card-img-top {
-            transform: scale(1.1);
-        }
-
-        .card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .card-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .card-text {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Deals Carousel */
-        .deals-section {
-            padding: 6rem 0;
-            background: #fff;
-        }
-
-        .carousel-inner {
-            border-radius: 0;
-            overflow: hidden;
-        }
-
-        .carousel-inner img {
-            height: 600px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.6) !important;
-            backdrop-filter: blur(10px);
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            padding: 1.5rem 3rem;
-            border-radius: 0;
-        }
-
-        .carousel-caption h5 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .carousel:hover .carousel-control-prev,
-        .carousel:hover .carousel-control-next {
-            opacity: 1;
-        }
-
-        .carousel-control-prev {
-            left: 30px;
-        }
-
-        .carousel-control-next {
-            right: 30px;
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            width: 24px;
-            height: 24px;
-            background-color: var(--primary);
-            border-radius: 0;
-        }
+        .cta-primary { background: var(--accent); color: #fff; border: 2px solid var(--accent); }
+        .cta-primary:hover { background: var(--accent-light); box-shadow: 0 10px 30px rgba(0, 128, 214, 0.4); transform: translateY(-2px); color: #fff; }
+        .cta-secondary { background: transparent; color: #fff; border: 2px solid #fff; }
+        .cta-secondary:hover { background: #fff; color: var(--primary); transform: translateY(-2px); }
 
         /* Stats Section */
         .stats-section {
@@ -399,49 +168,74 @@
             color: #fff;
         }
 
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
+        .stat-item { text-align: center; padding: 1rem; }
+        .stat-number { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--accent-light); }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Featured Section */
+        .featured-section { padding: 6rem 0; background: #f8f9fa; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 300; }
+        .underline { width: 80px; height: 3px; background: var(--accent); margin: 0.5rem auto; }
+
+        .card { border: none; border-radius: 0; transition: transform 0.4s ease; box-shadow: 0 2px 20px rgba(0,0,0,0.08); margin-bottom: 2rem; height: 100%; }
+        .card:hover { transform: translateY(-10px); }
+        .card-img-wrapper { height: 250px; overflow: hidden; }
+        .card-img-top { width: 100%; height: 100%; object-fit: cover; }
+
+        /* DEALS CAROUSEL - MOBILE FIXED */
+        .deals-section { padding: 6rem 0; background: #fff; }
+        
+        #dealCarousel {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .stat-number {
+        .carousel-inner img {
+            height: 600px; /* Desktop Height */
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            background: rgba(26, 26, 26, 0.8) !important;
+            backdrop-filter: blur(10px);
+            bottom: 40px;
+            padding: 1.5rem;
+            width: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 4px solid var(--accent-light);
+        }
+
+        .carousel-caption h5 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--accent-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
             font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            margin: 0;
         }
 
-        /* Responsive */
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .carousel-inner img { height: 450px; }
+            .carousel-caption { width: 80%; }
+        }
+
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2rem;
+            .hero-content h1 { font-size: 2.2rem; }
+            .carousel-inner img { height: 350px; }
+            .carousel-caption { 
+                width: 90%; 
+                bottom: 20px; 
+                padding: 1rem;
             }
+            .carousel-caption h5 { font-size: 1rem; }
+            .stat-number { font-size: 1.8rem; }
+            .cta-button { width: 100%; padding: 0.8rem; }
+        }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-button {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .carousel-inner img {
-                height: 300px;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
+        @media (max-width: 480px) {
+            .carousel-inner img { height: 280px; }
         }
     </style>
 </head>
@@ -459,7 +253,6 @@
                     <li class="nav-item"><a class="nav-link" href="#featured">Featured</a></li>
                     <li class="nav-item"><a class="nav-link" href="#deals">Deals</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -470,146 +263,67 @@
         <div class="hero-content">
             <h1>Experience the <strong>Thrill</strong> of the Road</h1>
             <p>The ultimate destination to buy and sell premium vehicles</p>
-           <div class="cta-buttons">
-            <a href="{{ url_for('users.login') }}" class="cta-button cta-primary">Sell Your Car</a>
-            <a href="{{ url_for('users.login_buyer') }}" class="cta-button cta-secondary">Buy a Car</a>
-</div>
-        </div>
-        <div class="scroll-indicator">
-            <i class="bi bi-chevron-down"></i>
+            <div class="cta-buttons">
+                <a href="{{ url_for('users.login') }}" class="cta-button cta-primary">Sell Your Car</a>
+                <a href="{{ url_for('users.login_buyer') }}" class="cta-button cta-secondary">Buy a Car</a>
+            </div>
         </div>
     </section>
 
     <section class="stats-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">1,000+</div>
-                        <div class="stat-label">Vehicles</div>
+                <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-number">1,000+</div><div class="stat-label">Vehicles</div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-number">5k+</div><div class="stat-label">Happy Clients</div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Brands</div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Support</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Reviews</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="{{ url_for('static', filename='/images/corollaqueststandard.jpg') }}" class="card-img-top" alt="Toyota">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Toyota Corolla</h5>
+                            <p class="card-text">Reliable, fuel-efficient, and perfect for everyday journeys.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Happy Clients</div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="{{ url_for('static', filename='/images/ford-focus-ST-X-magnetic-min.jpg') }}" class="card-img-top" alt="Ford">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Ford ST</h5>
+                            <p class="card-text">Experience turbocharged power and sport-tuned suspension.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Brands</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="{{ url_for('static', filename='/images/2018-Mercedes-Benz-E-300.png') }}" class="card-img-top" alt="Mercedes">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Mercedes E 300</h5>
+                            <p class="card-text">A masterclass in sophistication and performance.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<section id="featured" class="featured-section">
-    <div class="container">
-        <div class="section-header">
-            <h2>Featured Reviews</h2>
-            <div class="underline"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/corollaqueststandard.jpg') }}" alt="Toyota Corolla Quest">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Toyota Corolla</h5>
-                        <p class="card-text">Reliable, fuel-efficient, and now with an upgraded 1.8L engine. The perfect family sedan for everyday journeys.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/ford-focus-ST-X-magnetic-min.jpg') }}" alt="Ford Focus ST">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Ford ST</h5>
-                        <p class="card-text">A hot-hatch legend. Experience turbocharged power, sport-tuned suspension, and aggressive styling built for enthusiasts.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/2018-Mercedes-Benz-E-300.png') }}" alt="Mercedes Benz E 300">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Mercedes Benz E 300</h5>
-                        <p class="card-text">Masterclass in sophistication. A luxury sedan offering a combination of elegance, performance, and cutting-edge intelligence.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/6da4454d9e068d0c3edefd289deeae20x.avif') }}" alt="Range Rover">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Range Rover</h5>
-                        <p class="card-text">The gold standard of SUVs. Peerless luxury combined with legendary all-terrain capability for the ultimate travel experience.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/SP131CIT00012-19.png') }}" alt="Citroen C3">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Citroen C3</h5>
-                        <p class="card-text">Uniquely stylish and compact. Bringing a fresh, modern aesthetic and unparalleled comfort to the urban driving scene.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <img class="card-img-top" src="{{ url_for('static', filename='/images/Toyota-Corolla-Quest-Johannesburg-Pretoria-Cars-e1676594808756.webp') }}" alt="Toyota Yaris">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Toyota Yaris</h5>
-                        <p class="card-text">Agile, efficient, and surprisingly spacious. The smart choice for city drivers who value reliability and modern tech.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-          
-
-   
 
     <section id="deals" class="deals-section">
         <div class="container">
@@ -617,36 +331,35 @@
                 <h2>Exclusive Deals</h2>
                 <div class="underline"></div>
             </div>
-            <div id="dealCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            
+            <div id="dealCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#dealCarousel" data-bs-slide-to="0" class="active"></button>
                     <button type="button" data-bs-target="#dealCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#dealCarousel" data-bs-slide-to="2"></button>
                 </div>
+                
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                     <img class="card-img-top"  src="{{ url_for('static', filename='/images/Ford-EcoSport-Right-Front-Three-Quarter-159249.webp') }}" alt="Special Offer 1">
-
-                      
+                        <img src="{{ url_for('static', filename='/images/Ford-EcoSport-Right-Front-Three-Quarter-159249.webp') }}" alt="Ford">
                         <div class="carousel-caption">
-                            <h5>Limited Time Offer - Premium Ford Ecco</h5>
+                            <h5>Limited Offer - Premium Ford EcoSport</h5>
                         </div>
                     </div>
                     <div class="carousel-item">
-                      <img class="card-img-top"  src="{{ url_for('static', filename='/images/X6 BMW.png') }}" alt="Special Offer 2">
-
+                        <img src="{{ url_for('static', filename='/images/X6 BMW.png') }}" alt="BMW">
                         <div class="carousel-caption">
-                            <h5>BMW X6 Sedans - Special Pricing</h5>
+                            <h5>BMW X6 M-Sport - Special Pricing</h5>
                         </div>
                     </div>
-
-                     <div class="carousel-item">
-                      <img class="card-img-top"  src="{{ url_for('static', filename='/images/Polo_vivo2.png') }}" alt="Special Offer 2">
-
+                    <div class="carousel-item">
+                        <img src="{{ url_for('static', filename='/images/Polo_vivo2.png') }}" alt="Polo">
                         <div class="carousel-caption">
-                            <h5>Polo Vivo Sedans - Special Pricing</h5>
+                            <h5>Polo Vivo - Weekend Specials</h5>
                         </div>
                     </div>
                 </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#dealCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
@@ -658,62 +371,5 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^=""]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(26, 26, 26, 0.98)';
-                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.2)';
-            } else {
-                navbar.style.background = 'rgba(26, 26, 26, 0.95)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            }
-        });
-
-        // Counter animation for stats
-        const animateCounter = (element, target) => {
-            let current = 0;
-            const increment = target / 100;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target.toLocaleString() + (element.dataset.suffix || '');
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current).toLocaleString() + (element.dataset.suffix || '');
-                }
-            }, 20);
-        };
-
-        // Trigger counter animation when stats section is visible
-        const statsSection = document.querySelector('.stats-section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.stat-number').forEach(stat => {
-                        const target = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
-                        const suffix = stat.textContent.match(/[^0-9,]+/g)?.[0] || '';
-                        stat.dataset.suffix = suffix;
-                        animateCounter(stat, target);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(statsSection);
-    </script>
 </body>
 </html>
