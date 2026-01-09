@@ -2,44 +2,76 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Trashed Conversations</title>
+    <title>Trashed Conversations - Driven Dynamics</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root{ --accent1:#667eea; --accent2:#764ba2; --bg-grad: linear-gradient(135deg,var(--accent1) 0%,var(--accent2) 100%); }
+        body{ font-family: 'Montserrat', sans-serif; background:var(--bg-grad); min-height:100vh; margin:0; padding:40px 20px; }
+        .background-animation{ position:fixed; inset:0; z-index:0; overflow:hidden; }
+        .shape{ position:absolute; border-radius:50%; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
+        .shape-1{ width:320px;height:320px; top:-90px; left:-90px; }
+        .shape-2{ width:420px;height:420px; bottom:-140px; right:-160px; }
+
+        .container-card{ position:relative; z-index:10; max-width:1100px; margin:0 auto; background: rgba(255,255,255,0.95); padding:22px; border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.12); }
+        h2{ color:var(--accent1); margin-bottom:6px; }
+        p.lead{ color:#444; margin-bottom:18px; }
+        .table thead th{ background:transparent; border-bottom:2px solid rgba(0,0,0,0.06); }
+        .badge-deleted{ background:#ff6b6b; color:#fff; }
+
+        @media (max-width:768px){ body{ padding:20px 12px; } .container-card{ padding:14px; } }
+    </style>
 </head>
-<body class="p-4">
-    <div class="container">
-        <h2>Trashed Conversations (Admin)</h2>
-        <p>Conversations moved to trash. You can restore them back to the inbox.</p>
-        <a href="/" class="btn btn-secondary mb-3">Home</a>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Conversation</th>
-                    <th>Buyer</th>
-                    <th>Seller</th>
-                    <th>Product</th>
-                    <th>Deleted At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in items %}
-                <tr>
-                    <td>{{ item.get('ConversationID', item.get('_id')) }}</td>
-                    <td>{{ item.get('BuyerEmail') }}</td>
-                    <td>{{ item.get('SellerEmail') }}</td>
-                    <td>{{ item.get('ProductID') }}</td>
-                    <td>{{ item.get('_deleted_at') }}</td>
-                    <td>
-                        <form method="post" action="/admin/trash/{{ item.get('ConversationID', item.get('_id')) }}/restore" style="display:inline;">
-                            <button class="btn btn-sm btn-success" type="submit">Restore</button>
-                        </form>
-                    </td>
-                </tr>
-                {% else %}
-                <tr><td colspan="6">No trashed conversations.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<body>
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <div class="container-card">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div>
+                <h2>Trashed Conversations (Admin)</h2>
+                <p class="lead">Conversations moved to trash. You can restore them back to the inbox.</p>
+            </div>
+            <div>
+                <a href="/" class="btn btn-secondary">Home</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Conversation</th>
+                        <th>Buyer</th>
+                        <th>Seller</th>
+                        <th>Product</th>
+                        <th>Deleted At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td style="min-width:160px;">{{ item.get('ConversationID', item.get('_id')) }}</td>
+                        <td>{{ item.get('BuyerEmail') }}</td>
+                        <td>{{ item.get('SellerEmail') }}</td>
+                        <td>{{ item.get('ProductID') }}</td>
+                        <td>{{ item.get('_deleted_at') }}</td>
+                        <td>
+                            <form method="post" action="/admin/trash/{{ item.get('ConversationID', item.get('_id')) }}/restore" style="display:inline;">
+                                <button class="btn btn-sm btn-success" type="submit">Restore</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6">No trashed conversations.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
