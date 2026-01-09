@@ -227,7 +227,8 @@ function validateForm() {
 
    function goToLandingPage60( ) {
     // Replace the URL "/landing-page" with the actual URL or route of the landing page
-   window.location.href = "https://driven-dynamics.onrender.com/retrieve_seller";
+  // Use a relative path so the app works on any host/port (dev or production)
+  window.location.href = "/retrieve_seller";
    }
 
    function goToLandingPage45( ) {
