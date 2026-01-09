@@ -11,7 +11,6 @@ from authlib.integrations.flask_client import OAuth
 from werkzeug.security import check_password_hash
 
 from ..models.users import Users
-# IMPORTANT: Import the oauth instance from your app package, don't create a new one!
 from .. import oauth
 
 
@@ -27,13 +26,13 @@ def setup_google_auth(app):
         client_kwargs={'scope': 'openid email profile'}
     )
 
-# app/controllers/users_controller.py
+
 
 
 
 def google_login():
     # Force the redirect URI to 127.0.0.1 to avoid the 'Private IP' error
-    # This MUST match exactly what is in your Google Cloud Console
+
     redirect_uri = "http://127.0.0.1:5000/authorize/google"
     
     print(f"DEBUG: Redirecting to Google with callback: {redirect_uri}")
@@ -115,20 +114,19 @@ def signup_buyer():
 
         if data['Password'] != confirm_password:
             flash('Passwords do not match.', 'error')
-            return redirect(url_for('users.signup_buyer'))  # FIXED
+            return redirect(url_for('users.signup_buyer'))  
 
         if not Users.register_buyer(data):
             flash('Email already exists.', 'error')
-            return redirect(url_for('users.signup_buyer'))  # FIXED
+            return redirect(url_for('users.signup_buyer'))  
 
         flash('Registration successful! Please login.', 'success')
-        return redirect(url_for('users.login_buyer'))  # FIXED
+        return redirect(url_for('users.login_buyer'))  
 
     return render_template('signup_buyer.html')
 
 
-# BUYER LOGIN
-# app/controllers/users_controller.py
+
 
 # BUYER LOGIN
 def login_buyer():
@@ -139,11 +137,11 @@ def login_buyer():
         # Debug logging to trace form submission
         print(f"[DEBUG] /login_buyer POST received. Email={email}")
 
-        # 1. Fetch the buyer from the database using your model logic
+       
         buyer = Users.get_user_buyer(email, password)
         
         if buyer:
-            # 2. Set Session (Identical logic to Seller login)
+           
             session['user_id'] = str(buyer['_id'])
             session['user_email'] = buyer['Email']
             session['user_name'] = buyer['Name']
@@ -151,12 +149,11 @@ def login_buyer():
             
             flash('Login successful! Welcome back!', 'success')
             
-            # 3. Redirect to the Buyer Catalog
-            # Note: The catalog routes live in the 'catelog_buyer' blueprint.
+          
             return redirect(url_for('catelog_buyer.catelog_buyer'))
             
         else:
-            # 4. If login fails, stay on the login page (don't go to catalog)
+            
             print(f"[DEBUG] Buyer login failed for Email={email}")
             flash('Invalid email or password.', 'error')
             return redirect(url_for('users.login_buyer'))
@@ -177,14 +174,14 @@ def signup():
 
         if data['Password'] != confirm_password:
             flash('Passwords do not match.', 'error')
-            return redirect(url_for('users.signup'))  # FIXED
+            return redirect(url_for('users.signup'))  
 
         if not Users.register_user(data):
             flash('Email already exists.', 'error')
-            return redirect(url_for('users.signup'))  # FIXED
+            return redirect(url_for('users.signup'))  
 
         flash('Registration successful! Please login.', 'success')
-        return redirect(url_for('users.login'))  # FIXED
+        return redirect(url_for('users.login'))  
 
     return render_template('signup.html')
 
@@ -205,11 +202,11 @@ def login():
             session['user_name'] = user['Name']
             session['user_role'] = 'seller'
             flash('Login successful! Welcome back!', 'success')
-            return redirect(url_for('users.landing'))  # Change to your seller dashboard route
+            return redirect(url_for('users.landing'))  
         else:
             print(f"[DEBUG] Seller login failed for Email={email}")
             flash('Invalid email or password.', 'error')
-            return redirect(url_for('users.login'))  # FIXED
+            return redirect(url_for('users.login')) 
     
     return render_template('login.html')
 
@@ -219,15 +216,14 @@ def login():
 
 
 def landing():
-    # 1. Security Check: is the user logged in?
+  
     if 'user_email' not in session:
         return redirect(url_for('users.login'))
 
-    # 2. Get the current user's email from the session
+
     current_email = session['user_email']
 
-    # 3. Use the updated model methods with the email filter
-    # car_sell now only contains messages for THIS user
+    
     car_sell = list(car_enquiry.fetch_seller(current_email))
     
     # count now only reflects messages for THIS user
@@ -329,7 +325,7 @@ def handle_message(msg):
 
             matches = []
             for p in products:
-                # fields vary; try make/model/Name
+              
                 make = str(p.get('make', '')).lower()
                 model = str(p.get('model', '')).lower()
                 name = str(p.get('Name', '')).lower()
@@ -343,10 +339,10 @@ def handle_message(msg):
             response = "Hello! Welcome to Driven Dynamics. I can help with car listings, reviews, selling your car, or current deals. What would you like to know?"
 
         elif intent == 'brand_bmw':
-            # Search inventory for BMWs
+           
             matches = find_products_for_keyword('bmw')
             if matches:
-                # Build a friendly list
+                
                 names = []
                 for m in matches:
                     mm = m.get('model') or m.get('Name') or f"{m.get('make','')} {m.get('model','') }"
@@ -399,13 +395,13 @@ def handle_message(msg):
 
         elif intent == 'reviews':
             response = "You can view customer reviews under the 'Reviews' page. Tell me a model (e.g. 'BMW M3') and I can summarize reviews for that model."
-            # per-socket conversation state disabled
+           
 
         elif intent == 'contact':
             response = "You can reach Driven Dynamics by email at support@drivendynamics.example or call us at +123-456-7890. Our showroom is open Mon-Fri 9am-5pm."
 
         elif intent == 'affirm':
-            # Without persistent per-socket context, ask a clarifying question
+            
             response = "Thanks — can you tell me which model or question you mean? For example: 'Show BMW M3 reviews' or 'How much is the Polo?'"
 
         elif intent == 'deny':

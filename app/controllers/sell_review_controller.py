@@ -19,9 +19,9 @@ def sell_review():
         image = request.files.get('image')
         reg_doc = request.files.get('reg_document')
 
-        # Validate that files exist and aren't empty
+        
         if image and reg_doc and image.filename and reg_doc.filename:
-            # create unique filenames to avoid collisions
+        
             timestamp = int(time.time())
             img_filename = secure_filename(f"{timestamp}_{uuid.uuid4().hex}_{image.filename}")
             image.save(os.path.join(UPLOAD_FOLDER, img_filename))
@@ -47,7 +47,7 @@ def sell_review():
             flash("success_popup")
             return redirect(url_for('sell_review.sell_review'))
         else:
-            # Show a warning popup if files are missing
+         
             flash("error_missing_files")
             return redirect(url_for('sell_review.sell_review'))
 

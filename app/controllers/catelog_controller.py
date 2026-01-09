@@ -18,7 +18,6 @@ def viewproduct():
         price = request.form['price']
         image = request.form.get('image')
 
-        # If an image filename was provided, build a full static URL for it
         image_url = None
         if image:
             uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
@@ -35,7 +34,7 @@ def viewproduct():
 @login_required
 @role_required('seller')
 def update():
-    #retrieve from the database 
+  
     if request.method == 'GET':
         products = User_catelog.find()
         return render_template('catelog.html', products=products)
@@ -56,7 +55,7 @@ def confirm_update():
         'price': request.form['price'],
          'mileage': request.form['mileage'],
         'description': request.form['description'],
-        # Add other fields as necessary
+       
     }
     User_catelog.update_one({'_id': ObjectId(id)}, {'$set': updated_data})
     
@@ -70,20 +69,20 @@ def confirm_update():
 @login_required
 @role_required('seller')
 def delete_product():
-    # Delete the product from MongoDB
+  
     if request.method == 'POST':
         id = request.form['delete_id']
         User_catelog.delete_card(id)
         
 
-    # Redirect back to the catalog page
+
     return redirect(url_for('catelog_buyer.catelog'))
 
 def catelog():
-    # Retrieve data from MongoDB
+   
     products_cursor = User_catelog.find()
 
-    # Build a list with explicit image URLs and log missing images
+   
     products = []
     uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
     for p in products_cursor:
@@ -101,11 +100,11 @@ def catelog():
 
         products.append(product)
 
-    # Render the catalog template with the data
+   
     return render_template('catelog.html', products=products)
  
 def catelog_buyer():
-    # Call the model function to get products
+ 
     products_cursor = User_catelog.find()
 
     products = []
@@ -125,7 +124,7 @@ def catelog_buyer():
 
         products.append(product)
 
-    car_buyer = list(User_catelog.buyer_message())  # Fetch all the data from the landing() method
+    car_buyer = list(User_catelog.buyer_message()) 
     count = len(car_buyer)
     return render_template('catelog_buyer.html', products=products, car_buyer=car_buyer, count=count)
 

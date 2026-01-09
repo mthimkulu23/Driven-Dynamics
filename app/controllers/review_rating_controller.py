@@ -7,7 +7,7 @@ from ..models.review import rate
 from bson.objectid import ObjectId
 from ..utils.auth import login_required
 
-# Ensure uploads folder exists
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -15,7 +15,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 @login_required
 def review():
     if request.method == 'POST':
-        # Get the review data from the request
+        
         image = request.files.get('image')
         name = request.form.get('name')
         make = request.form.get('make')
@@ -28,7 +28,7 @@ def review():
             image_filename = secure_filename(f"{int(time.time())}_{uuid.uuid4().hex}_{image.filename}")
             image.save(os.path.join(UPLOAD_FOLDER, image_filename))
 
-        # Save the review data to the MongoDB database
+       
         review_data = {
             'image': image_filename,
             'name': name,
@@ -39,16 +39,16 @@ def review():
             'author': session.get('user_email')
         }
         rate.insert_review(review_data)
-        # Redirect to the same page after submission to clear the form
+       
         return redirect(url_for('review.review'))
-    # Render the review template on GET request
+
     return render_template('review.html')
 
 def review_display12():
-    # Retrieve data from MongoDB
+
     display = rate.get_product()
     
-    # Render the catalog template with the data
+   
     return render_template('review_display12.html', display=display)
 
 @login_required
