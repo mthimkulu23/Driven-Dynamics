@@ -161,6 +161,27 @@
         .cta-secondary { background: transparent; color: #fff; border: 2px solid #fff; }
         .cta-secondary:hover { background: #fff; color: var(--primary); transform: translateY(-2px); }
 
+        /* SCROLL INDICATOR ANIMATION */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         /* Stats Section */
         .stats-section {
             padding: 5rem 0;
@@ -232,6 +253,7 @@
             .carousel-caption h5 { font-size: 1rem; }
             .stat-number { font-size: 1.8rem; }
             .cta-button { width: 100%; padding: 0.8rem; }
+            .scroll-indicator { bottom: 20px; }
         }
 
         @media (max-width: 480px) {
@@ -267,6 +289,9 @@
                 <a href="{{ url_for('users.login') }}" class="cta-button cta-primary">Sell Your Car</a>
                 <a href="{{ url_for('users.login_buyer') }}" class="cta-button cta-secondary">Buy a Car</a>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="bi bi-chevron-down"></i>
         </div>
     </section>
 
