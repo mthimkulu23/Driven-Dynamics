@@ -315,7 +315,13 @@
                 </tr>
                 <tr>
                     <th><i class="bi bi-currency-dollar"></i> Price</th>
-                    <td><strong style="color: #667eea; font-size: 24px;">{{ price }}</strong></td>
+                    <td><strong style="color: #667eea; font-size: 24px;">
+                        {% if price and price.strip().startswith('R') %}
+                            {{ price }}
+                        {% else %}
+                            R {{ price }}
+                        {% endif %}
+                    </strong></td>
                 </tr>
             </table>
         </div>

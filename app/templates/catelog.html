@@ -224,7 +224,13 @@
                     </div>
                     
                     <p class="product-description">{{ product.description }}</p>
-                    <div class="product-price">R {{ product.price }}</div>
+                    <div class="product-price">
+                        {% if product.price and product.price.strip().startswith('R') %}
+                            {{ product.price }}
+                        {% else %}
+                            R {{ product.price }}
+                        {% endif %}
+                    </div>
 
                     <div class="action-buttons" style="display: flex; gap: 10px;">
                         <form action="/edit_product" method="post" style="flex: 1;">

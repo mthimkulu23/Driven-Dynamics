@@ -484,7 +484,13 @@
                             <span><span class="info-label">Mileage:</span> {{ product.mileage }}</span>
                         </div>
                     </div>
-                    <div class="product-price">{{ product.price }}</div>
+                    <div class="product-price">
+                        {% if product.price and product.price.strip().startswith('R') %}
+                            {{ product.price }}
+                        {% else %}
+                            R {{ product.price }}
+                        {% endif %}
+                    </div>
                     <form action="/viewproduct" method="post" style="margin: 0;">
                         <input type="hidden" name="id" value="{{product._id}}">
                         <input type="hidden" name="image" value="{{ product.image }}">
