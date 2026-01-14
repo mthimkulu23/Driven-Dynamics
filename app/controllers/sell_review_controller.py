@@ -45,7 +45,8 @@ def sell_review():
 
             User_catelog.add_item(products)
             flash("success_popup")
-            return redirect(url_for('sell_review.sell_review'))
+            # after adding, send the seller to their own cars page so they only see their listings
+            return redirect(url_for('catelog_buyer.seller_my_cars'))
         else:
          
             flash("error_missing_files")

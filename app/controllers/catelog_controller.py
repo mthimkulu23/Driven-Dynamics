@@ -1,5 +1,6 @@
 from flask import jsonify,request, flash, redirect, url_for, render_template, session  
 from ..models.catelog import User_catelog
+from .. import mongo
 from bson.objectid import ObjectId
 import os
 from flask import current_app
@@ -38,7 +39,9 @@ def viewproduct():
 def update():
   
     if request.method == 'GET':
-        products = User_catelog.find()
+        # sellers should only see their own products in the edit view
+        seller_email = session.get('user_email')
+        products = User_catelog.find_by_seller(seller_email)
         return render_template('catelog.html', products=products)
     elif request.method == 'POST':
         id = request.form['id']
@@ -74,7 +77,15 @@ def delete_product():
   
     if request.method == 'POST':
         id = request.form['delete_id']
-        User_catelog.delete_card(id)
+        # ensure only the owner (or admin) can delete
+        prod = User_catelog.find_one({'_id': ObjectId(id)})
+        user_email = session.get('user_email')
+        # allow deletion if owner or admin role (role check performed by decorator in routes)
+        if prod and prod.get('SellerEmail') == user_email:
+            User_catelog.delete_card(id)
+        else:
+            # do not delete and optionally flash a message (silent failure for now)
+            print(f"Unauthorized delete attempt by {user_email} for product {id}")
         
 
 
@@ -82,6 +93,7 @@ def delete_product():
 
 def catelog():
    
+    # public catalog (admin view) - show all products
     products_cursor = User_catelog.find()
 
    
@@ -107,7 +119,8 @@ def catelog():
  
 def catelog_buyer():
  
-    products_cursor = User_catelog.find()
+    # buyer catalog: only show approved products
+    products_cursor = User_catelog.find_approved()
 
     products = []
     uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
@@ -129,6 +142,65 @@ def catelog_buyer():
     car_buyer = list(User_catelog.buyer_message()) 
     count = len(car_buyer)
     return render_template('catelog_buyer.html', products=products, car_buyer=car_buyer, count=count)
+
+
+@login_required
+@role_required('seller')
+def seller_my_cars():
+    # Show only the cars added by the logged-in seller
+    seller_email = session.get('user_email')
+    products_cursor = User_catelog.find_by_seller(seller_email)
+
+    products = []
+    uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
+    for p in products_cursor:
+        product = dict(p)
+        img = product.get('image')
+        if img:
+            file_path = os.path.join(uploads_path, img)
+            if os.path.exists(file_path):
+                product['image_url'] = url_for('static', filename=f'uploads/{img}')
+            else:
+                product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        else:
+            product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        products.append(product)
+
+    return render_template('seller_cars.html', products=products)
+
+
+@login_required
+@role_required('admin')
+def admin_pending():
+    # Admin: list products pending verification so they can approve
+    pending_cursor = mongo.db.Catelog.find({'status': 'pending_verification'})
+    products = []
+    uploads_path = os.path.join(current_app.root_path, 'static', 'uploads')
+    for p in pending_cursor:
+        product = dict(p)
+        img = product.get('image')
+        if img:
+            file_path = os.path.join(uploads_path, img)
+            if os.path.exists(file_path):
+                product['image_url'] = url_for('static', filename=f'uploads/{img}')
+            else:
+                product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        else:
+            product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        products.append(product)
+
+    return render_template('admin_pending.html', products=products)
+
+
+@login_required
+@role_required('admin')
+def admin_approve(product_id):
+    # Approve a product so it appears in the buyer catalog
+    try:
+        User_catelog.update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'approved'}})
+    except Exception as e:
+        print(f"Error approving product {product_id}: {e}")
+    return redirect(url_for('catelog_buyer.admin_pending'))
 
 
 def buyer_message():

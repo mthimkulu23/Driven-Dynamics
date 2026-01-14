@@ -28,6 +28,11 @@ class User_catelog:
         def find():
                 #Retrieves all products from the 'Catelog' collection in the MongoDB database.
                 return mongo.db.Catelog.find()
+
+        @staticmethod
+        def find_approved():
+                # Return only products approved for buyer catalog
+                return mongo.db.Catelog.find({'status': 'approved'})
         
         def find_one(filter):
                 #Retrieves a single product from the 'Catelog' collection in the MongoDB database.
