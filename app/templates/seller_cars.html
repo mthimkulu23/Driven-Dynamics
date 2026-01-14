@@ -1,33 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>My Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Listings - Driven Dynamics</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-</head>
-<body class="p-4">
-    <div class="container">
-        <h2>My Listings</h2>
-        <p>Only your own car listings are shown here.</p>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-        <div class="row">
-            {% for p in products %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="{{ p.image_url }}" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ p.make }} {{ p.model }}</h5>
-                        <p class="card-text">{{ p.description }}</p>
-                        <p><strong>Status:</strong> {{ p.get('status','') }}</p>
-                        <form method="post" action="/delete_product">
-                            <input type="hidden" name="delete_id" value="{{ p.get('_id') }}">
-                            <button class="btn btn-danger" type="submit">Delete</button>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .background-animation { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; overflow:hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .shape { position:absolute; border-radius:50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); animation: float 20s infinite ease-in-out; }
+        .shape-1{ width:300px;height:300px; top:-100px; left:-100px; }
+        .shape-2{ width:400px;height:400px; bottom:-150px; right:-150px; }
+        .shape-3{ width:250px;height:250px; top:50%; left:50%; }
+        @keyframes float { 0%,100%{transform:translate(0,0) scale(1);} 25%{transform:translate(50px,-50px) scale(1.1);} 50%{transform:translate(-30px,30px) scale(0.9);} 75%{transform:translate(30px,50px) scale(1.05);} }
+
+        .header { position: relative; z-index: 10; padding: 20px 40px; display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
+        .logo { color: white; font-size: 22px; font-weight:700; display:flex; gap:10px; align-items:center; }
+        .nav-menu { display:flex; gap:20px; }
+        .nav-link { color: white; text-decoration:none; font-weight:500; }
+
+        .page-title { position: relative; z-index: 10; text-align: center; padding: 40px 20px; color: white; }
+        .container-custom { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 20px 40px 80px; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 24px; }
+        .product-card { background: rgba(255,255,255,0.95); border-radius: 16px; overflow:hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        .product-image { width:100%; height:220px; object-fit:cover; border-bottom: 3px solid #667eea; }
+        .product-details { padding:18px; }
+        .product-make { font-size:20px; color:#667eea; font-weight:700; }
+        .seller-badge { font-size:12px; color:#764ba2; background: rgba(118,75,162,0.08); padding:4px 8px; border-radius:6px; display:inline-block; margin:8px 0; }
+        .product-price { font-size:20px; font-weight:700; margin-top:10px; }
+
+        .btn-action { padding:10px 14px; border-radius:10px; border:none; font-weight:600; cursor:pointer; }
+        .btn-update { background:#667eea; color:white; }
+        .btn-delete { background:#f5576c; color:white; }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo"><i class="bi bi-car-front-fill"></i><span>Driven Dynamics</span></div>
+        <nav class="nav-menu">
+            <a class="nav-link" href="/catelog">Catalog</a>
+            <a class="nav-link" href="/seller/my_cars">My Listings</a>
+            <a class="nav-link" href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="page-title">
+        <h1>Your <span style="color:#ffd700;">Listings</span></h1>
+        <p style="color:rgba(255,255,255,0.9)">Manage the vehicles you have listed on Driven Dynamics</p>
+    </div>
+
+    <div class="container-custom">
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image_url }}" alt="{{ product.make }}" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>
+                    <div class="seller-badge"><i class="bi bi-person-circle"></i> Seller: {{ product.SellerEmail }}</div>
+                    <p class="product-description">{{ product.description }}</p>
+                    <div class="product-price">
+                        {% if product.price and product.price.strip().startswith('R') %}
+                            {{ product.price }}
+                        {% else %}
+                            R {{ product.price }}
+                        {% endif %}
+                    </div>
+
+                    <div style="display:flex; gap:10px; margin-top:12px;">
+                        <form action="/edit_product" method="post" style="flex:1;">
+                            <input type="hidden" name="id" value="{{ product._id }}">
+                            <button type="submit" class="btn-action btn-update"><i class="bi bi-pencil-square"></i> Edit</button>
+                        </form>
+
+                        <form action="/delete_product" method="post">
+                            <input type="hidden" name="delete_id" value="{{ product._id }}">
+                            <button type="submit" class="btn-action btn-delete">Delete</button>
                         </form>
                     </div>
+                    <p style="margin-top:8px;font-size:13px;color:#666;">Status: <strong>{{ product.get('status','') }}</strong></p>
                 </div>
             </div>
             {% else %}
-            <div class="col-12">
+            <div class="product-card" style="padding:24px;">
                 <p>No listings yet.</p>
             </div>
             {% endfor %}
