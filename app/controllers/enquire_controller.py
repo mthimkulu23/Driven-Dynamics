@@ -15,7 +15,8 @@ def enquire():
     # POST: store the enquiry and ensure it's tagged with the intended seller
     if request.method == 'POST':
         name = request.form.get('name')
-        email = request.form.get('email')
+        # Prefer a logged-in user's email over any form-supplied value to avoid mismatches
+        email = session.get('user_email') or request.form.get('email')
         message = request.form.get('message')
         contact = request.form.get('contact')
         seller_email = request.form.get('seller_email')

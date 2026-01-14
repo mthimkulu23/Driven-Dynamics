@@ -247,6 +247,28 @@
             min-width: 100px;
         }
 
+        /* Buttons: match retrieve_seller look */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5); }
+
+        .btn-secondary { background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); }
+
+        .btn-sm { padding: 6px 10px; font-size: 13px; border-radius: 8px; }
+
         /* Empty state */
         .empty-state {
             position: relative;
@@ -321,6 +343,7 @@
     <div class="messages-container">
         {% if buyers and buyers|length > 0 %}
             {% for buyer in buyers %}
+            {%- set conv_id = buyer.get('ConversationID', buyer.get('_id')) %}
             <div class="notification-container">
                 <div class="notification">
                     <div class="notification-header">
@@ -342,6 +365,12 @@
                                 <p><strong><i class="bi bi-person-fill"></i> Name:</strong> {{ buyer.name }}</p>
                                 <p><strong><i class="bi bi-chat-left-text-fill"></i> Message:</strong> {{ buyer.message }}</p>
                             {%- endif %}
+                        </div>
+                        <div class="mt-3 d-flex gap-2">
+                            <form method="post" action="/conversation/{{ conv_id }}/dismiss" onsubmit="return confirm('Are you sure you want to delete this conversation? This will move it to Trash and can be restored by an admin. Continue?');" style="display:inline;">
+                                <button class="btn btn-sm btn-secondary" type="submit"><i class="bi bi-x-circle"></i> Dismiss</button>
+                            </form>
+                            <a class="btn btn-sm btn-primary" href="/conversation/{{ conv_id }}"><i class="bi bi-reply-fill"></i> View / Reply</a>
                         </div>
                     </div>
                 </div>

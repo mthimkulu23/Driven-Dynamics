@@ -31,7 +31,8 @@ class car_enquiry:
           - message
           - ProductID (optional)
         """
-        buyer = enquiry.get('email')
+        # buyer email: prefer explicit 'email' field, fall back to 'sender' if present
+        buyer = enquiry.get('email') or enquiry.get('sender')
         seller = enquiry.get('SellerEmail')
         product_id = enquiry.get('ProductID')
 

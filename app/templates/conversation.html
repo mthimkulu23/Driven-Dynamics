@@ -277,7 +277,12 @@
 
             <div class="side-col">
                 <div class="product-card">
-                    <p><strong><i class="bi bi-cart-fill"></i> Buyer:</strong> {{ conversation.BuyerEmail }}</p>
+                    {# Prefer an email for Buyer: if Conversation.BuyerEmail doesn't look like an email, try the first message 'from' value #}
+                    {% set buyer_display = conversation.BuyerEmail %}
+                    {% if conversation.messages and (not buyer_display or '@' not in buyer_display) %}
+                        {% set buyer_display = conversation.messages[0].from %}
+                    {% endif %}
+                    <p><strong><i class="bi bi-cart-fill"></i> Buyer:</strong> {{ buyer_display or 'Unknown' }}</p>
                     <p><strong><i class="bi bi-shop"></i> Seller:</strong> {{ conversation.SellerEmail }}</p>
                     <p><strong><i class="bi bi-calendar-event"></i> Started:</strong> {{ conversation.created_at }}</p>
                     {% if conversation.unread_by and session.get('user_email') in conversation.unread_by %}
