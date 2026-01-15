@@ -200,7 +200,9 @@ def login():
             session['user_id'] = str(user['_id'])
             session['user_email'] = user['Email']
             session['user_name'] = user['Name']
-            session['user_role'] = 'seller'
+            # Respect a Role field stored on the user document when present.
+            # This allows creating admin users by setting Role='admin' in the DB.
+            session['user_role'] = user.get('Role', 'seller')
             flash('Login successful! Welcome back!', 'success')
             return redirect(url_for('users.landing'))  
         else:

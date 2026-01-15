@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import session, redirect, url_for, flash
+from flask import session, redirect, url_for, flash, render_template
 
 
 def login_required(f):
@@ -24,10 +24,13 @@ def role_required(role):
                 return redirect(url_for('users.login'))
             if user_role != role:
                 flash('You do not have permission to access this resource.', 'error')
-                # Redirect to a sensible landing based on role
-                if user_role == 'seller':
-                    return redirect(url_for('users.landing'))
-                else:
+                # Render a clear permission denied page (HTTP 403) instead of silently
+                # sending sellers back to the landing page. This makes it explicit
+                # that the resource is restricted to a different role.
+                try:
+                    return render_template('permission_denied.html'), 403
+                except Exception:
+                    # Fallback: if the template is missing, redirect to login
                     return redirect(url_for('users.login'))
             return f(*args, **kwargs)
         return decorated
