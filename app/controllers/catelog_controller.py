@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 import os
 from flask import current_app
 from ..utils.auth import login_required, role_required
+import datetime
 
 
 def viewproduct():
@@ -197,9 +198,14 @@ def admin_pending():
 def admin_approve(product_id):
     # Approve a product so it appears in the buyer catalog
     try:
-        User_catelog.update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'approved'}})
+        res = User_catelog.update_one({'_id': ObjectId(product_id)}, {'$set': {'status': 'approved', 'approved_at': datetime.datetime.utcnow()}})
+        if hasattr(res, 'modified_count') and res.modified_count > 0:
+            flash('Product approved successfully.', 'success')
+        else:
+            flash('No product was updated. It may already be approved or the id is invalid.', 'warning')
     except Exception as e:
         print(f"Error approving product {product_id}: {e}")
+        flash('An error occurred while approving the product.', 'error')
     return redirect(url_for('catelog_buyer.admin_pending'))
 
 
