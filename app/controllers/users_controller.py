@@ -186,6 +186,36 @@ def signup():
     return render_template('signup.html')
 
 
+def signup_admin():
+    """Admin signup: creates a new admin user with Role='admin'. This is
+    intentionally similar to the seller signup form but sets the Role field so
+    the new user can sign in as an administrator.
+    """
+    if request.method == 'POST':
+        data = {
+            'Name': request.form.get('Name'),
+            'Contact': request.form.get('Contact'),
+            'Email': request.form.get('Email'),
+            'Password': request.form.get('Password'),
+            'Role': 'admin'
+        }
+        confirm_password = request.form.get('confirm_password')
+
+        if data['Password'] != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return redirect(url_for('users.signup_admin'))  
+
+        # register_user will hash the password; include Role in the document
+        if not Users.register_user(data):
+            flash('Email already exists.', 'error')
+            return redirect(url_for('users.signup_admin'))  
+
+        flash('Admin registration successful! Please login.', 'success')
+        return redirect(url_for('users.admin_login'))
+
+    return render_template('admin_signup.html')
+
+
 # SELLER LOGIN
 def login():
     if request.method == 'POST':
@@ -204,13 +234,41 @@ def login():
             # This allows creating admin users by setting Role='admin' in the DB.
             session['user_role'] = user.get('Role', 'seller')
             flash('Login successful! Welcome back!', 'success')
-            return redirect(url_for('users.landing'))  
+            # Redirect admin users straight to the admin pending page so they
+            # can approve listings. Other roles go to the seller landing page.
+            if session.get('user_role') == 'admin':
+                return redirect(url_for('catelog_buyer.admin_pending'))
+            return redirect(url_for('users.landing'))
         else:
             print(f"[DEBUG] Seller login failed for Email={email}")
             flash('Invalid email or password.', 'error')
             return redirect(url_for('users.login')) 
     
     return render_template('login.html')
+
+
+def admin_login():
+    """Admin-specific login page. Admin users can also sign in via the
+    regular seller login, but this provides a dedicated path that enforces
+    Role='admin' and redirects to the admin pending page on success.
+    """
+    if request.method == 'POST':
+        email = request.form.get('Email')
+        password = request.form.get('Password')
+
+        user = Users.get_user_by_email(email, password)
+        if user and user.get('Role') == 'admin':
+            session['user_id'] = str(user['_id'])
+            session['user_email'] = user['Email']
+            session['user_name'] = user.get('Name')
+            session['user_role'] = 'admin'
+            flash('Admin login successful.', 'success')
+            return redirect(url_for('catelog_buyer.admin_pending'))
+        else:
+            flash('Invalid admin credentials or not an admin user.', 'error')
+            return redirect(url_for('users.admin_login'))
+
+    return render_template('admin_login.html')
 
 
 

@@ -9,6 +9,8 @@ app.route('/')(users_controller.index)
 app.route('/signup', methods=['GET','POST'])(users_controller.signup)
 
 app.route('/login', methods=['GET','POST'])(users_controller.login)
+app.route('/admin/login', methods=['GET','POST'])(users_controller.admin_login)
+app.route('/admin/signup', methods=['GET','POST'])(users_controller.signup_admin)
 
 app.route('/signup_buyer', methods=['GET','POST'])(users_controller.signup_buyer)
 
