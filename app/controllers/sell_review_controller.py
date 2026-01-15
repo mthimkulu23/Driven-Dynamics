@@ -44,9 +44,11 @@ def sell_review():
             }
 
             User_catelog.add_item(products)
+            # Flash a success token that the template's JS will pick up and show a popup.
             flash("success_popup")
-            # after adding, send the seller to their own cars page so they only see their listings
-            return redirect(url_for('catelog_buyer.seller_my_cars'))
+            # Instead of redirecting away from the upload form, render the same
+            # page so the user sees the confirmation popup and stays on the form.
+            return render_template('sell_review.html')
         else:
          
             flash("error_missing_files")
