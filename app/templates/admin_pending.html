@@ -64,7 +64,13 @@
                     <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>
                     <div class="seller-badge"><i class="bi bi-person-circle"></i> Seller: {{ product.get('SellerEmail') }}</div>
                     <p class="product-description">{{ product.description }}</p>
-                    <div style="display:flex; gap:10px; margin-top:12px;">
+                    <div style="display:flex; gap:10px; margin-top:12px; align-items:center;">
+                        {% if product.get('reg_document_url') %}
+                        <a href="{{ product.get('reg_document_url') }}" target="_blank" class="btn-action btn-update" style="background:#444; color:white; display:inline-flex; align-items:center; gap:8px;">
+                            <i class="bi bi-file-earmark-arrow-down"></i> View Registration
+                        </a>
+                        {% endif %}
+
                         <form method="post" action="/admin/approve/{{ product.get('_id') }}" onsubmit="return confirmApprove(this)" style="flex:1;">
                             <button class="btn-action btn-update" type="submit"><i class="bi bi-check-circle"></i> Approve</button>
                         </form>

@@ -113,6 +113,9 @@ def catelog():
         else:
             product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
 
+        # remove sensitive internal documents from public product objects
+        if 'reg_document' in product:
+            product.pop('reg_document', None)
         products.append(product)
 
    
@@ -138,6 +141,9 @@ def catelog_buyer():
         else:
             product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
 
+        # remove sensitive internal documents from public product objects
+        if 'reg_document' in product:
+            product.pop('reg_document', None)
         products.append(product)
 
     car_buyer = list(User_catelog.buyer_message()) 
@@ -165,6 +171,9 @@ def seller_my_cars():
                 product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
         else:
             product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        # remove sensitive internal documents from public product objects
+        if 'reg_document' in product:
+            product.pop('reg_document', None)
         products.append(product)
 
     return render_template('seller_cars.html', products=products)
@@ -188,6 +197,16 @@ def admin_pending():
                 product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
         else:
             product['image_url'] = url_for('static', filename='images/img-1-600x400.png')
+        # Provide admin-only access to the registration document (if present)
+        reg_doc = product.get('reg_document')
+        if reg_doc:
+            reg_path = os.path.join(uploads_path, reg_doc)
+            if os.path.exists(reg_path):
+                product['reg_document_url'] = url_for('static', filename=f'uploads/{reg_doc}')
+            else:
+                product['reg_document_url'] = None
+        else:
+            product['reg_document_url'] = None
         products.append(product)
 
     return render_template('admin_pending.html', products=products)
