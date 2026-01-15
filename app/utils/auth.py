@@ -35,3 +35,26 @@ def role_required(role):
             return f(*args, **kwargs)
         return decorated
     return decorator
+
+
+def role_required_any(*roles):
+    """Decorator factory to allow any of the provided roles.
+
+    Usage: @role_required_any('seller', 'admin')
+    """
+    def decorator(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            user_role = session.get('user_role')
+            if not user_role:
+                flash('Please log in to access this page.', 'error')
+                return redirect(url_for('users.login'))
+            if user_role not in roles:
+                flash('You do not have permission to access this resource.', 'error')
+                try:
+                    return render_template('permission_denied.html'), 403
+                except Exception:
+                    return redirect(url_for('users.login'))
+            return f(*args, **kwargs)
+        return decorated
+    return decorator
