@@ -65,12 +65,12 @@
                     <div class="seller-badge"><i class="bi bi-person-circle"></i> Seller: {{ product.get('SellerEmail') }}</div>
                     <p class="product-description">{{ product.description }}</p>
                     <div style="display:flex; gap:10px; margin-top:12px;">
-                        <form method="post" action="/admin/approve/{{ product.get('_id') }}">
-                            <button class="btn btn-success" type="submit">Approve</button>
+                        <form method="post" action="/admin/approve/{{ product.get('_id') }}" onsubmit="return confirmApprove(this)" style="flex:1;">
+                            <button class="btn-action btn-update" type="submit"><i class="bi bi-check-circle"></i> Approve</button>
                         </form>
-                        <form method="post" action="/delete_product">
+                        <form method="post" action="/delete_product" onsubmit="return confirmDelete(this)">
                             <input type="hidden" name="delete_id" value="{{ product.get('_id') }}">
-                            <button class="btn btn-danger" type="submit">Delete</button>
+                            <button class="btn-action btn-delete" type="submit"><i class="bi bi-trash-fill"></i> Delete</button>
                         </form>
                     </div>
                 </div>
@@ -83,4 +83,28 @@
         </div>
     </div>
 </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        function getProductNameFromForm(form) {
+            try {
+                const card = form.closest('.product-card');
+                if (!card) return '';
+                const titleEl = card.querySelector('.product-make');
+                return titleEl ? titleEl.innerText.trim() : '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function confirmApprove(form) {
+            const name = getProductNameFromForm(form) || 'this product';
+            return confirm(`Approve ${name}?\n\nThis will make the product visible to buyers.`);
+        }
+
+        function confirmDelete(form) {
+            const name = getProductNameFromForm(form) || 'this product';
+            return confirm(`Delete ${name}?\n\nThis action cannot be undone.`);
+        }
+    </script>
 </html>
