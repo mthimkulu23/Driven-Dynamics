@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sell Your Car - Driven Dynamics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -69,15 +71,20 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(0, 0) scale(1);
             }
+
             25% {
                 transform: translate(50px, -50px) scale(1.1);
             }
+
             50% {
                 transform: translate(-30px, 30px) scale(0.9);
             }
+
             75% {
                 transform: translate(30px, 50px) scale(1.05);
             }
@@ -192,8 +199,15 @@
         }
 
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero-section h1 {
@@ -511,6 +525,34 @@
             display: block;
         }
 
+        /* User Profile Styles */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            font-size: 32px;
+            color: #ffd700;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .welcome-text strong {
+            font-weight: 700;
+            color: #ffd700;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .content-wrapper {
@@ -573,12 +615,14 @@
                 padding: 20px;
             }
 
-            .faq-section, .vehicle-section {
+            .faq-section,
+            .vehicle-section {
                 padding: 30px 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Background Animation -->
     <div class="background-animation">
@@ -620,6 +664,12 @@
                     <span class="badge-count">{{count}}</span>
                 </button>
             </div>
+            {% if session.user_name %}
+            <div class="user-profile">
+                <i class="bi bi-person-circle profile-icon"></i>
+                <span class="welcome-text">Welcome back, <strong>{{ session.user_name }}</strong></span>
+            </div>
+            {% endif %}
             <button class="menu-button" onclick="toggleMobileMenu()">
                 <i class="bi bi-list"></i>
             </button>
@@ -674,7 +724,8 @@
 
         <!-- Image Section -->
         <div class="image-section">
-            <img src="{{ url_for('static', filename='images/af78be849332d991e4b409d20ee1cb6f.jpg') }}" alt="Driven Dynamics Car">
+            <img src="{{ url_for('static', filename='images/af78be849332d991e4b409d20ee1cb6f.jpg') }}"
+                alt="Driven Dynamics Car">
         </div>
 
         <!-- FAQ Section -->
@@ -685,7 +736,9 @@
                     <i class="bi bi-chevron-down accordion-icon"></i>
                 </button>
                 <div class="accordion-content">
-                    <p>Determine the value of your car: Research the market value of your vehicle by considering factors such as its make, model, year, mileage, condition, and any additional features. This will help you set a realistic asking price.</p>
+                    <p>Determine the value of your car: Research the market value of your vehicle by considering factors
+                        such as its make, model, year, mileage, condition, and any additional features. This will help
+                        you set a realistic asking price.</p>
                 </div>
             </div>
 
@@ -695,7 +748,10 @@
                     <i class="bi bi-chevron-down accordion-icon"></i>
                 </button>
                 <div class="accordion-content">
-                    <p>Vehicle condition: The overall condition of your vehicle is an important factor. We assess factors such as the mileage, mechanical condition, appearance, and any history of accidents or repairs. Market value: We consider the market value of similar vehicles in your area using data from various sources, including industry guides and recent sales data.</p>
+                    <p>Vehicle condition: The overall condition of your vehicle is an important factor. We assess
+                        factors such as the mileage, mechanical condition, appearance, and any history of accidents or
+                        repairs. Market value: We consider the market value of similar vehicles in your area using data
+                        from various sources, including industry guides and recent sales data.</p>
                 </div>
             </div>
 
@@ -705,7 +761,9 @@
                     <i class="bi bi-chevron-down accordion-icon"></i>
                 </button>
                 <div class="accordion-content">
-                    <p>The seller will finalize the deal with the buyer. They will meet to discuss payment arrangements and sign off on all necessary documents. Once the inspection is completed and the vehicle's condition is confirmed, all paperwork will be finalized.</p>
+                    <p>The seller will finalize the deal with the buyer. They will meet to discuss payment arrangements
+                        and sign off on all necessary documents. Once the inspection is completed and the vehicle's
+                        condition is confirmed, all paperwork will be finalized.</p>
                 </div>
             </div>
         </div>
@@ -718,7 +776,7 @@
             const overlay = document.getElementById('menuOverlay');
             menu.classList.toggle('active');
             overlay.classList.toggle('active');
-            
+
             // Prevent body scroll when menu is open
             if (menu.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
@@ -729,7 +787,7 @@
 
         function closeMenuAndNavigate(functionName, param) {
             toggleMobileMenu();
-            
+
             // Call the navigation function after menu closes
             setTimeout(() => {
                 if (functionName === 'goToLandingPage1') {
@@ -789,4 +847,5 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='mission.js') }}"></script>
 </body>
+
 </html>

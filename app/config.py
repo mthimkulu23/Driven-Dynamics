@@ -1,4 +1,5 @@
 import os
+import certifi
 
 
 class Config:
@@ -14,6 +15,6 @@ class Config:
    
     MONGO_URI = os.environ.get(
         'MONGO_URI',
-        "mongodb+srv://thabang23mthimkulu_db_user:iF7uaE43Q5vxuGbr@cluster0.szsqgnu.mongodb.net/driven_dynamics?retryWrites=true&w=majority",
+        f"mongodb+srv://thabang23mthimkulu_db_user:iF7uaE43Q5vxuGbr@cluster0.szsqgnu.mongodb.net/driven_dynamics?retryWrites=true&w=majority&tlsCAFile={certifi.where()}",
     )
     

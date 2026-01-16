@@ -1,43 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pending Approvals - Driven Dynamics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Montserrat',sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; position:relative; }
-        .background-animation { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .shape { position:absolute; border-radius:50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-        .shape-1{ width:300px;height:300px; top:-100px; left:-100px; }
-        .shape-2{ width:400px;height:400px; bottom:-150px; right:-150px; }
-        .shape-3{ width:250px;height:250px; top:50%; left:50%; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        .header { position: relative; z-index:10; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
-        .logo { color:white; font-weight:700; display:flex; gap:10px; align-items:center; }
-        .nav-menu { display:flex; gap:18px; }
-        .nav-link { color:white; text-decoration:none; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
 
-        .page-title { position: relative; z-index:10; text-align:center; padding:40px 20px; color:white; }
-        .container-custom { position: relative; z-index:10; max-width:1400px; margin:0 auto; padding:20px 40px 80px; }
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-        .product-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap:24px; }
-        .product-card { background: rgba(255,255,255,0.95); border-radius:16px; overflow:hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.18); }
-        .product-image { width:100%; height:220px; object-fit:cover; border-bottom: 3px solid #667eea; }
-        .product-details { padding:18px; }
-        .product-make { font-size:20px; color:#667eea; font-weight:700; }
-        .seller-badge { font-size:12px; color:#764ba2; background: rgba(118,75,162,0.08); padding:4px 8px; border-radius:6px; display:inline-block; margin:8px 0; }
-    .btn-action { flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
-    .btn-update { background: #667eea; color: white; }
-    .btn-delete { background: #f5576c; color: white; }
-    .btn-view { background: #444; color: white; }
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+        }
+
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            color: white;
+            font-weight: 700;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 18px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .page-title {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .container-custom {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px 80px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .product-details {
+            padding: 18px;
+        }
+
+        .product-make {
+            font-size: 20px;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .seller-badge {
+            font-size: 12px;
+            color: #764ba2;
+            background: rgba(118, 75, 162, 0.08);
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 8px 0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            font-size: 32px;
+            color: #ffd700;
+        }
+
+        .welcome-text {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .welcome-text strong {
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-update {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f5576c;
+            color: white;
+        }
+
+        .btn-view {
+            background: #444;
+            color: white;
+        }
     </style>
 </head>
+
 <body data-flashed='{{ get_flashed_messages() | tojson | safe }}'>
     <div class="background-animation">
         <div class="shape shape-1"></div>
@@ -47,11 +216,19 @@
 
     <header class="header">
         <div class="logo"><i class="bi bi-shield-check"></i> <span>Admin Panel</span></div>
-        <nav class="nav-menu">
-            <a class="nav-link" href="/admin/pending">Pending</a>
-            <a class="nav-link" href="/catelog">Catalog</a>
-            <a class="nav-link" href="/logout">Logout</a>
-        </nav>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            {% if session.user_name %}
+            <div class="user-profile">
+                <i class="bi bi-person-circle profile-icon"></i>
+                <span class="welcome-text">Welcome back, <strong>{{ session.user_name }}</strong></span>
+            </div>
+            {% endif %}
+            <nav class="nav-menu">
+                <a class="nav-link" href="/admin/pending">Pending</a>
+                <a class="nav-link" href="/catelog">Catalog</a>
+                <a class="nav-link" href="/logout">Logout</a>
+            </nav>
+        </div>
     </header>
 
     <div class="page-title">
@@ -66,21 +243,30 @@
                 <img src="{{ product.image_url }}" alt="{{ product.make }}" class="product-image">
                 <div class="product-details">
                     <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>
-                    <div class="seller-badge"><i class="bi bi-person-circle"></i> Seller: {{ product.get('SellerEmail') }}</div>
+                    <div class="seller-badge"><i class="bi bi-person-circle"></i> Seller: {{ product.get('SellerEmail')
+                        }}</div>
                     <p class="product-description">{{ product.description }}</p>
                     <div style="display:flex; gap:10px; margin-top:12px; align-items:center;">
                         {% if product.get('reg_document_url') %}
-                        <a href="{{ product.get('reg_document_url') }}" target="_blank" class="btn-action btn-update" style="background:#444; color:white; display:inline-flex; align-items:center; gap:8px;">
+                        <a href="{{ product.get('reg_document_url') }}" target="_blank" class="btn-action btn-update"
+                            style="background:#444; color:white; display:inline-flex; align-items:center; gap:8px;">
                             <i class="bi bi-file-earmark-arrow-down"></i> View Registration
                         </a>
                         {% endif %}
 
-                        <form method="post" action="/admin/approve/{{ product.get('_id') }}" onsubmit="return confirmApprove(this)" style="flex:1;">
-                            <button class="btn-action btn-update" type="submit"><i class="bi bi-check-circle"></i> Approve</button>
+                        <form method="post" action="/admin/approve/{{ product.get('_id') }}"
+                            id="approveForm_{{ product.get('_id') }}" style="flex:1;">
+                            <button class="btn-action btn-update btn-approve" type="button"
+                                data-product-id="{{ product.get('_id') }}"
+                                data-product-name="{{ product.make }} {{ product.model }}"><i
+                                    class="bi bi-check-circle"></i> Approve</button>
                         </form>
-                        <form method="post" action="/delete_product" onsubmit="return confirmDelete(this)">
+                        <form method="post" action="/delete_product" id="deleteForm_{{ product.get('_id') }}">
                             <input type="hidden" name="delete_id" value="{{ product.get('_id') }}">
-                            <button class="btn-action btn-delete" type="submit"><i class="bi bi-trash-fill"></i> Delete</button>
+                            <button class="btn-action btn-delete btn-delete-action" type="button"
+                                data-product-id="{{ product.get('_id') }}"
+                                data-product-name="{{ product.make }} {{ product.model }}"><i
+                                    class="bi bi-trash-fill"></i> Delete</button>
                         </form>
                     </div>
                 </div>
@@ -93,48 +279,79 @@
         </div>
     </div>
 </body>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        // Show flashed messages using SweetAlert2 to match the sell_review popup style
-        document.addEventListener('DOMContentLoaded', function() {
-            const flashed = JSON.parse(document.body.getAttribute('data-flashed') || '[]');
-            if (flashed && flashed.length) {
-                flashed.forEach(msg => {
-                    let icon = 'info';
-                    const m = (msg || '').toLowerCase();
-                    if (m.includes('success') || m.includes('approved')) icon = 'success';
-                    else if (m.includes('warning') || m.includes('no product')) icon = 'warning';
-                    else if (m.includes('error') || m.includes('invalid')) icon = 'error';
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    // Show flashed messages using SweetAlert2 to match the sell_review popup style
+    document.addEventListener('DOMContentLoaded', function () {
+        const flashed = JSON.parse(document.body.getAttribute('data-flashed') || '[]');
+        if (flashed && flashed.length) {
+            flashed.forEach(msg => {
+                let icon = 'info';
+                const m = (msg || '').toLowerCase();
+                if (m.includes('success') || m.includes('approved')) icon = 'success';
+                else if (m.includes('warning') || m.includes('no product')) icon = 'warning';
+                else if (m.includes('error') || m.includes('invalid')) icon = 'error';
 
-                    Swal.fire({
-                        title: msg,
-                        icon: icon,
-                        confirmButtonColor: '#764ba2'
-                    });
+                Swal.fire({
+                    title: msg,
+                    icon: icon,
+                    confirmButtonColor: '#764ba2'
                 });
-            }
+            });
+        }
+    });
+    // Event listeners for Approve and Delete buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listeners to all Approve buttons
+        const approveButtons = document.querySelectorAll('.btn-approve');
+        approveButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const productName = this.getAttribute('data-product-name');
+
+                Swal.fire({
+                    title: 'Approve Product?',
+                    text: `Approve ${productName}? This will make the product visible to buyers.`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#764ba2',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, Approve!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('approveForm_' + productId).submit();
+                    }
+                });
+            });
         });
-        function getProductNameFromForm(form) {
-            try {
-                const card = form.closest('.product-card');
-                if (!card) return '';
-                const titleEl = card.querySelector('.product-make');
-                return titleEl ? titleEl.innerText.trim() : '';
-            } catch (e) {
-                return '';
-            }
-        }
 
-        function confirmApprove(form) {
-            const name = getProductNameFromForm(form) || 'this product';
-            return confirm(`Approve ${name}?\n\nThis will make the product visible to buyers.`);
-        }
+        // Add event listeners to all Delete buttons
+        const deleteButtons = document.querySelectorAll('.btn-delete-action');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const productName = this.getAttribute('data-product-name');
 
-        function confirmDelete(form) {
-            const name = getProductNameFromForm(form) || 'this product';
-            return confirm(`Delete ${name}?\n\nThis action cannot be undone.`);
-        }
-    </script>
+                Swal.fire({
+                    title: 'Delete Product?',
+                    text: `Delete ${productName}? This action cannot be undone.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#764ba2',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, Delete!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('deleteForm_' + productId).submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
 </html>
