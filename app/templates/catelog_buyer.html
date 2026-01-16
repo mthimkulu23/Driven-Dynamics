@@ -453,13 +453,13 @@
         </div>
 
         <nav class="nav-menu">
-            <button class="messages-btn" onclick="window.location.href='/buyer_message'">
-                <i class="bi bi-envelope-fill"></i>
-                Read Messages
-                {% if count > 0 %}
-                <span class="badge">{{count}}</span>
-                {% endif %}
-            </button>
+            <div class="notification-badge">
+                <button class="badge-btn" onclick="window.location.href='/buyer_message'">
+                    <i class="bi bi-envelope-fill"></i>
+                    Read Messages
+                    <span class="badge-count">{{count}}</span>
+                </button>
+            </div>
             {% if session.user_name %}
             <div class="user-profile">
                 <i class="bi bi-person-circle profile-icon"></i>
