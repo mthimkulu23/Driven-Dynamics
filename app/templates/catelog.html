@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catalog - Driven Dynamics</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -45,15 +48,48 @@
             animation: float 20s infinite ease-in-out;
         }
 
-        .shape-1 { width: 300px; height: 300px; top: -100px; left: -100px; animation-delay: 0s; }
-        .shape-2 { width: 400px; height: 400px; bottom: -150px; right: -150px; animation-delay: 5s; }
-        .shape-3 { width: 250px; height: 250px; top: 50%; left: 50%; animation-delay: 10s; }
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -50px) scale(1.1); }
-            50% { transform: translate(-30px, 30px) scale(0.9); }
-            75% { transform: translate(30px, 50px) scale(1.05); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+
+            75% {
+                transform: translate(30px, 50px) scale(1.05);
+            }
         }
 
         .header {
@@ -77,7 +113,12 @@
             font-weight: 700;
         }
 
-        .nav-menu { display: flex; gap: 30px; align-items: center; }
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
         .nav-link {
             color: white;
             text-decoration: none;
@@ -90,7 +131,10 @@
             gap: 8px;
         }
 
-        .nav-link:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
 
         .page-title {
             position: relative;
@@ -100,7 +144,10 @@
             color: white;
         }
 
-        .highlight { color: #ffd700; font-weight: 700; }
+        .highlight {
+            color: #ffd700;
+            font-weight: 700;
+        }
 
         .container-custom {
             position: relative;
@@ -132,9 +179,17 @@
             border-bottom: 3px solid #667eea;
         }
 
-        .product-details { padding: 25px; }
-        .product-make { font-size: 24px; font-weight: 700; color: #667eea; margin-bottom: 10px; }
-        
+        .product-details {
+            padding: 25px;
+        }
+
+        .product-make {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
         .seller-badge {
             font-size: 12px;
             color: #764ba2;
@@ -145,7 +200,12 @@
             display: inline-block;
         }
 
-        .product-price { font-size: 26px; font-weight: 700; color: #333; margin: 15px 0; }
+        .product-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin: 15px 0;
+        }
 
         .btn-action {
             flex: 1;
@@ -160,17 +220,56 @@
             gap: 8px;
         }
 
-        .btn-update { background: #667eea; color: white; }
-        .btn-delete { background: #f5576c; color: white; }
+        .btn-update {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f5576c;
+            color: white;
+        }
+
+        /* User Profile Styles */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            font-size: 32px;
+            color: #ffd700;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .welcome-text strong {
+            font-weight: 700;
+            color: #ffd700;
+        }
 
         /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
         }
+
         .modal-content {
             background: white;
             margin: 15% auto;
@@ -182,6 +281,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="background-animation">
         <div class="shape shape-1"></div>
@@ -195,8 +295,16 @@
             <span>Driven Dynamics</span>
         </div>
         <nav class="nav-menu">
-            <a href="#" class="nav-link" onclick="goToLandingPage17('landing')"><i class="bi bi-house-fill"></i> Home</a>
-            <a href="#" class="nav-link" onclick="goToLandingPage24('Add item')"><i class="bi bi-plus-circle-fill"></i> Add Item</a>
+            {% if session.user_name %}
+            <div class="user-profile">
+                <i class="bi bi-person-circle profile-icon"></i>
+                <span class="welcome-text">Welcome back, <strong>{{ session.user_name }}</strong></span>
+            </div>
+            {% endif %}
+            <a href="#" class="nav-link" onclick="goToLandingPage17('landing')"><i class="bi bi-house-fill"></i>
+                Home</a>
+            <a href="#" class="nav-link" onclick="goToLandingPage24('Add item')"><i class="bi bi-plus-circle-fill"></i>
+                Add Item</a>
             <a href="#" class="nav-link" onclick="goToLandingPage1('')"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
     </header>
@@ -211,10 +319,10 @@
             {% for product in products %}
             <div class="product-card">
                 <img src="{{ product.image_url }}" alt="{{ product.make }}" class="product-image">
-                
+
                 <div class="product-details">
                     <h3 class="product-make">{{ product.make }} {{ product.model }}</h3>
-                    
+
                     <div class="seller-badge">
                         <i class="bi bi-person-circle"></i> Seller: {{ product.SellerEmail }}
                     </div>
@@ -222,13 +330,13 @@
                     <div class="product-info">
                         <p><i class="bi bi-speedometer"></i> {{ product.mileage }}</p>
                     </div>
-                    
+
                     <p class="product-description">{{ product.description }}</p>
                     <div class="product-price">
                         {% if product.price and product.price.strip().startswith('R') %}
-                            {{ product.price }}
+                        {{ product.price }}
                         {% else %}
-                            R {{ product.price }}
+                        R {{ product.price }}
                         {% endif %}
                     </div>
 
@@ -257,7 +365,8 @@
                 <input type="hidden" id="delete_id" name="delete_id">
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button type="submit" class="btn-action btn-delete">Delete</button>
-                    <button type="button" class="btn-action" style="background: #ccc;" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="button" class="btn-action" style="background: #ccc;"
+                        onclick="closeDeleteModal()">Cancel</button>
                 </div>
             </form>
         </div>
@@ -271,9 +380,10 @@
         function closeDeleteModal() {
             document.getElementById('deleteModal').style.display = 'none';
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == document.getElementById('deleteModal')) closeDeleteModal();
         }
     </script>
 </body>
+
 </html>
